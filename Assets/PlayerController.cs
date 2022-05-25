@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 	public float frictionForce = 0.1f;
 	public float gravityForce = 1f;
 	public float slopeRange = 60f;
-	SplineFollower follower;
+	
 	public AnimationCurve speedGain;
 	public AnimationCurve speedLoss;
 	public float brakeSpeed = 0f;
@@ -65,8 +65,8 @@ public class PlayerController : MonoBehaviour
 			addForce = Mathf.MoveTowards(addForce, 0f, Time.deltaTime * 30f);
 			speed += lastAdd - addForce;
 		}
-		follower.followSpeed = speed;
-		follower.followSpeed *= (1f - brakeForce);
+		_spline.followSpeed = speed;
+		_spline.followSpeed *= (1f - brakeForce);
 		if (brakeTime > Time.time) brakeForce = Mathf.MoveTowards(brakeForce, 1f, Time.deltaTime * brakeSpeed);
 		else brakeForce = Mathf.MoveTowards(brakeForce, 0f, Time.deltaTime * brakeReleaseSpeed);
 
