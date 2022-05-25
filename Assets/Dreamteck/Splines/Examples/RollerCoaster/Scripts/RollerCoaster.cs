@@ -76,8 +76,9 @@ namespace Dreamteck.Splines.Examples
         {
             if (Input.GetKeyDown(KeyCode.Escape)) Cursor.lockState = CursorLockMode.None;
             float dot = Vector3.Dot(this.transform.forward, Vector3.down);
+			print(dot);
             float dotPercent = Mathf.Lerp(-slopeRange / 90f, slopeRange / 90f, (dot + 1f) / 2f);
-            speed -= Time.deltaTime * frictionForce * (1f - brakeForce);
+			speed -= Time.deltaTime * frictionForce * (1f - brakeForce);
             float speedAdd = 0f;
             float speedPercent = Mathf.InverseLerp(minSpeed, maxSpeed, speed);
             if (dotPercent > 0f)
