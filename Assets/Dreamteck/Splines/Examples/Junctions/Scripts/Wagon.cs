@@ -1,3 +1,6 @@
+using System;
+using DG.Tweening;
+
 namespace Dreamteck.Splines.Examples
 {
     using System.Collections;
@@ -91,15 +94,26 @@ namespace Dreamteck.Splines.Examples
         Wagon front;
         SplineSegment segment, tempSegment;
 
+		private Vector3 _initScale;
         private void Awake()
         {
             tracer = GetComponent<SplineTracer>();
-            //Wagon compoenent that is attached to the train engine and is marked as "isEngine" will
+            //Wagon component that is attached to the train engine and is marked as "isEngine" will
             //run a recursive setup for the rest of the wagons
             if (isEngine) SetupRecursively(null, new SplineSegment(tracer.spline, -1, tracer.direction));
         }
 
-        void SetupRecursively(Wagon frontWagon, SplineSegment inputSegment)
+		private void Start()
+		{
+			_initScale = transform.localScale;
+			if (!isEngine)
+			{
+				//transform.localScale = _initScale * 0.2f;
+				transform.DOScale(_initScale * 1.2f, 0.2f).SetLoops(2, LoopType.Yoyo);
+			}
+		}
+
+		void SetupRecursively(Wagon frontWagon, SplineSegment inputSegment)
         {
             front = frontWagon;
             segment = inputSegment;

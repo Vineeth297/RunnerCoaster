@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Dreamteck.Splines;
@@ -31,19 +32,12 @@ public class PlayerController : MonoBehaviour
 	private void Update()
 	{
 		_spline.follow = Input.GetMouseButton(0);
+		//print(_spline.followSpeed);
+		MoveTheKart();
+	}
 
-		/*var dotProduct = Vector3.Dot(transform.forward, Vector3.down);
-		print(dotProduct);
-
-		if (dotProduct > 0f)
-			speed += dotProduct;
-		else
-			speed -= dotProduct;
-		
-		speed = Mathf.Clamp(speed, minimumSpeed, maximumSpeed);
-		_spline.followSpeed = speed;*/
-		
-		
+	private void MoveTheKart()
+	{
 		float dot = Vector3.Dot(this.transform.forward, Vector3.down);
 		print(dot);
 		float dotPercent = Mathf.Lerp(-slopeRange / 90f, slopeRange / 90f, (dot + 1f) / 2f);
@@ -71,5 +65,24 @@ public class PlayerController : MonoBehaviour
 		else brakeForce = Mathf.MoveTowards(brakeForce, 0f, Time.deltaTime * brakeReleaseSpeed);
 
 		speedPercent = Mathf.Clamp01(speed/maxSpeed)*(1f-brakeForce);
+	}
+
+	public void AssignSlopeSpeed()
+	{
+		minSpeed = 50f;
+		maxSpeed = 70f;
+	}
+	
+	public void AssignCurveSpeed()
+	{
+		minSpeed = 50f;
+		maxSpeed = 90f;
+	}
+	
+	
+	public void ResetMaxSpeed()
+	{
+		minSpeed = 30f;
+		maxSpeed = 50f;
 	}
 }
