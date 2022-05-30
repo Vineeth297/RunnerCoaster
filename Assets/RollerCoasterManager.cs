@@ -44,16 +44,17 @@ public class RollerCoasterManager : MonoBehaviour
 
 	private IEnumerator KartSpawnRoutine(int cartsToSpawn)
 	{
-		GetComponent<Wagon>().back = wagons[0];
+		//GetComponent<Wagon>().back = wagons[0];
 		for (int i = 0; i < cartsToSpawn; i++)
 		{
 			additionalKarts[i].SetActive(true);
-			if(i != cartsToSpawn - 1)
-				additionalKarts[i].GetComponent<Wagon>().back = wagons[i + 1];		
-			
+			/*if(i != cartsToSpawn - 1)
+				additionalKarts[i].GetComponent<Wagon>().back = wagons[i + 1];*/		
 			additionalKarts[i].transform.GetChild(0).gameObject.SetActive(true);
-			yield return new WaitForSeconds(0.2f);
+			yield return new WaitForSeconds(0.15f);
 			additionalKarts[i].transform.GetChild(1).gameObject.SetActive(true);
+			yield return new WaitForSeconds(0.15f);
+			additionalKarts[i].transform.GetChild(2).gameObject.SetActive(true);
 		}
 	}
 }

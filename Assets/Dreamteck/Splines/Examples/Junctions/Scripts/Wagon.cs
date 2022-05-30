@@ -103,7 +103,7 @@ namespace Dreamteck.Splines.Examples
             if (isEngine) SetupRecursively(null, new SplineSegment(tracer.spline, -1, tracer.direction));
         }
 
-		private void Start()
+		/*private void Start()
 		{
 			_initScale = transform.localScale;
 			if (!isEngine)
@@ -111,7 +111,7 @@ namespace Dreamteck.Splines.Examples
 				//transform.localScale = _initScale * 0.2f;
 				transform.DOScale(_initScale * 1.2f, 0.2f).SetLoops(2, LoopType.Yoyo);
 			}
-		}
+		}*/
 
 		void SetupRecursively(Wagon frontWagon, SplineSegment inputSegment)
         {
@@ -141,6 +141,7 @@ namespace Dreamteck.Splines.Examples
                 return;
             }
             float totalMoved = 0f, moved = 0f;
+			
             double start = front.tracer.UnclipPercent(front.tracer.result.percent);
             //Travel backwards along the front wagon's spline
             Spline.Direction inverseDirection = front.segment.direction;

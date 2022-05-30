@@ -2975,6 +2975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Passenger
       objectReference: {fileID: 0}
+    - target: {fileID: 7741086823861331497, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7744193048902007274, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -3036,6 +3040,10 @@ PrefabInstance:
     - target: {fileID: 7741086823861331497, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
       propertyPath: m_Name
       value: Passenger (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7741086823861331497, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7744193048902007274, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
       propertyPath: m_RootOrder

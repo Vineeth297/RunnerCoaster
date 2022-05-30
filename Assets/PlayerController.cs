@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 	private void MoveTheKart()
 	{
 		float dot = Vector3.Dot(this.transform.forward, Vector3.down);
-		print(dot);
+	//	print(dot);
 		float dotPercent = Mathf.Lerp(-slopeRange / 90f, slopeRange / 90f, (dot + 1f) / 2f);
 		speed -= Time.deltaTime * frictionForce * (1f - brakeForce);
 		float speedAdd = 0f;
