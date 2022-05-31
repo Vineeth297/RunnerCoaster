@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Station
   - PickUpPlatform
+  - ObstacleTrain
   layers:
   - Default
   - TransparentFX
