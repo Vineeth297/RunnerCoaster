@@ -71,6 +71,8 @@ public class PlayerController : MonoBehaviour
 		maxSpeed = 70f;
 		speedParticleSystem.SetActive(true);
 		GameEvents.InvokeGetHyped();
+		GameManager.Instance.SpeedPushEffect();
+
 	}
 	
 	public void AssignCurveSpeed()
@@ -78,7 +80,9 @@ public class PlayerController : MonoBehaviour
 		minSpeed = 50f;
 		maxSpeed = 90f;
 		speedParticleSystem.SetActive(true);
-		GameEvents.InvokeGetHyped();
+		GameEvents.InvokeGetHyped();		
+		GameManager.Instance.SpeedPushEffect();
+
 	}
 	
 	
@@ -88,5 +92,6 @@ public class PlayerController : MonoBehaviour
 		maxSpeed = 50f;
 		speedParticleSystem.SetActive(false);
 		GameEvents.InvokeNoHype();
+		GameManager.Instance.SpeedPullEffect();
 	}
 }

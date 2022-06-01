@@ -6,16 +6,19 @@ using UnityEngine;
 
 public class RollerCoasterManager : MonoBehaviour
 {
+	private GameManager _gameManager;
+	
 	[SerializeField] private List<GameObject> additionalKarts;
 	[SerializeField] private List<Wagon> wagons;
 
 	[SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
 
-	
 
 	private void Start()
 	{
 	//	cinemachineVirtualCamera.Follow = this.transform;
+		_gameManager = GameManager.Instance;
+		_gameManager.totalAdditionalKarts = additionalKarts.Count;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -28,10 +31,7 @@ public class RollerCoasterManager : MonoBehaviour
 			//cinemachineVirtualCamera.Follow = additionalKarts[0].transform;
 		}
 
-		if (other.CompareTag("ObstacleTrain"))
-		{
-			Explode();
-		}
+		if (other.CompareTag("ObstacleTrain")) Explode();
 	}
 
 	private void PickUpThePassengers(GameObject platform)
@@ -43,19 +43,20 @@ public class RollerCoasterManager : MonoBehaviour
 		pickupPlatform.JumpOnToTheKart();
 	}
 
-	private void SpawnTheKarts(int cartsToSpawn)
-	{
-		StartCoroutine(KartSpawnRoutine(cartsToSpawn));
-	}
+	public void SpawnTheKarts(int kartsToSpawn) => StartCoroutine(KartSpawnRoutine(kartsToSpawn));
 
-	private IEnumerator KartSpawnRoutine(int cartsToSpawn)
+	private IEnumerator KartSpawnRoutine(int kartsToSpawn)
 	{
-		//GetComponent<Wagon>().back = wagons[0];
-		for (int i = 0; i < cartsToSpawn; i++)
+		for (var i = 0; i < kartsToSpawn; i++)
 		{
+			_gameManager.numberOfActiveKarts++;
+			//_gameManager.MoveCameraBack();
+			
 			additionalKarts[i].SetActive(true);
+			
 			/*if(i != cartsToSpawn - 1)
 				additionalKarts[i].GetComponent<Wagon>().back = wagons[i + 1];*/		
+			
 			additionalKarts[i].transform.GetChild(0).gameObject.SetActive(true);
 			yield return new WaitForSeconds(0.15f);
 			additionalKarts[i].transform.GetChild(1).gameObject.SetActive(true);
@@ -75,6 +76,33 @@ public class RollerCoasterManager : MonoBehaviour
 				kart.transform.GetChild(i).gameObject.SetActive(false);
 			}
 			kart.transform.GetChild(3).gameObject.SetActive(true);
+			
+			_gameManager.numberOfActiveKarts--;
+		}
+	}
+	
+	public void DisableTheKarts(int kartsToHide) => StartCoroutine(KartDisableRoutine(kartsToHide));
+
+	private IEnumerator KartDisableRoutine(int kartsToHide)
+	{
+		if (kartsToHide > _gameManager.numberOfActiveKarts)
+		{
+			print("Level Fail");
+		}
+		else
+		{
+			for (var i = 0; i < kartsToHide; i++)
+			{
+				_gameManager.numberOfActiveKarts--;
+				_gameManager.MoveCameraFront();
+				
+				additionalKarts[i].SetActive(false);
+				additionalKarts[i].transform.GetChild(0).gameObject.SetActive(false);
+				yield return new WaitForSeconds(0.15f);
+				additionalKarts[i].transform.GetChild(1).gameObject.SetActive(false);
+				yield return new WaitForSeconds(0.15f);
+				additionalKarts[i].transform.GetChild(2).gameObject.SetActive(false);
+			}	
 		}
 	}
 }
