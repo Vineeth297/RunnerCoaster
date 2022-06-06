@@ -1,3 +1,4 @@
+using System;
 using Dreamteck.Splines;
 using UnityEngine;
 
@@ -21,7 +22,19 @@ public class PlayerController : MonoBehaviour
 	private float brakeForce = 0f;
 	private float addForce = 0f;
 
+	public bool toMove;
 	[SerializeField] private GameObject speedParticleSystem;
+
+	private void OnEnable()
+	{
+		GameEvents.explosion += OnExplosion;
+	}
+
+	private void OnDisable()
+	{
+		GameEvents.explosion -= OnExplosion;
+	}
+
 	private void Start()
 	{
 		_spline = GetComponent<SplineFollower>();
@@ -29,15 +42,22 @@ public class PlayerController : MonoBehaviour
 	}
 	private void Update()
 	{
-		_spline.follow = Input.GetMouseButton(0);
-		//print(_spline.followSpeed);
+		if (Input.GetMouseButtonDown(0))
+		{
+			_spline.follow = true;
+			toMove = true;
+		}
+		else if (Input.GetMouseButton(0))
+			toMove = true;
+		else
+			toMove = false;
+
 		MoveTheKart();
 	}
 
 	private void MoveTheKart()
 	{
 		float dot = Vector3.Dot(this.transform.forward, Vector3.down);
-	//	print(dot);
 		float dotPercent = Mathf.Lerp(-slopeRange / 90f, slopeRange / 90f, (dot + 1f) / 2f);
 		speed -= Time.deltaTime * frictionForce * (1f - brakeForce);
 		float speedAdd = 0f;
@@ -57,8 +77,16 @@ public class PlayerController : MonoBehaviour
 			addForce = Mathf.MoveTowards(addForce, 0f, Time.deltaTime * 30f);
 			speed += lastAdd - addForce;
 		}
-		_spline.followSpeed = speed;
-		_spline.followSpeed *= (1f - brakeForce);
+
+		if (toMove)
+		{
+			_spline.followSpeed = speed;
+			_spline.followSpeed *= (1f - brakeForce);
+		}
+		else
+		{
+			_spline.followSpeed -= Time.deltaTime * speed;
+		}
 		if (brakeTime > Time.time) brakeForce = Mathf.MoveTowards(brakeForce, 1f, Time.deltaTime * brakeSpeed);
 		else brakeForce = Mathf.MoveTowards(brakeForce, 0f, Time.deltaTime * brakeReleaseSpeed);
 
@@ -91,5 +119,11 @@ public class PlayerController : MonoBehaviour
 		speedParticleSystem.SetActive(false);
 		GameEvents.InvokeNoHype();
 		GameManager.Instance.SpeedPullEffect();
+	}
+
+	private void OnExplosion()
+	{
+		_spline.follow = false;
+		enabled = false;
 	}
 }

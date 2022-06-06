@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 	public void MoveCameraFront()
 	{
 		_camera.transform.position -= new Vector3(0f,cameraIncrementInY,cameraIncrementInZ);
+		
 	}
 
 	public void MoveCameraBack()

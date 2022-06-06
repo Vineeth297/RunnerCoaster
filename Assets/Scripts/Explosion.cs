@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Explosion : MonoBehaviour
@@ -13,13 +14,39 @@ public class Explosion : MonoBehaviour
 	private float _yComponent;
 
 	private Collider _collider;
+
+	public float directionMultiplier = 5f;
+	public float dropHeight = 15f;
+
+	public bool isEngine;
+	public bool isForceAdded;
 	private void Start()
 	{
 		_rb = GetComponent<Rigidbody>();
-        
+		_rb.isKinematic = false;
+		transform.parent = null;
+		
 		//transform.parent = null;
-		AddExplosiveForce();
 
+		//AddExplosiveForce();
+
+		/*transform.DORotate(new Vector3(Random.Range(-60f, 60f), Random.Range(-60f, 60f), Random.Range(-60f, 60f)), 0.25f)
+			.SetLoops(5, LoopType.Incremental);
+		transform.DOJump(transform.position + new Vector3(Random.Range(-10f,10f),-20f,Random.Range(-10f,10f)),
+			30,1,2f);
+			*/
+		
+		// transform.DOJump(new Vector3(Mathf.Cos(Random.Range(0f, 1f)), 
+		// 					 0f,
+		// 					 Mathf.Sin(Random.Range(0f, 1f))) * directionMultiplier
+		// 				 + Vector3.down * dropHeight,
+		// 			5,1,2f);
+	}
+
+	private void FixedUpdate()
+	{
+		if (isForceAdded) return;
+		AddBackForce();
 	}
 
 	private void AddExplosiveForce()
@@ -43,9 +70,15 @@ public class Explosion : MonoBehaviour
 		//Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
 		Gizmos.DrawWireSphere (transform.position, explosionRadius);
 	}
-	
-	
 
+
+	private void AddBackForce()
+	{
+		//if (!isEngine) return;
+		print(gameObject.name);
+		_rb.AddForce(-transform.forward * explosiveForce, ForceMode.Impulse);
+		isForceAdded = true;
+	}
 
 	private void OnTriggerEnter(Collider other)
 	{

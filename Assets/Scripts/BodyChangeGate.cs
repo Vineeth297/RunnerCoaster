@@ -31,6 +31,7 @@ public class BodyChangeGate : MonoBehaviour
 	public Color negativeColor;
 
 	public float speed = 1f;
+	public float horizontalDistance;
 
 	[SerializeField] private RollerCoasterManager rollerCoasterManager;
 	private void Start()
@@ -58,7 +59,7 @@ public class BodyChangeGate : MonoBehaviour
 			transform.position = Vector3.MoveTowards(transform.position,
 				transform.position + Vector3.left * 3f,
 				Time.deltaTime * speed);
-			if (transform.position.x <= -1.5f)
+			if (transform.position.x <= -horizontalDistance)
 				_isAtExtreme = true;
 		}
 		else 
@@ -66,7 +67,7 @@ public class BodyChangeGate : MonoBehaviour
 			transform.position = Vector3.MoveTowards(transform.position,
 				transform.position + Vector3.right * 3f,
 				Time.deltaTime * speed);
-			if (transform.position.x >= 1.5f)
+			if (transform.position.x >= horizontalDistance)
 				_isAtExtreme = false;
 		}
 	}

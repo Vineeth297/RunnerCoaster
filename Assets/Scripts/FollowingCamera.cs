@@ -1,10 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class FollowingCamera : MonoBehaviour
 {
-	public GameObject player;        //Public variable to store a reference to the player game object
+
+	[SerializeField] private GameObject finalPosition;
+
+	private Camera _camera;
+
+	private void Start()
+	{
+		_camera = Camera.main;
+	}
+
+	private void OnEnable()
+	{
+		GameEvents.ExplosionCameraPushBack += OnExplosion;
+		GameEvents.BonusCameraPushBack += OnBonus;
+	}
+
+	private void OnDisable()
+	{
+		GameEvents.ExplosionCameraPushBack -= OnExplosion;
+		GameEvents.BonusCameraPushBack -= OnBonus;
+	}
+
+	private void OnExplosion()
+	{
+		_camera.transform.DOMove(finalPosition.transform.position, 0.5f);
+
+	}
+
+	private void OnBonus()
+	{
+		_camera.transform.DOMove(finalPosition.transform.position, 0.5f);
+	}
+	/*public GameObject player;        //Public variable to store a reference to the player game object
 
 	private Vector3 offset; //Private variable to store the offset distance between the player and camera
 	[SerializeField] private float damping = 1f;
@@ -26,5 +60,5 @@ public class FollowingCamera : MonoBehaviour
 
 		transform.position = Vector3.Lerp(transform.position, toMovePos, damping * Time.deltaTime);
 		// transform.position = player.transform.position + offset;
-	}
+	}*/
 }
