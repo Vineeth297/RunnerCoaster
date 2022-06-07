@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
+using Dreamteck.Splines;
 using Dreamteck.Splines.Examples;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,6 +13,7 @@ public class RollerCoasterManager : MonoBehaviour
 	
 	[SerializeField] private List<GameObject> additionalKarts;
 	[SerializeField] private List<Wagon> wagons;
+	[SerializeField] private List<KartFollow> kartFollows;
 
 	[SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
 
@@ -45,6 +47,12 @@ public class RollerCoasterManager : MonoBehaviour
 		{
 			GameEvents.InvokeExplosion();
 			Explode();
+		}
+
+		if (other.CompareTag("BonusTile"))
+		{
+			GetComponent<PlayerController>().moveSpeed = 0f;
+			GetComponent<PlayerController>().downSpeed = 0f;
 		}
 	}
 
@@ -142,6 +150,23 @@ public class RollerCoasterManager : MonoBehaviour
 			passenger.SetActive(false);
 			yield return new WaitForSeconds(0.20f);
 		}
+	}
+
+	public void PreparationsForBonusRamp()
+	{
+		print("InTheLoop");
+		GetComponent<Wagon>().enabled = false;
+		GetComponent<TrainEngine>().enabled = false;
+
+		for (var index = 0; index < wagons.Count; index++)
+		{
+			var wagon = wagons[index];
+			wagon.transform.GetComponent<SplinePositioner>().enabled = false;
+			wagon.enabled = false;
+			kartFollows[index].enabled = true;
+		}
+
+		GameEvents.InvokeFlyToBonusRamp();
 	}
 	
 	

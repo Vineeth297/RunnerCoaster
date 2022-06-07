@@ -8,14 +8,14 @@ public class Passenger : MonoBehaviour
 
 	private void OnEnable()
 	{
-		GameEvents.getHyped += OnHype;
-		GameEvents.noHype += OnNoHype;
+		GameEvents.GetHyped += OnHype;
+		GameEvents.NoHype += OnNoHype;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.getHyped -= OnHype;
-		GameEvents.noHype += OnNoHype;
+		GameEvents.GetHyped -= OnHype;
+		GameEvents.NoHype += OnNoHype;
 	}
 
 	private void Start()

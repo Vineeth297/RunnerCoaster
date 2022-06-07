@@ -8,6 +8,7 @@ TagManager:
   - PickUpPlatform
   - ObstacleTrain
   - BonusRamp
+  - BonusTile
   layers:
   - Default
   - TransparentFX

@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Dreamteck.Splines;
 using UnityEngine;
 
@@ -23,36 +24,63 @@ public class PlayerController : MonoBehaviour
 	private float addForce = 0f;
 
 	public bool toMove;
+	public bool toFly;
+
+	private Rigidbody _rb;
+	public float forceAmount = 5f;
+	public float moveSpeed = 5f;
+	public float downSpeed = 5f;
+	
 	[SerializeField] private GameObject speedParticleSystem;
+	[SerializeField] private Transform finalKartPosition;
 
 	private void OnEnable()
 	{
-		GameEvents.explosion += OnExplosion;
+		GameEvents.Explosion += OnExplosion;
+		GameEvents.FlyToBonusRamp += ToFly;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.explosion -= OnExplosion;
+		GameEvents.Explosion -= OnExplosion;
+		GameEvents.FlyToBonusRamp -= ToFly;
 	}
 
 	private void Start()
 	{
 		_spline = GetComponent<SplineFollower>();
 		_spline.follow = false;
+		_rb = GetComponent<Rigidbody>();
 	}
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (!toFly)
 		{
-			_spline.follow = true;
-			toMove = true;
-		}
-		else if (Input.GetMouseButton(0))
-			toMove = true;
-		else
-			toMove = false;
+			if (Input.GetMouseButtonDown(0))
+			{
+				_spline.follow = true;
+				toMove = true;
+			}
+			else if (Input.GetMouseButton(0))
+				toMove = true;
+			else
+				toMove = false;
 
-		MoveTheKart();
+			MoveTheKart();
+		}
+		else
+		{
+			//FlyTheKart();
+			//add force on this kart
+			if (Input.GetMouseButton(0))
+			{
+				transform.position += transform.forward * (Time.deltaTime * moveSpeed);
+			}
+			else
+			{
+				transform.position +=  Vector3.down * (Time.deltaTime * downSpeed);
+			}
+		}
 	}
 
 	private void MoveTheKart()
@@ -87,12 +115,17 @@ public class PlayerController : MonoBehaviour
 		{
 			_spline.followSpeed -= Time.deltaTime * speed;
 		}
+		
 		if (brakeTime > Time.time) brakeForce = Mathf.MoveTowards(brakeForce, 1f, Time.deltaTime * brakeSpeed);
 		else brakeForce = Mathf.MoveTowards(brakeForce, 0f, Time.deltaTime * brakeReleaseSpeed);
 
 		speedPercent = Mathf.Clamp01(speed/maxSpeed)*(1f-brakeForce);
 	}
 
+	private void FlyTheKart()
+	{
+		transform.position += transform.forward * (Time.deltaTime * moveSpeed) + Vector3.down * Time.deltaTime;
+	}
 	public void AssignSlopeSpeed()
 	{
 		minSpeed = 50f;
@@ -100,7 +133,6 @@ public class PlayerController : MonoBehaviour
 		speedParticleSystem.SetActive(true);
 		GameEvents.InvokeGetHyped();
 		GameManager.Instance.SpeedPushEffect();
-
 	}
 	
 	public void AssignCurveSpeed()
@@ -109,6 +141,7 @@ public class PlayerController : MonoBehaviour
 		maxSpeed = 90f;
 		speedParticleSystem.SetActive(true);
 		GameEvents.InvokeGetHyped();
+		GameEvents.InvokeLeftCurveCameraShift();
 		GameManager.Instance.SpeedPushEffect();
 	}
 	
@@ -118,6 +151,7 @@ public class PlayerController : MonoBehaviour
 		maxSpeed = 50f;
 		speedParticleSystem.SetActive(false);
 		GameEvents.InvokeNoHype();
+		GameEvents.InvokeResetCameraPosition();
 		GameManager.Instance.SpeedPullEffect();
 	}
 
@@ -125,5 +159,24 @@ public class PlayerController : MonoBehaviour
 	{
 		_spline.follow = false;
 		enabled = false;
+
+	}
+
+	private void ToFly()
+	{
+		_spline.enabled = false;
+		transform.DOJump(finalKartPosition.position, 10f, 1, 2f).
+			OnComplete(()=>
+			{
+				toFly = true;
+				//GetComponent<Collider>().isTrigger = false;
+			});
+		transform.DORotate(new Vector3(0f, 90f, 0f), 0.5f);
+		//toFly = true;
+	}
+
+	private void JumpToBonusRampOnClick()
+	{
+		
 	}
 }

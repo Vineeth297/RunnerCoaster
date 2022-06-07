@@ -107,7 +107,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3746853534499139348}
   - component: {fileID: 3746853534499139349}
-  - component: {fileID: 3746853534499139351}
+  - component: {fileID: 5904755872824031590}
+  - component: {fileID: 2324552386967030151}
+  - component: {fileID: 8037255153193103840}
   m_Layer: 0
   m_Name: AdditionalKart
   m_TagString: Untagged
@@ -2463,7 +2465,7 @@ MonoBehaviour:
   _targetObject: {fileID: 0}
   _position: 0.01
   _mode: 0
---- !u!114 &3746853534499139351
+--- !u!114 &5904755872824031590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2472,12 +2474,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 3746853534499139346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c5b28aa5a478e44297c3dd32a5c35f1, type: 3}
+  m_Script: {fileID: 11500000, guid: eaf34609885b9134e97953563f97f0e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isEngine: 0
   back: {fileID: 0}
-  offset: 5
+  offset: 3
+--- !u!114 &2324552386967030151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3746853534499139346}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69ce7ff2fc678a48b2d881693ab8934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followOffset: {x: -3, y: 0, z: 0}
+  charToFollow: {fileID: 0}
+  damping: 10
+  pos: {x: 0, y: 0, z: 0}
+  isRolling: 0
+--- !u!65 &8037255153193103840
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3746853534499139346}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 4.321579, z: 2.3385706}
+  m_Center: {x: 7.223335e-10, y: 4.013582, z: 1.5688415}
 --- !u!1 &3746853535056881881
 GameObject:
   m_ObjectHideFlags: 0
@@ -2882,7 +2914,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8070239017961280177
 Transform:
   m_ObjectHideFlags: 0
@@ -3104,7 +3136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7741086823861331497, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7744193048902007274, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
       propertyPath: m_RootOrder
@@ -3195,7 +3227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7741086823861331497, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7744193048902007274, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
       propertyPath: m_RootOrder
