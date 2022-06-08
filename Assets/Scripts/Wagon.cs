@@ -143,7 +143,8 @@ namespace Dreamteck.Splines.Examples
             Spline.Direction inverseDirection = front.segment.direction;
             InvertDirection(ref inverseDirection);
             SplineComputer spline = front.segment.spline;
-            double percent = front.segment.Travel(start, offset, inverseDirection, out moved, front.segment.spline.isClosed);
+            double percent = 
+				front.segment.Travel(start, offset, inverseDirection, out moved, front.segment.spline.isClosed);
             totalMoved += moved;
             //Finalize if moved fully without reaching a spline end or a junction
             if (Mathf.Approximately(totalMoved, offset))
