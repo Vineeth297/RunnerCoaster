@@ -82,6 +82,7 @@ public class BodyChangeGate : MonoBehaviour
 				case ChangeType.Add:
 				{
 					//DO Something
+					print("Here");
 					rollerCoasterManager.SpawnTheKarts(factor);
 					break;
 				}
@@ -118,7 +119,7 @@ public class BodyChangeGate : MonoBehaviour
 			//subtractSprite.SetActive(false);
 			//multiplySprite.SetActive(false);
 			//divideSprite.SetActive(false);
-			meshRenderer.sharedMaterial.color = positiveColor;
+			//meshRenderer.sharedMaterial.color = positiveColor;
 			name = text.text = " + " + factor;
 		//	meshRenderer.material.color = Color.HSVToRGB(6, 197, 255);
 
@@ -129,7 +130,7 @@ public class BodyChangeGate : MonoBehaviour
 			//subtractSprite.SetActive(true);
 			//multiplySprite.SetActive(false);
 			//divideSprite.SetActive(false);
-			meshRenderer.sharedMaterial.color = negativeColor;
+			//meshRenderer.sharedMaterial.color = negativeColor;
 			name = text.text = " - " + factor;
 			//meshRenderer.material.color = Color.red;
 		}
@@ -139,7 +140,7 @@ public class BodyChangeGate : MonoBehaviour
 			//subtractSprite.SetActive(false);
 			//multiplySprite.SetActive(true);
 			//divideSprite.SetActive(false);
-			meshRenderer.sharedMaterial.color = positiveColor;
+			//meshRenderer.sharedMaterial.color = positiveColor;
 			name = text.text = " + " + factor;
 		//	meshRenderer.material.color = Color.HSVToRGB(6, 197, 255);
 		}
@@ -149,7 +150,7 @@ public class BodyChangeGate : MonoBehaviour
 			//subtractSprite.SetActive(false);
 			//multiplySprite.SetActive(false);
 			//divideSprite.SetActive(true);
-			meshRenderer.sharedMaterial.color = negativeColor;
+			//meshRenderer.sharedMaterial.color = negativeColor;
 			name = text.text = " - " + factor;
 			//meshRenderer.material.color = Color.red;
 		}

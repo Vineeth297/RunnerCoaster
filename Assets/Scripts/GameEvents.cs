@@ -11,6 +11,7 @@ public static class GameEvents
 	public static event Action RightCurveCameraShift;
 	public static event Action ResetCameraPosition;
 	public static event Action FlyToBonusRamp;
+	public static event Action StopTheRollerCoaster;
 	
 	
 	public static void InvokeExplosion() => Explosion?.Invoke();
@@ -22,4 +23,5 @@ public static class GameEvents
 	public static void InvokeRightCurveCameraShift() => RightCurveCameraShift?.Invoke();
 	public static void InvokeResetCameraPosition() => ResetCameraPosition?.Invoke();
 	public static void InvokeFlyToBonusRamp() => FlyToBonusRamp?.Invoke();
+	public static void InvokeStopTheRollerCoaster() => StopTheRollerCoaster?.Invoke();
 }

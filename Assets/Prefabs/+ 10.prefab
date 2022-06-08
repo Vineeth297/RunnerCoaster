@@ -408,3 +408,5 @@ MonoBehaviour:
   positiveColor: {r: 0.6313726, g: 1, b: 0.039215688, a: 0.95686275}
   negativeColor: {r: 1, g: 0, b: 0, a: 0.95686275}
   speed: 1
+  horizontalDistance: 0
+  rollerCoasterManager: {fileID: 0}

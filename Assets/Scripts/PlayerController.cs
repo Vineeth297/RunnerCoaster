@@ -1,7 +1,9 @@
 using System;
 using DG.Tweening;
 using Dreamteck.Splines;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,8 +30,11 @@ public class PlayerController : MonoBehaviour
 
 	private Rigidbody _rb;
 	public float forceAmount = 5f;
-	public float moveSpeed = 5f;
-	public float downSpeed = 5f;
+	public float minimumMoveSpeed = 5f;
+	public float maximumMoveSpeed = 5f;
+	public float minimumDownSpeed = 5f;
+	public float maximumDownSpeed = 5f;
+	public float minimumYThreshold = 0f;
 	
 	[SerializeField] private GameObject speedParticleSystem;
 	[SerializeField] private Transform finalKartPosition;
@@ -38,12 +43,14 @@ public class PlayerController : MonoBehaviour
 	{
 		GameEvents.Explosion += OnExplosion;
 		GameEvents.FlyToBonusRamp += ToFly;
+		GameEvents.StopTheRollerCoaster += OnStopTheRollerCoaster;
 	}
 
 	private void OnDisable()
 	{
 		GameEvents.Explosion -= OnExplosion;
 		GameEvents.FlyToBonusRamp -= ToFly;
+		GameEvents.StopTheRollerCoaster -= OnStopTheRollerCoaster;
 	}
 
 	private void Start()
@@ -74,11 +81,25 @@ public class PlayerController : MonoBehaviour
 			//add force on this kart
 			if (Input.GetMouseButton(0))
 			{
-				transform.position += transform.forward * (Time.deltaTime * moveSpeed);
+				var currentPos = transform.position;
+				
+				if (currentPos.y <= minimumYThreshold)
+				{
+					currentPos.y = minimumYThreshold;
+				}
+				transform.position = currentPos + transform.forward * (Time.deltaTime * maximumMoveSpeed) +
+									  Vector3.down * (Time.deltaTime * minimumDownSpeed);
 			}
 			else
 			{
-				transform.position +=  Vector3.down * (Time.deltaTime * downSpeed);
+				var currentPos = transform.position;
+				
+				if (currentPos.y <= minimumYThreshold)
+				{
+					currentPos.y = minimumYThreshold;
+				}
+				transform.position = currentPos + transform.forward * (Time.deltaTime * minimumMoveSpeed) +
+									  Vector3.down * (Time.deltaTime * maximumDownSpeed);
 			}
 		}
 	}
@@ -124,12 +145,12 @@ public class PlayerController : MonoBehaviour
 
 	private void FlyTheKart()
 	{
-		transform.position += transform.forward * (Time.deltaTime * moveSpeed) + Vector3.down * Time.deltaTime;
+		transform.position += transform.forward * (Time.deltaTime * minimumMoveSpeed) + Vector3.down * Time.deltaTime;
 	}
 	public void AssignSlopeSpeed()
 	{
 		minSpeed = 50f;
-		maxSpeed = 70f;
+		maxSpeed = 90f;
 		speedParticleSystem.SetActive(true);
 		GameEvents.InvokeGetHyped();
 		GameManager.Instance.SpeedPushEffect();
@@ -159,24 +180,30 @@ public class PlayerController : MonoBehaviour
 	{
 		_spline.follow = false;
 		enabled = false;
-
 	}
 
 	private void ToFly()
 	{
 		_spline.enabled = false;
-		transform.DOJump(finalKartPosition.position, 10f, 1, 2f).
+		/*transform.DOJump(finalKartPosition.position, 10f, 1, 5f).
 			OnComplete(()=>
 			{
 				toFly = true;
 				//GetComponent<Collider>().isTrigger = false;
-			});
+			});*/
+		toFly = true;
 		transform.DORotate(new Vector3(0f, 90f, 0f), 0.5f);
 		//toFly = true;
 	}
 
-	private void JumpToBonusRampOnClick()
+	private void OnStopTheRollerCoaster()
 	{
-		
+		minimumMoveSpeed = maximumMoveSpeed = 0f;
+		minimumDownSpeed = maximumDownSpeed = 0f;
+	}
+
+	public void BonusJumpHype()
+	{
+		GameEvents.InvokeGetHyped();
 	}
 }

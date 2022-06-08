@@ -498,7 +498,6 @@ GameObject:
   - component: {fileID: 9029539004900498350}
   - component: {fileID: 5647499974886853244}
   - component: {fileID: 5402188564800930660}
-  - component: {fileID: 1193111935991370651}
   m_Layer: 0
   m_Name: MainKart
   m_TagString: Untagged
@@ -2949,8 +2948,11 @@ MonoBehaviour:
   toMove: 0
   toFly: 0
   forceAmount: 5
-  moveSpeed: 5
-  downSpeed: 5
+  minimumMoveSpeed: 5
+  maximumMoveSpeed: 5
+  minimumDownSpeed: 5
+  maximumDownSpeed: 5
+  minimumYThreshold: 0
   speedParticleSystem: {fileID: 0}
   finalKartPosition: {fileID: 0}
 --- !u!114 &2685788260203797354
@@ -2991,8 +2993,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.174063, y: 6.0225782, z: 3.2841666}
-  m_Center: {x: -0.035242796, y: 5.2665453, z: 2.0679083}
+  m_Size: {x: 5.174063, y: 6.0225773, z: 2.1896152}
+  m_Center: {x: -0.035242796, y: 5.2665453, z: 1.5206349}
 --- !u!114 &9029539004900498350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3073,61 +3075,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.174063, y: 6.0225782, z: 3.2841666}
-  m_Center: {x: -0.035242796, y: 5.2665453, z: 2.0679083}
---- !u!114 &1193111935991370651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2685788260203797358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c9ee6f943d0df2418083af19c578744, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  additionalKarts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  wagons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  kartFollows:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  cinemachineVirtualCamera: {fileID: 0}
-  availablePassengers: []
+  m_Size: {x: 5.174063, y: 6.0225773, z: 2.1586113}
+  m_Center: {x: -0.035242796, y: 5.2665453, z: 1.5051341}
 --- !u!1 &2685788260469733467
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,6 @@ using DG.Tweening;
 using Dreamteck.Splines;
 using Dreamteck.Splines.Examples;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class RollerCoasterManager : MonoBehaviour
 {
@@ -25,7 +24,7 @@ public class RollerCoasterManager : MonoBehaviour
 	//	cinemachineVirtualCamera.Follow = this.transform;
 		_gameManager = GameManager.Instance;
 		_gameManager.totalAdditionalKarts = additionalKarts.Count;
-		availablePassengers = new List<GameObject>();
+	//	availablePassengers = new List<GameObject>();
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -49,11 +48,11 @@ public class RollerCoasterManager : MonoBehaviour
 			Explode();
 		}
 
-		if (other.CompareTag("BonusTile"))
+		/*if (other.CompareTag("BonusTile"))
 		{
 			GetComponent<PlayerController>().moveSpeed = 0f;
 			GetComponent<PlayerController>().downSpeed = 0f;
-		}
+		}*/
 	}
 
 	private void PickUpThePassengers(GameObject platform)
@@ -71,16 +70,17 @@ public class RollerCoasterManager : MonoBehaviour
 	{
 		for (var i = 0; i < kartsToSpawn; i++)
 		{
-			_gameManager.numberOfActiveKarts++;
 			additionalKarts[i].SetActive(true);
 			
 			additionalKarts[i].transform.GetChild(0).gameObject.SetActive(true);
 			yield return new WaitForSeconds(0.15f);
 			additionalKarts[i].transform.GetChild(1).gameObject.SetActive(true);
 			availablePassengers.Add(additionalKarts[i].transform.GetChild(1).gameObject);
+			_gameManager.numberOfActiveKarts++;
 			yield return new WaitForSeconds(0.15f);
 			additionalKarts[i].transform.GetChild(2).gameObject.SetActive(true);
 			availablePassengers.Add(additionalKarts[i].transform.GetChild(2).gameObject);
+			_gameManager.numberOfActiveKarts++;
 		}
 	}
 	
@@ -168,6 +168,19 @@ public class RollerCoasterManager : MonoBehaviour
 
 		GameEvents.InvokeFlyToBonusRamp();
 	}
-	
-	
+
+	public void JumpOnToBonusPlatform()
+	{
+		var count = availablePassengers.Count;
+		var kart = additionalKarts[^1].transform;
+		availablePassengers.RemoveAt(count - 1);
+
+		kart.gameObject.SetActive(false);
+		/*
+		kart.transform.GetChild(0).gameObject.SetActive(false);
+		kart.transform.GetChild(1).gameObject.SetActive(false);
+		kart.transform.GetChild(2).gameObject.SetActive(false);	
+		*/	
+
+	}
 }
