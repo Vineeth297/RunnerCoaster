@@ -400,13 +400,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5df6e059a1ab504096d516e365e7d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 9073054548279572399}
-  changeType: 0
-  text: {fileID: 9073054546760705199}
+  rollerCoasterManager: {fileID: 0}
+  moveDuration: 3
+  horizontalDistance: 10
   factor: 10
-  toMoveHorizontally: 0
+  text: {fileID: 9073054546760705199}
+  changeType: 0
   positiveColor: {r: 0.6313726, g: 1, b: 0.039215688, a: 0.95686275}
   negativeColor: {r: 1, g: 0, b: 0, a: 0.95686275}
-  speed: 1
-  horizontalDistance: 0
-  rollerCoasterManager: {fileID: 0}

@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -21,9 +20,9 @@ public class PickupPlatform : MonoBehaviour
 		{
 			var randomJumpPos = Random.Range(0, 2);
 			print(randomJumpPos);
-			passenger.transform.DOJump(jumpPositions[randomJumpPos].position, 3f,1, 0.5f)
-				.OnComplete(()=>passenger.SetActive(false));
-			
+			passenger.transform.DOJump(jumpPositions[randomJumpPos].position, 3f, 1, 0.5f)
+				.OnComplete(() => passenger.SetActive(false));
+
 			yield return new WaitForSeconds(0.1f);
 		}
 	}

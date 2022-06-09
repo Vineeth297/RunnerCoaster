@@ -25,11 +25,11 @@ public class Passenger : MonoBehaviour
 
 	private void OnHype()
 	{
-		_animator.SetBool(HypeHash,true);
+		_animator.SetBool(HypeHash, true);
 	}
-	
+
 	private void OnNoHype()
 	{
-		_animator.SetBool(HypeHash,false);
+		_animator.SetBool(HypeHash, false);
 	}
 }

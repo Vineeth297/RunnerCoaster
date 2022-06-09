@@ -1,162 +1,84 @@
 using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class BodyChangeGate : MonoBehaviour
 {
-	public enum ChangeType
-	{
-		Add,
-		Subtract,
-		Multiply,
-		Divide
-	}
+	private enum ChangeType { Add, Subtract, Multiply, Divide }
 
-	//public GameObject addSprite;
-	//public GameObject subtractSprite;
-	//public GameObject multiplySprite;
-	//public GameObject divideSprite;
+	[SerializeField] private RollerCoasterManager rollerCoasterManager;
 
-	public MeshRenderer meshRenderer;
-	
-	public ChangeType changeType = ChangeType.Add;
-	public TMP_Text text;
-	public int factor;
+	[SerializeField] private float moveDuration = 3f;
+	[SerializeField] private float horizontalDistance;
+
+	[SerializeField] private int factor;
+	[SerializeField] private TMP_Text text;
+	[SerializeField] private ChangeType changeType = ChangeType.Add;
+	[SerializeField] private Color positiveColor;
+	[SerializeField] private Color negativeColor;
 
 	private bool _hasBeenUsed;
 	private bool _isAtExtreme;
-	public bool toMoveHorizontally;
 
-	public Color positiveColor;
-	public Color negativeColor;
-
-	public float speed = 1f;
-	public float horizontalDistance;
-
-	[SerializeField] private RollerCoasterManager rollerCoasterManager;
 	private void Start()
 	{
 		if (changeType == ChangeType.Add || changeType == ChangeType.Multiply)
-		{
-				//meshRenderer.material.color = positiveColor;
 			transform.GetChild(0).GetComponent<MeshRenderer>().material.color = positiveColor;
-		}
 		else
-		{
-			//meshRenderer.material.color = negativeColor;
 			transform.GetChild(0).GetComponent<MeshRenderer>().material.color = negativeColor;
-		}
 
+		transform.position -= Vector3.right * horizontalDistance;
+		transform.DOMoveX(transform.position.x + horizontalDistance, moveDuration)
+			.SetEase(Ease.Linear)
+			.SetLoops(-1, LoopType.Yoyo);
 	}
-	
-	
-	private void Update()
-	{
-		if (!toMoveHorizontally) return;
-		
-		if (!_isAtExtreme)
-		{
-			transform.position = Vector3.MoveTowards(transform.position,
-				transform.position + Vector3.left * 3f,
-				Time.deltaTime * speed);
-			if (transform.position.x <= -horizontalDistance)
-				_isAtExtreme = true;
-		}
-		else 
-		{
-			transform.position = Vector3.MoveTowards(transform.position,
-				transform.position + Vector3.right * 3f,
-				Time.deltaTime * speed);
-			if (transform.position.x >= horizontalDistance)
-				_isAtExtreme = false;
-		}
-	}
+
 	private void OnTriggerEnter(Collider other)
 	{
 		if (_hasBeenUsed) return;
-
-		if (other.CompareTag("Player"))
+		if (!other.CompareTag("Player")) return;
+		
+		_hasBeenUsed = true;
+		switch (changeType)
 		{
-			switch (changeType)
+			case ChangeType.Add:
 			{
-				case ChangeType.Add:
-				{
-					//DO Something
-					print("Here");
-					rollerCoasterManager.SpawnTheKarts(factor);
-					break;
-				}
-				case ChangeType.Subtract:
-				{
-					//DO Something
-					rollerCoasterManager.DisableTheKarts(factor);
-					break;
-				}
-				case ChangeType.Multiply:
-				{
-					//DO Something
-					rollerCoasterManager.SpawnTheKarts(factor);
-					break;
-				}
-				case ChangeType.Divide:
-				{
-					//DO Something
-					rollerCoasterManager.DisableTheKarts(factor);
-					break;
-				}
-				default:
-					throw new ArgumentOutOfRangeException();
+				//DO Something
+				print("Here");
+				rollerCoasterManager.SpawnTheKarts(factor);
+				break;
+			}
+			case ChangeType.Subtract:
+			{
+				//DO Something
+				rollerCoasterManager.DisableTheKarts(factor);
+				break;
+			}
+			case ChangeType.Multiply:
+			{
+				//DO Something
+				rollerCoasterManager.SpawnTheKarts(factor);
+				break;
+			}
+			case ChangeType.Divide:
+			{
+				//DO Something
+				rollerCoasterManager.DisableTheKarts(factor);
+				break;
 			}
 		}
-		_hasBeenUsed = true;
 	}
 
 	private void OnValidate()
 	{
-		if (changeType == ChangeType.Add)
+		name = changeType switch
 		{
-			//addSprite.SetActive(true);
-			//subtractSprite.SetActive(false);
-			//multiplySprite.SetActive(false);
-			//divideSprite.SetActive(false);
-			//meshRenderer.sharedMaterial.color = positiveColor;
-			name = text.text = " + " + factor;
-		//	meshRenderer.material.color = Color.HSVToRGB(6, 197, 255);
-
-		}
-		else if (changeType == ChangeType.Subtract)
-		{
-			//addSprite.SetActive(false);
-			//subtractSprite.SetActive(true);
-			//multiplySprite.SetActive(false);
-			//divideSprite.SetActive(false);
-			//meshRenderer.sharedMaterial.color = negativeColor;
-			name = text.text = " - " + factor;
-			//meshRenderer.material.color = Color.red;
-		}
-		else if (changeType == ChangeType.Multiply)
-		{
-			//addSprite.SetActive(false);
-			//subtractSprite.SetActive(false);
-			//multiplySprite.SetActive(true);
-			//divideSprite.SetActive(false);
-			//meshRenderer.sharedMaterial.color = positiveColor;
-			name = text.text = " + " + factor;
-		//	meshRenderer.material.color = Color.HSVToRGB(6, 197, 255);
-		}
-		else if (changeType == ChangeType.Divide)
-		{
-			//addSprite.SetActive(false);
-			//subtractSprite.SetActive(false);
-			//multiplySprite.SetActive(false);
-			//divideSprite.SetActive(true);
-			//meshRenderer.sharedMaterial.color = negativeColor;
-			name = text.text = " - " + factor;
-			//meshRenderer.material.color = Color.red;
-		}
-		else
-		{
-			name = name;
-		}
+			ChangeType.Add => text.text = " + " + factor,
+			ChangeType.Subtract => text.text = " - " + factor,
+			ChangeType.Multiply => text.text = " + " + factor,
+			ChangeType.Divide => text.text = " - " + factor,
+			_ => name
+		};
 	}
 }

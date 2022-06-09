@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -21,7 +18,7 @@ public class BonusTile : MonoBehaviour
 
 		if (rollerCoasterManager.availablePassengers.Count <= 0)
 		{
-			GameEvents.InvokeStopTheRollerCoaster();
+			GameEvents.InvokeStopOnBonusRamp();
 			return;
 		}
 		

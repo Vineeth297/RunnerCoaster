@@ -10,18 +10,27 @@ public static class GameEvents
 	public static event Action LeftCurveCameraShift;
 	public static event Action RightCurveCameraShift;
 	public static event Action ResetCameraPosition;
-	public static event Action FlyToBonusRamp;
-	public static event Action StopTheRollerCoaster;
-	
-	
+	public static event Action ReachEndOfTrack;
+	public static event Action StopOnBonusRamp;
+
+
 	public static void InvokeExplosion() => Explosion?.Invoke();
+
 	public static void InvokeGetHyped() => GetHyped?.Invoke();
+
 	public static void InvokeNoHype() => NoHype?.Invoke();
+
 	public static void InvokeExplosionCameraPushBack() => ExplosionCameraPushBack?.Invoke();
+
 	public static void InvokeBonusCameraPushBack() => BonusCameraPushBack?.Invoke();
+
 	public static void InvokeLeftCurveCameraShift() => LeftCurveCameraShift?.Invoke();
+
 	public static void InvokeRightCurveCameraShift() => RightCurveCameraShift?.Invoke();
+
 	public static void InvokeResetCameraPosition() => ResetCameraPosition?.Invoke();
-	public static void InvokeFlyToBonusRamp() => FlyToBonusRamp?.Invoke();
-	public static void InvokeStopTheRollerCoaster() => StopTheRollerCoaster?.Invoke();
+
+	public static void InvokeReachEndOfTrack() => ReachEndOfTrack?.Invoke();
+
+	public static void InvokeStopOnBonusRamp() => StopOnBonusRamp?.Invoke();
 }

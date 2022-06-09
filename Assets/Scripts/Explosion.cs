@@ -4,8 +4,8 @@ using UnityEngine;
 public class Explosion : MonoBehaviour
 {
 	private Rigidbody _rb;
-	public float explosiveForce = 5f; 
-	public float explosionRadius = 5f; 
+	public float explosiveForce = 5f;
+	public float explosionRadius = 5f;
 
 	public float forceToApply;
 	public float angleOfForce;
@@ -20,12 +20,13 @@ public class Explosion : MonoBehaviour
 
 	public bool isEngine;
 	public bool isForceAdded;
+
 	private void Start()
 	{
 		_rb = GetComponent<Rigidbody>();
 		_rb.isKinematic = false;
 		transform.parent = null;
-		
+
 		//transform.parent = null;
 
 		//AddExplosiveForce();
@@ -35,7 +36,7 @@ public class Explosion : MonoBehaviour
 		transform.DOJump(transform.position + new Vector3(Random.Range(-10f,10f),-20f,Random.Range(-10f,10f)),
 			30,1,2f);
 			*/
-		
+
 		// transform.DOJump(new Vector3(Mathf.Cos(Random.Range(0f, 1f)), 
 		// 					 0f,
 		// 					 Mathf.Sin(Random.Range(0f, 1f))) * directionMultiplier
@@ -51,24 +52,23 @@ public class Explosion : MonoBehaviour
 
 	private void AddExplosiveForce()
 	{
-		Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
-		
+		var hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
 		foreach (var hitCollider in hitColliders)
 		{
 			var rb = hitCollider.GetComponent<Rigidbody>();
-			
+
 			//hitCollider.SendMessage("AddDamage");
 			rb.isKinematic = false;
-			rb.AddExplosionForce(explosiveForce, transform.position , explosionRadius, 1f,ForceMode.Impulse);
-
+			rb.AddExplosionForce(explosiveForce, transform.position, explosionRadius, 1f, ForceMode.Impulse);
 		}
 	}
-	
+
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.yellow;
-		//Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
-		Gizmos.DrawWireSphere (transform.position, explosionRadius);
+		//Use the same vars you use to draw your Overlap Sphere to draw your Wire Sphere.
+		Gizmos.DrawWireSphere(transform.position, explosionRadius);
 	}
 
 
@@ -80,20 +80,14 @@ public class Explosion : MonoBehaviour
 		isForceAdded = true;
 	}
 
-	private void OnTriggerEnter(Collider other)
-	{
-		
-	}
-
-	
 	private void AddForceAtAnAngle(float force, float angle)
 	{
 		angle *= Mathf.Deg2Rad;
 		_xComponent = Mathf.Cos(angle) * force;
 		_yComponent = Mathf.Sin(angle) * force;
-        
+
 		var forceApplied = new Vector3(_xComponent, _yComponent, 30);
-        
+
 		_rb.AddForce(forceApplied);
 	}
 }

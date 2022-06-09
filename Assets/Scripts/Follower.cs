@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Follower : MonoBehaviour
 {
-
 	private SplinePositioner _spline;
 
 	private void Start()

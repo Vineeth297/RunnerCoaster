@@ -10,7 +10,7 @@ public class BonusRamp : MonoBehaviour
 	
 	[SerializeField] private List<GameObject> bonusRampPassengers;
 
-	public PlayerController player;
+	public PlayerControllerOld player;
 
 	private void OnTriggerEnter(Collider other)
 	{
