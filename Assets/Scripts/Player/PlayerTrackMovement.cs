@@ -1,15 +1,15 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player
 {
+	[System.Serializable] public struct Limits { public float min, max; }
 	public class PlayerTrackMovement : MonoBehaviour
 	{
 		private PlayerRefBank _my;
 		
 		[SerializeField] private AnimationCurve speedGain, speedLoss;
 
-		[SerializeField] private Limits plainSpeedLimits, downhillSpeedLimits;
+		[SerializeField] private Limits plainSpeedLimits, highSpeedLimits;
 		[SerializeField] private float speed = 10f;
 		[SerializeField] private float brakeSpeed = 0f, brakeReleaseSpeed = 0f;
 
@@ -23,13 +23,13 @@ namespace Player
 
 		private void OnEnable()
 		{
-			GameEvents.Explosion += OnExplosion;
+			GameEvents.ObstacleCollision += OnExplosion;
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
 		}
 
 		private void OnDisable()
 		{
-			GameEvents.Explosion -= OnExplosion;
+			GameEvents.ObstacleCollision -= OnExplosion;
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
 		}
 
@@ -78,8 +78,8 @@ namespace Player
 		}
 
 		public void StartFollow() => _my.Follower.follow = true;
-		public void SetDownhillSpeedValues() => _currentLimits = downhillSpeedLimits;
-		public void SetPlainSpeedValues() => _currentLimits = plainSpeedLimits;
+		public void SetHighSpeedValues() => _currentLimits = highSpeedLimits;
+		public void SetNormalSpeedValues() => _currentLimits = plainSpeedLimits;
 
 		private void StopFollowingTrack() => _my.Follower.follow = false;
 
@@ -87,6 +87,4 @@ namespace Player
 
 		private void OnReachEndOfTrack() => StopFollowingTrack();
 	}
-
-	[System.Serializable] public struct Limits { public float min, max; }
 }

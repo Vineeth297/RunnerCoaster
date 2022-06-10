@@ -4,58 +4,66 @@ using UnityEngine;
 public class DampCamera : MonoBehaviour
 {
 	[SerializeField] private Transform target;
-	[SerializeField] private float lerpMul;
+	[SerializeField] private float lerpMul, cameraTransitionDuration = 0.5f;
+
+	[SerializeField] private Transform leftCameraPos, bonusCameraPos;
 	
 	private Transform _transform;
-	[SerializeField] private Transform leftCameraPos;
-	[SerializeField] private Transform bonusCameraPos;
-	
+	private Vector3 _initLocalPosition;
+	private Quaternion _iniLocalRotation;
+
 	private void OnEnable()
 	{
-		GameEvents.RightCurveCameraShift += RightCurveCameraPosition;
-		GameEvents.LeftCurveCameraShift += LeftCurveCameraPosition;
+		GameEvents.EnterHelix += OnEnterHelix;
+		GameEvents.ExitHelix += OnExitHelix;
 		GameEvents.ResetCameraPosition += CameraResetPosition;
 		GameEvents.ReachEndOfTrack += BonusCameraPosition;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.RightCurveCameraShift -= RightCurveCameraPosition;
-		GameEvents.LeftCurveCameraShift -= LeftCurveCameraPosition;		
+		GameEvents.EnterHelix -= OnEnterHelix;
+		GameEvents.ExitHelix -= OnExitHelix;
 		GameEvents.ResetCameraPosition -= CameraResetPosition;
 		GameEvents.ReachEndOfTrack -= BonusCameraPosition;
 	}
 
-	private void Start() => _transform = transform;
+	private void Start()
+	{
+		_transform = transform;
+
+		_initLocalPosition = target.localPosition;
+		_iniLocalRotation = target.localRotation;
+	}
 
 	private void LateUpdate()
 	{
-		//_transform.position = Vector3.Lerp(_transform.position, target.position, Time.deltaTime * lerpMul);
 		_transform.position = target.position;
 		_transform.rotation = Quaternion.SlerpUnclamped(_transform.rotation, target.rotation, Time.deltaTime * lerpMul);
 	}
 
-	private void LeftCurveCameraPosition()
+	private void OnEnterHelix(bool isLeftHelix)
 	{
-		//target.DOLocalMove(target.localPosition + Vector3.right * 5.5f,0.5f);
-		target.DOLocalMove(leftCameraPos.localPosition,0.5f);
-		target.DOLocalRotate( new Vector3(15f,-30f,0f) , 0.5f); 
+		target.DOLocalMove(leftCameraPos.localPosition, cameraTransitionDuration);
+		target.DOLocalRotate( new Vector3(15f,-30f,0f) , cameraTransitionDuration); 
 	}
-	
+
 	private void RightCurveCameraPosition()
 	{
-		target.DOLocalMove(target.localPosition + Vector3.right * -5.5f,0.5f);
-		target.DOLocalRotate( new Vector3(-15f,30f,0f) , 0.5f); 
+		target.DOLocalMove(target.localPosition + Vector3.right * -5.5f,cameraTransitionDuration);
+		target.DOLocalRotate( new Vector3(-15f,30f,0f) , cameraTransitionDuration); 
 	}
+
+	private void OnExitHelix() => CameraResetPosition();
 
 	private void CameraResetPosition()
 	{
-		target.DOLocalMove(new Vector3(0f,12.18f,-21.14f), 0.5f);
-		target.DOLocalRotate(new Vector3(22.276f,0f,0f) , 0.5f); 		
+		target.DOLocalMove(_initLocalPosition, cameraTransitionDuration);
+		target.DOLocalRotateQuaternion(_iniLocalRotation, cameraTransitionDuration);
 	}
 
 	private void BonusCameraPosition()
 	{
-		target.DOLocalMove(bonusCameraPos.localPosition ,0.5f);
+		target.DOLocalMove(bonusCameraPos.localPosition, cameraTransitionDuration);
 	}
 }

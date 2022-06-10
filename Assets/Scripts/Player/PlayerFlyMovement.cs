@@ -5,10 +5,7 @@ namespace Player
 {
 	public class PlayerFlyMovement : MonoBehaviour
 	{
-		[SerializeField] private float minimumMoveSpeed = 5f;
-		[SerializeField] private float maximumMoveSpeed = 5f;
-		[SerializeField] private float minimumDownSpeed = 5f;
-		[SerializeField] private float maximumDownSpeed = 5f;
+		[SerializeField] private Limits forwardSpeedLimits, downwardSpeedLimits;
 
 		private Transform _transform;
 		private Vector3 _currentMovementVector;
@@ -31,19 +28,19 @@ namespace Player
 		{
 			_transform = transform;
 		}
-
+		
 		public void SetForwardOrientedValues()
 		{
 			if (_hasStopped) return;
-			_currentForwardSpeed = maximumMoveSpeed;
-			_currentDownSpeed = minimumDownSpeed;
+			_currentForwardSpeed = forwardSpeedLimits.max;
+			_currentDownSpeed = downwardSpeedLimits.min;
 		}
 
 		public void SetDownwardOrientedValues()
 		{
 			if (_hasStopped) return;
-			_currentForwardSpeed = minimumMoveSpeed;
-			_currentDownSpeed = maximumDownSpeed;
+			_currentForwardSpeed = forwardSpeedLimits.min;
+			_currentDownSpeed = downwardSpeedLimits.max;
 		}
 		
 		public void CalculateForwardMovement() => 
@@ -66,8 +63,8 @@ namespace Player
 		private void OnStopTheRollerCoaster()
 		{
 			_hasStopped = true;
-			minimumMoveSpeed = maximumMoveSpeed = _currentForwardSpeed = 0f;
-			minimumDownSpeed = maximumDownSpeed = _currentDownSpeed = 0f;
+			forwardSpeedLimits.min = forwardSpeedLimits.max = _currentForwardSpeed = 0f;
+			downwardSpeedLimits.min = downwardSpeedLimits.max = _currentDownSpeed = 0f;
 		}
 	}
 }

@@ -38,14 +38,14 @@ public class PlayerControllerOld : MonoBehaviour
 
 	private void OnEnable()
 	{
-		GameEvents.Explosion += OnExplosion;
+		GameEvents.ObstacleCollision += OnExplosion;
 		GameEvents.ReachEndOfTrack += ToFly;
 		GameEvents.StopOnBonusRamp += OnStopTheRollerCoaster;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.Explosion -= OnExplosion;
+		GameEvents.ObstacleCollision -= OnExplosion;
 		GameEvents.ReachEndOfTrack -= ToFly;
 		GameEvents.StopOnBonusRamp -= OnStopTheRollerCoaster;
 	}
@@ -146,8 +146,8 @@ public class PlayerControllerOld : MonoBehaviour
 		minSpeed = 50f;
 		maxSpeed = 90f;
 		speedParticleSystem.SetActive(true);
-		GameEvents.InvokeGetHyped();
-		GameManager.Instance.SpeedPushEffect();
+		GameEvents.InvokeUpdateHype(true);
+		CameraFxController.only.DoWideFov();
 	}
 
 	public void AssignCurveSpeed()
@@ -155,9 +155,9 @@ public class PlayerControllerOld : MonoBehaviour
 		minSpeed = 50f;
 		maxSpeed = 90f;
 		speedParticleSystem.SetActive(true);
-		GameEvents.InvokeGetHyped();
-		GameEvents.InvokeLeftCurveCameraShift();
-		GameManager.Instance.SpeedPushEffect();
+		GameEvents.InvokeUpdateHype(true);
+		GameEvents.InvokeEnterHelix(true);
+		CameraFxController.only.DoWideFov();
 	}
 
 	public void ResetMaxSpeed()
@@ -165,9 +165,9 @@ public class PlayerControllerOld : MonoBehaviour
 		minSpeed = 30f;
 		maxSpeed = 50f;
 		speedParticleSystem.SetActive(false);
-		GameEvents.InvokeNoHype();
+		GameEvents.InvokeUpdateHype(false);
 		GameEvents.InvokeResetCameraPosition();
-		GameManager.Instance.SpeedPullEffect();
+		CameraFxController.only.DoNormalFov();
 	}
 
 	private void OnExplosion()
@@ -198,6 +198,6 @@ public class PlayerControllerOld : MonoBehaviour
 
 	public void BonusJumpHype()
 	{
-		GameEvents.InvokeGetHyped();
+		GameEvents.InvokeUpdateHype(true);
 	}
 }

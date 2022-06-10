@@ -9,24 +9,40 @@ public class SplineTriggerHelper : MonoBehaviour
 		_player = GameObject.FindWithTag("Player").GetComponent<Player.PlayerRefBank>();
 	}
 
-	public void EnterDownhill()
-	{
-		_player.TrackMovement.SetDownhillSpeedValues();
-		CameraFxController.only.SetSpeedLinesStatus(true);
-		GameEvents.InvokeGetHyped();
-		GameManager.Instance.SpeedPushEffect();
-	}
+	public void EnterHighSpeed() => EnterAction();
 
-	public void EnterPlain()
+	public void EnterNormalSpeed() => EnterNormalcy();
+
+	public void EnterHelix(bool isLeftHelix)
 	{
-		_player.TrackMovement.SetPlainSpeedValues();
+		EnterAction();
+		
 		CameraFxController.only.SetSpeedLinesStatus(false);
+		GameEvents.InvokeEnterHelix(isLeftHelix);
 	}
 
-	public void EnterHelix()
+	public void ExitHelix()
 	{
-		_player.TrackMovement.SetDownhillSpeedValues();
-		GameEvents.InvokeGetHyped();
-		GameManager.Instance.SpeedPushEffect();
+		EnterNormalcy();
+		
+		GameEvents.InvokeExitHelix();
 	}
+
+	private void EnterNormalcy()
+	{
+		_player.TrackMovement.SetNormalSpeedValues();
+		GameEvents.InvokeUpdateHype(false);
+		CameraFxController.only.SetSpeedLinesStatus(false);
+		CameraFxController.only.DoNormalFov();
+	}
+
+	private void EnterAction()
+	{
+		_player.TrackMovement.SetHighSpeedValues();
+		CameraFxController.only.SetSpeedLinesStatus(true);
+		GameEvents.InvokeUpdateHype(true);
+		CameraFxController.only.DoWideFov();
+	}
+	
+	public void OnReachTrackEnd() => GameEvents.InvokeUpdateHype(true);
 }

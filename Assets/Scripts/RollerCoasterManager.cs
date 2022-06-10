@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class RollerCoasterManager : MonoBehaviour
 {
-	private GameManager _gameManager;
-
 	[SerializeField] private List<GameObject> additionalKarts;
 	[SerializeField] private List<Wagon> wagons;
 	[SerializeField] private List<KartFollow> kartFollows;
@@ -16,8 +14,7 @@ public class RollerCoasterManager : MonoBehaviour
 	
 	private void Start()
 	{
-		_gameManager = GameManager.Instance;
-		_gameManager.totalAdditionalKarts = additionalKarts.Count;
+		GameManager.Instance.totalAdditionalKarts = additionalKarts.Count;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -35,7 +32,7 @@ public class RollerCoasterManager : MonoBehaviour
 		}*/
 		if (other.CompareTag("ObstacleTrain"))
 		{
-			GameEvents.InvokeExplosion();
+			GameEvents.InvokeObstacleCollision();
 			Explode();
 		}
 	}
@@ -63,11 +60,11 @@ public class RollerCoasterManager : MonoBehaviour
 			yield return new WaitForSeconds(0.15f);
 			additionalKarts[i].transform.GetChild(1).gameObject.SetActive(true);
 			availablePassengers.Add(additionalKarts[i].transform.GetChild(1).gameObject);
-			_gameManager.numberOfActiveKarts++;
+			GameManager.Instance.numberOfActiveKarts++;
 			yield return new WaitForSeconds(0.15f);
 			additionalKarts[i].transform.GetChild(2).gameObject.SetActive(true);
 			availablePassengers.Add(additionalKarts[i].transform.GetChild(2).gameObject);
-			_gameManager.numberOfActiveKarts++;
+			GameManager.Instance.numberOfActiveKarts++;
 		}
 	}
 
@@ -82,10 +79,8 @@ public class RollerCoasterManager : MonoBehaviour
 			for (var i = 0; i < 3; i++) kart.transform.GetChild(i).gameObject.SetActive(false);
 			kart.transform.GetChild(3).gameObject.SetActive(true);
 
-			_gameManager.numberOfActiveKarts--;
+			GameManager.Instance.numberOfActiveKarts--;
 		}
-
-		GameEvents.InvokeExplosionCameraPushBack();
 	}
 
 	public void DisableTheKarts(int kartsToHide)
@@ -95,12 +90,12 @@ public class RollerCoasterManager : MonoBehaviour
 
 	private IEnumerator KartDisableRoutine(int kartsToHide)
 	{
-		if (kartsToHide > _gameManager.numberOfActiveKarts)
+		if (kartsToHide > GameManager.Instance.numberOfActiveKarts)
 			print("Level Fail");
 		else
 			for (var i = 0; i < kartsToHide; i++)
 			{
-				_gameManager.numberOfActiveKarts--;
+				GameManager.Instance.numberOfActiveKarts--;
 
 				additionalKarts[i].SetActive(false);
 				additionalKarts[i].transform.GetChild(0).gameObject.SetActive(false);
@@ -145,6 +140,7 @@ public class RollerCoasterManager : MonoBehaviour
 			kartFollows[index].enabled = true;
 		}
 
+		print("end");
 		GameEvents.InvokeReachEndOfTrack();
 	}
 
@@ -155,10 +151,5 @@ public class RollerCoasterManager : MonoBehaviour
 		availablePassengers.RemoveAt(count - 1);
 
 		kart.gameObject.SetActive(false);
-		/*
-		kart.transform.GetChild(0).gameObject.SetActive(false);
-		kart.transform.GetChild(1).gameObject.SetActive(false);
-		kart.transform.GetChild(2).gameObject.SetActive(false);	
-		*/
 	}
 }

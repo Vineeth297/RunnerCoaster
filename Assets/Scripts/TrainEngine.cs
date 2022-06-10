@@ -1,10 +1,8 @@
 namespace Dreamteck.Splines.Examples
 {
-	using System.Collections;
 	using System.Collections.Generic;
 	using UnityEngine;
 	using Splines;
-	using System;
 
 	public class TrainEngine : MonoBehaviour
 	{

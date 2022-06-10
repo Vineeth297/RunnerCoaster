@@ -43,13 +43,5 @@ public class GameManager : MonoBehaviour
 		print(_camera.transform.position);
 	}
 
-	public void SpeedPullEffect()
-	{
-		_camera.DOFieldOfView(60, 0.5f);
-	}
-
-	public void SpeedPushEffect()
-	{
-		_camera.DOFieldOfView(70, 0.5f);
-	}
+	
 }

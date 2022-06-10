@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -17,7 +16,6 @@ public class BonusRamp : MonoBehaviour
 		print("Here");
 		if(other.CompareTag("Player"))
 			DisablePassengersForBonusRamp();
-		
 	}
 
 	private void DisablePassengersForBonusRamp()

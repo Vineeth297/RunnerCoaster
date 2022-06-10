@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class KartFollow : MonoBehaviour
@@ -18,8 +16,5 @@ public class KartFollow : MonoBehaviour
 			Time.deltaTime * damping);
 		transform.position = smoothPos;
 		transform.eulerAngles = charToFollow.eulerAngles;
-
-		/*transform.position = charToFollow.transform.position + followOffset;
-		transform.eulerAngles = charToFollow.eulerAngles;*/
 	}
 }

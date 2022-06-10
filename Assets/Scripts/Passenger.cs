@@ -8,14 +8,12 @@ public class Passenger : MonoBehaviour
 
 	private void OnEnable()
 	{
-		GameEvents.GetHyped += OnHype;
-		GameEvents.NoHype += OnNoHype;
+		GameEvents.UpdateHype += OnUpdateHype;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.GetHyped -= OnHype;
-		GameEvents.NoHype += OnNoHype;
+		GameEvents.UpdateHype -= OnUpdateHype;
 	}
 
 	private void Start()
@@ -23,13 +21,5 @@ public class Passenger : MonoBehaviour
 		_animator = GetComponent<Animator>();
 	}
 
-	private void OnHype()
-	{
-		_animator.SetBool(HypeHash, true);
-	}
-
-	private void OnNoHype()
-	{
-		_animator.SetBool(HypeHash, false);
-	}
+	private void OnUpdateHype(bool newStatus) => _animator.SetBool(HypeHash, newStatus);
 }

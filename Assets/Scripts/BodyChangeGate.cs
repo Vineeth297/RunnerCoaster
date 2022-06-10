@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -28,8 +27,8 @@ public class BodyChangeGate : MonoBehaviour
 		else
 			transform.GetChild(0).GetComponent<MeshRenderer>().material.color = negativeColor;
 
-		transform.position -= Vector3.right * horizontalDistance;
-		transform.DOMoveX(transform.position.x + horizontalDistance, moveDuration)
+		transform.position -= transform.right * horizontalDistance / 2;
+		transform.DOMove(transform.position + transform.right * horizontalDistance, moveDuration)
 			.SetEase(Ease.Linear)
 			.SetLoops(-1, LoopType.Yoyo);
 	}
@@ -45,7 +44,6 @@ public class BodyChangeGate : MonoBehaviour
 			case ChangeType.Add:
 			{
 				//DO Something
-				print("Here");
 				rollerCoasterManager.SpawnTheKarts(factor);
 				break;
 			}
