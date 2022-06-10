@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Kart;
 using UnityEngine;
 
 public class BonusRamp : MonoBehaviour
 {
-	public RollerCoasterManager rollerCoasterManager;
-	
 	[SerializeField] private List<GameObject> bonusRampPassengers;
+	private MainKartRefBank _mainKart;
 
-	public PlayerControllerOld player;
+	private void Start()
+	{
+		_mainKart = GameObject.FindGameObjectWithTag("Player").GetComponent<MainKartRefBank>();
+	}
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -20,25 +23,22 @@ public class BonusRamp : MonoBehaviour
 
 	private void DisablePassengersForBonusRamp()
 	{
-		StartCoroutine(BonusRampPassengersDisablingRoutine());
+		StartCoroutine(BonusRampPassengersDisablingRoutine(bonusRampPassengers));
 	}
-
-	private IEnumerator BonusRampPassengersDisablingRoutine()
+	
+	private IEnumerator BonusRampPassengersDisablingRoutine(List<GameObject> bonusRampPassengers)
 	{
 		var i = 0;
-		player.minSpeed = 10f;
-		player.maxSpeed = 40f;
-		player.speed = 10f;
-		foreach (var passenger in rollerCoasterManager.availablePassengers)
+		_mainKart.TrackMovement.SetNormalSpeedValues();
+		_mainKart.TrackMovement.currentSpeed = 10f;
+		foreach (var passenger in _mainKart.AdditionalKartManager.GetAvailablePassengers())
 		{
 			passenger.transform.DOJump(bonusRampPassengers[i].transform.position, 5f,1,0.5f).
-				OnComplete(()=>passenger.SetActive(false));
-			bonusRampPassengers[i].SetActive(true);
-			i++;
+				OnComplete(() => passenger.SetActive(false));
+			bonusRampPassengers[i++].SetActive(true);
 			yield return new WaitForSeconds(0.20f);
 		}
 
 		GameEvents.InvokeBonusCameraPushBack();
 	}
-	
 }

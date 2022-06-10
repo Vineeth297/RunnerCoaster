@@ -1,13 +1,13 @@
-﻿using Player;
+﻿using Kart;
 
 namespace StateMachine
 {
 	public class TrackStateBase : InputStateBase
 	{
-		protected static PlayerTrackMovement Player { get; private set; }
+		protected static KartTrackMovement Player { get; private set; }
 		
 		protected TrackStateBase() { }
-		public TrackStateBase(PlayerTrackMovement player) => Player = player;
+		public TrackStateBase(KartTrackMovement player) => Player = player;
 
 		protected static void CalculateForces() => Player.CalculateForces();
 

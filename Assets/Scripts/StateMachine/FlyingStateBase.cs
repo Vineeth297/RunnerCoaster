@@ -1,13 +1,13 @@
-﻿using Player;
+﻿using Kart;
 
 namespace StateMachine
 {
 	public class FlyingStateBase : InputStateBase
 	{
-		protected static PlayerFlyMovement Fly;
+		protected static KartFlyMovement Fly;
 
 		protected FlyingStateBase() { }
-		public FlyingStateBase(PlayerFlyMovement fly) => Fly = fly;
+		public FlyingStateBase(KartFlyMovement fly) => Fly = fly;
 
 		public override void Execute()
 		{

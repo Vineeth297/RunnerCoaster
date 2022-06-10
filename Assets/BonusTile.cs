@@ -1,9 +1,10 @@
 using DG.Tweening;
+using Kart;
 using UnityEngine;
 
 public class BonusTile : MonoBehaviour
 {
-	[SerializeField] private RollerCoasterManager rollerCoasterManager;
+	[SerializeField] private AdditionalKartManager rollerCoasterManager;
 	private Collider _collider;
 
 	private void Start()
@@ -16,14 +17,14 @@ public class BonusTile : MonoBehaviour
 		if (!other.CompareTag("Player")) return;
 		var myPassengerChild = transform.GetChild(1);
 
-		if (rollerCoasterManager.availablePassengers.Count <= 0)
+		if (rollerCoasterManager.GetAvailablePassengers().Count <= 0)
 		{
 			GameEvents.InvokeStopOnBonusRamp();
 			return;
 		}
 		
-		var kartPassenger = rollerCoasterManager.availablePassengers[^1];
-		rollerCoasterManager.availablePassengers.Remove(kartPassenger);
+		var kartPassenger = rollerCoasterManager.GetAvailablePassengers()[^1];
+		rollerCoasterManager.GetAvailablePassengers().Remove(kartPassenger);
 		kartPassenger.transform.DOJump(myPassengerChild.position,
 			5f,
 			1,

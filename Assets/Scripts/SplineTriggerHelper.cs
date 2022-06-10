@@ -1,12 +1,13 @@
+using Kart;
 using UnityEngine;
 
 public class SplineTriggerHelper : MonoBehaviour
 {
-	private Player.PlayerRefBank _player;
+	private MainKartRefBank _player;
 
 	private void Start()
 	{
-		_player = GameObject.FindWithTag("Player").GetComponent<Player.PlayerRefBank>();
+		_player = GameObject.FindWithTag("Player").GetComponent<MainKartRefBank>();
 	}
 
 	public void EnterHighSpeed() => EnterAction();

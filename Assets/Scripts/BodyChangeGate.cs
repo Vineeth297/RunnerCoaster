@@ -1,4 +1,6 @@
+using System;
 using DG.Tweening;
+using Kart;
 using TMPro;
 using UnityEngine;
 
@@ -6,7 +8,7 @@ public class BodyChangeGate : MonoBehaviour
 {
 	private enum ChangeType { Add, Subtract, Multiply, Divide }
 
-	[SerializeField] private RollerCoasterManager rollerCoasterManager;
+	[SerializeField] private AdditionalKartManager rollerCoasterManager;
 
 	[SerializeField] private float moveDuration = 3f;
 	[SerializeField] private float horizontalDistance;
@@ -41,29 +43,19 @@ public class BodyChangeGate : MonoBehaviour
 		switch (changeType)
 		{
 			case ChangeType.Add:
-			{
-				//DO Something
-				rollerCoasterManager.SpawnTheKarts(factor);
+				rollerCoasterManager.SpawnKarts(factor);
 				break;
-			}
 			case ChangeType.Subtract:
-			{
-				//DO Something
-				rollerCoasterManager.DisableTheKarts(factor);
+				rollerCoasterManager.HideKarts(factor);
 				break;
-			}
 			case ChangeType.Multiply:
-			{
-				//DO Something
-				rollerCoasterManager.SpawnTheKarts(factor);
+				rollerCoasterManager.SpawnKarts(factor);
 				break;
-			}
 			case ChangeType.Divide:
-			{
-				//DO Something
-				rollerCoasterManager.DisableTheKarts(factor);
+				rollerCoasterManager.HideKarts(factor);
 				break;
-			}
+			default:
+				throw new ArgumentOutOfRangeException();
 		}
 	}
 

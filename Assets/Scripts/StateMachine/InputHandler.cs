@@ -1,4 +1,5 @@
 using System;
+using Kart;
 using UnityEngine;
 
 public enum InputState { Disabled, IdleOnTracks, MoveOnTracks, FallingFlying, ForwardFlying }
@@ -40,8 +41,8 @@ namespace StateMachine
 
 			var player = GameObject.FindGameObjectWithTag("Player");
 
-			_ = new TrackStateBase(player.GetComponent<Player.PlayerTrackMovement>());
-			_ = new FlyingStateBase(player.GetComponent<Player.PlayerFlyMovement>());
+			_ = new TrackStateBase(player.GetComponent<KartTrackMovement>());
+			_ = new FlyingStateBase(player.GetComponent<KartFlyMovement>());
 
 			_currentInputState = IdleOnTrackState;
 		}
