@@ -1,20 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Dreamteck.Splines;
 using Dreamteck.Splines.Examples;
 using UnityEngine;
 
 public class RollerCoasterManager : MonoBehaviour
 {
+	[SerializeField] private GameObject kartPrefab;
+	
 	[SerializeField] private List<GameObject> additionalKarts;
 	[SerializeField] private List<Wagon> wagons;
 	[SerializeField] private List<KartFollow> kartFollows;
 
 	public List<GameObject> availablePassengers;
-	
+	private Wagon _lastKart;
+
 	private void Start()
 	{
 		GameManager.Instance.totalAdditionalKarts = additionalKarts.Count;
+		_lastKart = GetComponent<Wagon>();
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -47,9 +52,26 @@ public class RollerCoasterManager : MonoBehaviour
 
 	public void SpawnTheKarts(int kartsToSpawn)
 	{
-		StartCoroutine(KartSpawnRoutine(kartsToSpawn));
+		//StartCoroutine(KartSpawnRoutine(kartsToSpawn));
+
+		DOVirtual.DelayedCall(0.15f, SpawnNewKart).SetLoops(kartsToSpawn);
 	}
 
+	private void SpawnNewKart()
+	{
+		var newKart = Instantiate(kartPrefab, transform.parent);
+
+		newKart.transform.GetChild(0).gameObject.SetActive(true);
+		newKart.transform.GetChild(1).gameObject.SetActive(true);
+		newKart.transform.GetChild(2).gameObject.SetActive(true);
+		var wagon = newKart.GetComponent<Wagon>();
+
+		_lastKart.back = wagon;
+		wagon.Setup(_lastKart);
+
+		_lastKart = wagon;
+	}
+	
 	private IEnumerator KartSpawnRoutine(int kartsToSpawn)
 	{
 		for (var i = 0; i < kartsToSpawn; i++)

@@ -99,7 +99,9 @@ namespace Dreamteck.Splines.Examples
 			//run a recursive setup for the rest of the wagons
 			if (isEngine) SetupRecursively(null, new SplineSegment(tracer.spline, -1, tracer.direction));
 		}
-		
+
+		public void Setup(Wagon lastKart) => SetupRecursively(lastKart, lastKart.segment);
+
 		private void SetupRecursively(Wagon frontWagon, SplineSegment inputSegment)
 		{
 			front = frontWagon;

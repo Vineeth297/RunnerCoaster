@@ -13,9 +13,8 @@ public class BodyChangeGate : MonoBehaviour
 
 	[SerializeField] private int factor;
 	[SerializeField] private TMP_Text text;
-	[SerializeField] private ChangeType changeType = ChangeType.Add;
-	[SerializeField] private Color positiveColor;
-	[SerializeField] private Color negativeColor;
+	[SerializeField] private ChangeType changeType;
+	[SerializeField] private Color positiveColor, negativeColor;
 
 	private bool _hasBeenUsed;
 	private bool _isAtExtreme;
