@@ -31,8 +31,12 @@ namespace Kart
 			_lastKart = GetComponent<Wagon>();
 			_my = GetComponent<MainKartRefBank>();
 
-			_availablePassengers = new List<GameObject>();
 			_additionalKarts = new List<AdditionalKartRefBank>();
+			_availablePassengers = new List<GameObject>();
+			
+			//add main kart passengers
+			_availablePassengers.Add(transform.GetChild(1).gameObject);
+			_availablePassengers.Add(transform.GetChild(2).gameObject);
 		}
 
 		private void PickUpThePassengers(GameObject platform)
@@ -51,7 +55,11 @@ namespace Kart
 		{
 			var newKart = Instantiate(kartPrefab, transform.parent).GetComponent<AdditionalKartRefBank>();
 			_additionalKarts.Add(newKart);
-
+			
+			//add new kart passengers
+			_availablePassengers.Add(newKart.transform.GetChild(1).gameObject);
+			_availablePassengers.Add(newKart.transform.GetChild(2).gameObject);
+			
 			newKart.transform.GetChild(0).gameObject.SetActive(true);
 			newKart.transform.GetChild(1).gameObject.SetActive(true);
 			newKart.transform.GetChild(2).gameObject.SetActive(true);

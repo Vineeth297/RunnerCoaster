@@ -5,11 +5,14 @@ using UnityEngine;
 public class BonusTile : MonoBehaviour
 {
 	[SerializeField] private AdditionalKartManager rollerCoasterManager;
+	public MeshRenderer meshRenderer;
+	
 	private Collider _collider;
 
 	private void Start()
 	{
 		_collider = GetComponent<Collider>();
+		meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
 	}
 
 	private void OnTriggerEnter(Collider other)

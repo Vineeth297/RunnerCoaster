@@ -110,6 +110,7 @@ namespace Kart
 			if (back != null) back.SetupRecursively(this, segment);
 		}
 
+
 		public void UpdateOffset()
 		{
 			ApplyOffset();

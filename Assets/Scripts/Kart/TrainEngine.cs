@@ -28,7 +28,6 @@ namespace Kart
 			if (!(_tracer is SplineFollower follower)) return;
 			if (!_tracer) return;
 			
-			Debug.Log("Subscribing to follower");
 			follower.onBeginningReached += FollowerOnBeginningReached;
 			follower.onEndReached += FollowerOnEndReached;
 		}

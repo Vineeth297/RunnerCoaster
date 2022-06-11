@@ -10,6 +10,8 @@ namespace Kart
 		
 		private void LateUpdate()
 		{
+			if(!charToFollow) return;
+			
 			var smoothPos = Vector3.Lerp(transform.position, charToFollow.position + followOffset,
 				Time.deltaTime * damping);
 			transform.position = smoothPos;

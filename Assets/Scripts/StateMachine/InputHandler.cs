@@ -88,7 +88,7 @@ namespace StateMachine
 			return _currentInputState;
 		}
 
-		public static void AssignNewState(InputState state)
+		private static void AssignNewState(InputState state)
 		{
 			_currentInputState?.OnExit();
 			_currentInputState = state switch

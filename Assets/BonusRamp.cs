@@ -1,44 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
-using Kart;
 using UnityEngine;
 
 public class BonusRamp : MonoBehaviour
 {
-	[SerializeField] private List<GameObject> bonusRampPassengers;
-	private MainKartRefBank _mainKart;
+	[SerializeField] private BonusTile[] leftTiles, rightTiles;
+	[SerializeField] private Color[] colors;
 
 	private void Start()
 	{
-		_mainKart = GameObject.FindGameObjectWithTag("Player").GetComponent<MainKartRefBank>();
+		DOVirtual.DelayedCall(0.2f, GiveColors);
 	}
 
-	private void OnTriggerEnter(Collider other)
+	private void GiveColors()
 	{
-		print("Here");
-		if(other.CompareTag("Player"))
-			DisablePassengersForBonusRamp();
-	}
+		var currentStartColor = colors[0];
+		var currentEndColor = colors[1];
 
-	private void DisablePassengersForBonusRamp()
-	{
-		StartCoroutine(BonusRampPassengersDisablingRoutine(bonusRampPassengers));
-	}
-	
-	private IEnumerator BonusRampPassengersDisablingRoutine(List<GameObject> bonusRampPassengers)
-	{
-		var i = 0;
-		_mainKart.TrackMovement.SetNormalSpeedValues();
-		_mainKart.TrackMovement.currentSpeed = 10f;
-		foreach (var passenger in _mainKart.AdditionalKartManager.GetAvailablePassengers())
+		var perCombo = leftTiles.Length / colors.Length;
+		for (var i = 0; i < leftTiles.Length; i++)
 		{
-			passenger.transform.DOJump(bonusRampPassengers[i].transform.position, 5f,1,0.5f).
-				OnComplete(() => passenger.SetActive(false));
-			bonusRampPassengers[i++].SetActive(true);
-			yield return new WaitForSeconds(0.20f);
+			if (i > 0 && (i % perCombo) == 0)
+			{
+				print($"{i / perCombo} for {i}");
+				currentStartColor = colors[(i / perCombo) - 1];
+				currentEndColor = colors[(i / perCombo)];
+			}
+			var color = Color.Lerp(currentStartColor, currentEndColor, (float) (i % perCombo) / perCombo);
+			leftTiles[i].meshRenderer.material.color = rightTiles[i].meshRenderer.material.color = color;
 		}
-
-		GameEvents.InvokeBonusCameraPushBack();
 	}
 }
