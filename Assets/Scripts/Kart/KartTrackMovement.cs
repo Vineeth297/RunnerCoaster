@@ -83,7 +83,7 @@ namespace Kart
 
 		private void StopFollowingTrack() => _my.Follower.follow = false;
 
-		private void OnExplosion() => StopFollowingTrack();
+		private void OnExplosion(Vector3 collisionPoint) => StopFollowingTrack();
 
 		private void OnReachEndOfTrack() => StopFollowingTrack();
 	}

@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
+		DOTween.KillAll();
+
 		if (Instance)
 			Destroy(gameObject);
 		else
@@ -42,6 +44,4 @@ public class GameManager : MonoBehaviour
 		_camera.transform.localPosition += new Vector3(0f, cameraIncrementInY, -cameraIncrementInZ);
 		print(_camera.transform.position);
 	}
-
-	
 }

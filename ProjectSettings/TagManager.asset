@@ -9,6 +9,7 @@ TagManager:
   - ObstacleTrain
   - BonusRamp
   - BonusTile
+  - Kart
   layers:
   - Default
   - TransparentFX

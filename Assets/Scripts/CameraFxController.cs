@@ -4,10 +4,9 @@ using UnityEngine;
 public class CameraFxController : MonoBehaviour
 {
 	public static CameraFxController only;
-	
-	[SerializeField] private GameObject finalPosition;
-	
+
 	[SerializeField] private GameObject speedParticleSystem;
+	[SerializeField] private Transform finalPosition;
 	private Camera _cam;
 
 	private void Awake()
@@ -24,13 +23,11 @@ public class CameraFxController : MonoBehaviour
 	private void OnEnable()
 	{
 		GameEvents.ObstacleCollision += OnObstacleCollision;
-		GameEvents.BonusCameraPushBack += OnBonus;
 	}
 
 	private void OnDisable()
 	{
 		GameEvents.ObstacleCollision -= OnObstacleCollision;
-		GameEvents.BonusCameraPushBack -= OnBonus;
 	}
 	
 	public void DoNormalFov() => _cam.DOFieldOfView(60, 0.5f);
@@ -38,14 +35,10 @@ public class CameraFxController : MonoBehaviour
 	public void DoWideFov() => _cam.DOFieldOfView(70, 0.5f);
 
 	public void SetSpeedLinesStatus(bool status) => speedParticleSystem.SetActive(status);
+	
 
-	private void MoveToFinalPosition() => _cam.transform.DOMove(finalPosition.transform.position, 0.5f);
-
-	private void OnObstacleCollision()
+	private void OnObstacleCollision(Vector3 collisionPoint)
 	{
-		MoveToFinalPosition();
 		SetSpeedLinesStatus(false);
 	}
-
-	private void OnBonus() => MoveToFinalPosition();
 }

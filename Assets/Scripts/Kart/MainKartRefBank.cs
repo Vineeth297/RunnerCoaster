@@ -10,13 +10,15 @@ namespace Kart
 		public KartFlyMovement FlyMovement { get; private set; }
 		
 		public AdditionalKartManager AdditionalKartManager { get; private set; }
-		
+		public Collider BoxCollider { get; private set; }
+
 		private void Start()
 		{
 			TrackMovement = GetComponent<KartTrackMovement>();
 			FlyMovement = GetComponent<KartFlyMovement>();
 			Follower = GetComponent<SplineFollower>();
 			AdditionalKartManager = GetComponent<AdditionalKartManager>();
+			BoxCollider = GetComponent<Collider>();
 		}
 	}
 }
