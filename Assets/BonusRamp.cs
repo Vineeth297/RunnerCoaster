@@ -16,21 +16,21 @@ public class BonusRamp : MonoBehaviour
 	private void GiveColors()
 	{
 		if(leftTiles.Length == 0) return;
-		
-		var currentStartColor = colors[0];
-		var currentEndColor = colors[1];
 
-		var perCombo = leftTiles.Length / colors.Length;
+		var lastToColor = 1;
+		var currentStartColor = colors[lastToColor - 1];
+		var currentEndColor = colors[lastToColor];
+
+		var perCombo = Mathf.CeilToInt((float) leftTiles.Length / colors.Length) + 1;
 		for (var i = 0; i < leftTiles.Length; i++)
 		{
-			if (i > 0 && (i % perCombo) == 0)
-			{
-				print($"{i / perCombo} for {i}");
-				currentStartColor = colors[(i / perCombo) - 1];
-				currentEndColor = colors[(i / perCombo)];
-			}
-			var color = Color.Lerp(currentStartColor, currentEndColor, (float) (i % perCombo) / perCombo);
+			var color = Color.Lerp(currentStartColor, currentEndColor, (float) (i - lastToColor % (perCombo + 1)) / perCombo);
 			leftTiles[i].meshRenderer.material.color = rightTiles[i].meshRenderer.material.color = color;
+
+			if (i == 0 || (i % perCombo) != 0) continue;
+			lastToColor++;
+			currentStartColor = colors[lastToColor - 1];
+			currentEndColor = colors[lastToColor];
 		}
 	}
 	

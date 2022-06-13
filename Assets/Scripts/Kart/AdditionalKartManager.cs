@@ -10,11 +10,12 @@ namespace Kart
 		[SerializeField] private GameObject kartPrefab;
 		[SerializeField] private float forceMultiplier, upForce;
 
-		private List<GameObject> _availablePassengers;
 		private List<AdditionalKartController> _additionalKarts;
+		public List<GameObject> AvailablePassengers { get; private set; }
 
 		private Wagon _lastKart;
 		private MainKartController _my;
+
 
 		private void OnEnable()
 		{
@@ -32,11 +33,14 @@ namespace Kart
 			_my = GetComponent<MainKartController>();
 
 			_additionalKarts = new List<AdditionalKartController>();
-			_availablePassengers = new List<GameObject>();
-			
+			var childCount = transform.GetChild(0).childCount;
+			AvailablePassengers = new List<GameObject>
+			{
+				transform.GetChild(0).GetChild(childCount - 1).gameObject,
+				transform.GetChild(0).GetChild(childCount - 2).gameObject
+			};
+
 			//add main kart passengers
-			_availablePassengers.Add(transform.GetChild(1).gameObject);
-			_availablePassengers.Add(transform.GetChild(2).gameObject);
 		}
 
 		private void PickUpThePassengers(GameObject platform)
@@ -47,8 +51,6 @@ namespace Kart
 			pickupPlatform.JumpOnToTheKart();
 		}
 
-		public List<GameObject> GetAvailablePassengers() => _availablePassengers;
-		
 		public void SpawnKarts(int kartsToSpawn) => DOVirtual.DelayedCall(0.15f, SpawnNewKart).SetLoops(kartsToSpawn);
 
 		private void SpawnNewKart()
@@ -57,8 +59,8 @@ namespace Kart
 			_additionalKarts.Add(newKart);
 			
 			//add new kart passengers
-			_availablePassengers.Add(newKart.transform.GetChild(1).gameObject);
-			_availablePassengers.Add(newKart.transform.GetChild(2).gameObject);
+			AvailablePassengers.Add(newKart.transform.GetChild(1).gameObject);
+			AvailablePassengers.Add(newKart.transform.GetChild(2).gameObject);
 			
 			newKart.transform.GetChild(0).gameObject.SetActive(true);
 			newKart.transform.GetChild(1).gameObject.SetActive(true);
@@ -115,7 +117,7 @@ namespace Kart
 			var player = GetComponent<KartTrackMovement>();
 			player.SetNormalSpeedValues();
 			player.currentSpeed = 30f;
-			foreach (var passenger in _availablePassengers)
+			foreach (var passenger in AvailablePassengers)
 			{
 				passenger.SetActive(false);
 				yield return new WaitForSeconds(0.20f);
@@ -124,9 +126,9 @@ namespace Kart
 
 		public void JumpOnToBonusPlatform()
 		{
-			var count = _availablePassengers.Count;
+			var count = AvailablePassengers.Count;
 			var kart = _additionalKarts[^1].transform;
-			_availablePassengers.RemoveAt(count - 1);
+			AvailablePassengers.RemoveAt(count - 1);
 
 			kart.gameObject.SetActive(false);
 		}

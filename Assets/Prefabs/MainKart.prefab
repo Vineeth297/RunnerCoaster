@@ -2817,19 +2817,19 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 0}
   targetTransform: {fileID: 2685788260203797356}
   _result:
-    position: {x: 0.09915476, y: 0, z: 2.2731154}
+    position: {x: 0.060887653, y: 0, z: 5.7729063}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: -0.0107309725, y: 0, z: 0.9999424}
+    forward: {x: -0.011193173, y: 0, z: 0.9999374}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0.006000000052154064
+    percent: 0.014516328585711707
   _finalResult:
-    position: {x: 0.09915476, y: 0, z: 2.2731154}
+    position: {x: 0.060887653, y: 0, z: 5.7729063}
     up: {x: 0, y: 1, z: 0}
-    forward: {x: -0.0107309725, y: 0, z: 0.9999424}
+    forward: {x: -0.011193173, y: 0, z: 0.9999374}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0.006000000052154064
+    percent: 0.014516328585711707
   wrapMode: 1
   followMode: 0
   autoStartPosition: 0
@@ -3003,11 +3003,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeedLimits:
-    min: 30
-    max: 50
+    min: 15
+    max: 30
   downwardSpeedLimits:
     min: 5
-    max: 15
+    max: 10
 --- !u!114 &8003798788902779248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3017,7 +3017,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2685788260203797358}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c641df77c1a84934a4dc1b88a002c7d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 554e6b79d50b3344fa4cc67469b77666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2685788260469733467

@@ -25,11 +25,13 @@ namespace StateMachine
 		private void OnEnable()
 		{
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
+			GameEvents.StopOnBonusRamp += OnReachEndOfRamp;
 		}
-		
+
 		private void OnDisable()
 		{
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
+			GameEvents.StopOnBonusRamp -= OnReachEndOfRamp;
 		}
 
 		private void Start()
@@ -111,7 +113,9 @@ namespace StateMachine
 			_currentInputState = newState;
 			_currentInputState?.OnEnter();
 		}
-		
+
 		private static void OnReachEndOfTrack() => AssignNewState(InputState.FallingFlying);
+
+		private void OnReachEndOfRamp() => AssignNewState(InputState.Disabled);
 	}
 }

@@ -16,8 +16,8 @@ namespace Kart
 		
 		private void OnEnable()
 		{
-			GameEvents.StopOnBonusRamp += OnStopTheRollerCoaster;
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
+			GameEvents.StopOnBonusRamp += OnStopTheRollerCoaster;
 		}
 
 		private void OnDisable()
@@ -29,7 +29,7 @@ namespace Kart
 		private void Start()
 		{
 			_transform = transform;
-			_lowestAllowedY = GameObject.FindGameObjectWithTag("BonusRamp").GetComponent<BonusRamp>().LowestPointY;
+			_lowestAllowedY = GameObject.FindGameObjectWithTag("BonusRamp").GetComponent<BonusRamp>().LowestPointY - 1.8f;
 		}
 		
 		public void SetForwardOrientedValues()
@@ -56,26 +56,32 @@ namespace Kart
 		public void ApplyMovement()
 		{
 			if(!_shouldMove) return;
-			if (_transform.position.y < _lowestAllowedY)
-			{
-				_shouldMove = false;
-				const float duration = 2f;
-				_transform.DOMove(_transform.position + _transform.forward * (_currentForwardSpeed * Time.deltaTime * duration), duration);
-			}
+			if (_transform.position.y < _lowestAllowedY) BringToAStop();
 
 			_transform.position += _currentMovementVector;
 			_currentMovementVector = Vector3.zero;
 		}
-		
+
+		private void BringToAStop()
+		{
+			_shouldMove = false;
+			const float duration = 1.75f;
+			DOTween.To(() => _currentForwardSpeed, value => _currentForwardSpeed = value, 0f, duration)
+				.SetEase(Ease.OutQuint)
+				.OnUpdate(() => _transform.position += transform.forward * (_currentForwardSpeed * Time.deltaTime));
+
+			_transform.DOMoveY(_lowestAllowedY, duration).SetEase(Ease.OutQuint);
+		}
+
 		private void OnReachEndOfTrack()
 		{
 			transform.DORotate(new Vector3(0f, 90f, 0f), 0.5f);
 		}
-		
+
 		private void OnStopTheRollerCoaster()
 		{
-			_shouldMove = false;
-			forwardSpeedLimits.min = forwardSpeedLimits.max = _currentForwardSpeed = 0f;
+			BringToAStop();
+			//forwardSpeedLimits.min = forwardSpeedLimits.max = _currentForwardSpeed = 0f;
 			downwardSpeedLimits.min = downwardSpeedLimits.max = _currentDownSpeed = 0f;
 		}
 	}

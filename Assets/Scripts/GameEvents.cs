@@ -8,15 +8,12 @@ public static class GameEvents
 	public static event Action ExitHelix;
 	public static event Action<Vector3> ObstacleCollision;
 	public static event Action ReachEndOfTrack;
-	public static event Action BonusCameraPushBack;
 	public static event Action StopOnBonusRamp;
 
 	public static void InvokeObstacleCollision(Vector3 collisionPoint) => ObstacleCollision?.Invoke(collisionPoint);
 	public static void InvokeUpdateHype(bool status) => UpdateHype?.Invoke(status);
 	public static void InvokeEnterHelix(bool isLeftHelix) => EnterHelix?.Invoke(isLeftHelix);
 	public static void InvokeExitHelix() => ExitHelix?.Invoke();
-
-	public static void InvokeBonusCameraPushBack() => BonusCameraPushBack?.Invoke();
 
 	public static void InvokeReachEndOfTrack() => ReachEndOfTrack?.Invoke();
 

@@ -4,30 +4,33 @@ using UnityEngine;
 
 public class BonusTile : MonoBehaviour
 {
-	[SerializeField] private AdditionalKartManager rollerCoasterManager;
-	public MeshRenderer meshRenderer;
-	
+	[HideInInspector] public MeshRenderer meshRenderer;
 	private Collider _collider;
+	
+	private static AdditionalKartManager _rollerCoasterManager;
 
 	private void Start()
 	{
 		_collider = GetComponent<Collider>();
 		meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
+
+		if (!_rollerCoasterManager)
+			_rollerCoasterManager = GameObject.FindGameObjectWithTag("Player").GetComponent<AdditionalKartManager>();
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
 		if (!other.CompareTag("Player")) return;
-		var myPassengerChild = transform.GetChild(1);
+		var myPassengerChild = transform.GetChild(2);
 
-		if (rollerCoasterManager.GetAvailablePassengers().Count <= 0)
+		if (_rollerCoasterManager.AvailablePassengers.Count <= 0)
 		{
 			GameEvents.InvokeStopOnBonusRamp();
 			return;
 		}
 		
-		var kartPassenger = rollerCoasterManager.GetAvailablePassengers()[^1];
-		rollerCoasterManager.GetAvailablePassengers().Remove(kartPassenger);
+		var kartPassenger = _rollerCoasterManager.AvailablePassengers[^1];
+		_rollerCoasterManager.AvailablePassengers.Remove(kartPassenger);
 		kartPassenger.transform.DOJump(myPassengerChild.position,
 			5f,
 			1,
