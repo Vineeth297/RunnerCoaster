@@ -3,15 +3,26 @@ using UnityEngine;
 
 namespace Kart
 {
-	public class AdditionalKartRefBank : MonoBehaviour
+	public class AdditionalKartController : MonoBehaviour
 	{
 		public Rigidbody explosionKart;
 		public SplinePositioner Positioner { get; private set; }
 		public Wagon Wagon { get; private set; }
+		public TrainEngine TrainEngine { get; private set; }
 		public KartFollow KartFollow { get; private set; }
 		public Collider BoxCollider { get; private set; }
 
 		public bool isInitialised;
+
+		private void OnEnable()
+		{
+			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
+		}
+
+		private void OnDisable()
+		{
+			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
+		}
 
 		private void Start()
 		{
@@ -20,6 +31,13 @@ namespace Kart
 			isInitialised = true;
 			Positioner = GetComponent<SplinePositioner>();
 			BoxCollider = GetComponent<Collider>();
+		}
+
+		private void OnReachEndOfTrack()
+		{
+			Positioner.enabled = false;
+			Wagon.enabled = false;
+			KartFollow.enabled = true;
 		}
 	}
 }

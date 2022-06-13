@@ -6,6 +6,8 @@ public class BonusRamp : MonoBehaviour
 	[SerializeField] private BonusTile[] leftTiles, rightTiles;
 	[SerializeField] private Color[] colors;
 
+	public float LowestPointY => transform.position.y;
+	
 	private void Start()
 	{
 		DOVirtual.DelayedCall(0.2f, GiveColors);
@@ -13,6 +15,8 @@ public class BonusRamp : MonoBehaviour
 
 	private void GiveColors()
 	{
+		if(leftTiles.Length == 0) return;
+		
 		var currentStartColor = colors[0];
 		var currentEndColor = colors[1];
 
@@ -29,4 +33,6 @@ public class BonusRamp : MonoBehaviour
 			leftTiles[i].meshRenderer.material.color = rightTiles[i].meshRenderer.material.color = color;
 		}
 	}
+	
+	
 }

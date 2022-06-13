@@ -5,7 +5,7 @@ namespace Kart
 	[System.Serializable] public struct Limits { public float min, max; }
 	public class KartTrackMovement : MonoBehaviour
 	{
-		private MainKartRefBank _my;
+		private MainKartController _my;
 
 		public float currentSpeed = 10f;
 		[SerializeField] private AnimationCurve speedGain, speedLoss;
@@ -35,7 +35,7 @@ namespace Kart
 
 		private void Start()
 		{
-			_my = GetComponent<MainKartRefBank>();
+			_my = GetComponent<MainKartController>();
 			_currentLimits = plainSpeedLimits;
 		}
 

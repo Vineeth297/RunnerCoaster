@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class SplineTriggerHelper : MonoBehaviour
 {
-	private MainKartRefBank _player;
+	private MainKartController _player;
 
 	private void Start()
 	{
-		_player = GameObject.FindWithTag("Player").GetComponent<MainKartRefBank>();
+		_player = GameObject.FindWithTag("Player").GetComponent<MainKartController>();
 	}
 
 	public void EnterHighSpeed() => EnterAction();
@@ -44,6 +44,10 @@ public class SplineTriggerHelper : MonoBehaviour
 		GameEvents.InvokeUpdateHype(true);
 		CameraFxController.only.DoWideFov();
 	}
-	
-	public void OnReachTrackEnd() => GameEvents.InvokeUpdateHype(true);
+
+	public void OnReachTrackEnd()
+	{
+		GameEvents.InvokeReachEndOfTrack();
+		GameEvents.InvokeUpdateHype(true);
+	}
 }

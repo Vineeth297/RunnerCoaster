@@ -130,8 +130,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4010139, y: 5.4312115, z: 6.2}
-  m_Center: {x: -2.031089, y: 3.2996457, z: 0.0000000023183233}
+  m_Size: {x: 2.4010139, y: 26.080488, z: 6.2}
+  m_Center: {x: -2.031089, y: 13.624284, z: 0.0000000048460986}
 --- !u!114 &5565703074231156865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rollerCoasterManager: {fileID: 0}
+  meshRenderer: {fileID: 0}
 --- !u!1 &4985485572143441600
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,10 +11,10 @@ namespace Kart
 		[SerializeField] private float forceMultiplier, upForce;
 
 		private List<GameObject> _availablePassengers;
-		private List<AdditionalKartRefBank> _additionalKarts;
+		private List<AdditionalKartController> _additionalKarts;
 
 		private Wagon _lastKart;
-		private MainKartRefBank _my;
+		private MainKartController _my;
 
 		private void OnEnable()
 		{
@@ -29,9 +29,9 @@ namespace Kart
 		private void Start()
 		{
 			_lastKart = GetComponent<Wagon>();
-			_my = GetComponent<MainKartRefBank>();
+			_my = GetComponent<MainKartController>();
 
-			_additionalKarts = new List<AdditionalKartRefBank>();
+			_additionalKarts = new List<AdditionalKartController>();
 			_availablePassengers = new List<GameObject>();
 			
 			//add main kart passengers
@@ -53,7 +53,7 @@ namespace Kart
 
 		private void SpawnNewKart()
 		{
-			var newKart = Instantiate(kartPrefab, transform.parent).GetComponent<AdditionalKartRefBank>();
+			var newKart = Instantiate(kartPrefab, transform.parent).GetComponent<AdditionalKartController>();
 			_additionalKarts.Add(newKart);
 			
 			//add new kart passengers
@@ -120,22 +120,6 @@ namespace Kart
 				passenger.SetActive(false);
 				yield return new WaitForSeconds(0.20f);
 			}
-		}
-
-		public void PreparationsForBonusRamp()
-		{
-			GetComponent<Wagon>().enabled = false;
-			GetComponent<TrainEngine>().enabled = false;
-
-			foreach (var kart in _additionalKarts)
-			{
-				kart.Positioner.enabled = false;
-				kart.Wagon.enabled = false;
-				kart.KartFollow.enabled = true;
-			}
-
-			print("end");
-			GameEvents.InvokeReachEndOfTrack();
 		}
 
 		public void JumpOnToBonusPlatform()
