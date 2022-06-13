@@ -6,45 +6,66 @@ namespace Kart
 	public class KartFlyMovement : MonoBehaviour
 	{
 		[SerializeField] private Limits forwardSpeedLimits, downwardSpeedLimits;
+		[SerializeField] private Ease speedTweenEase;
+		[SerializeField] private float speedTweenDuration;
 
 		private Transform _transform;
+		private BonusRamp _bonusRamp;
 		private Vector3 _currentMovementVector;
 		private float _currentForwardSpeed, _currentDownSpeed, _lowestAllowedY;
 		private bool _shouldMove = true;
 
-		private Tween _forwardSpeedTween, _downSpeedTween;
-		
+		private Tween _speedTween;
+
 		private void OnEnable()
 		{
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
-			GameEvents.StopOnBonusRamp += OnStopTheRollerCoaster;
+			GameEvents.RunOutOfPassengers += OnStopTheRollerCoaster;
 		}
 
 		private void OnDisable()
 		{
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
-			GameEvents.StopOnBonusRamp -= OnStopTheRollerCoaster;
+			GameEvents.RunOutOfPassengers -= OnStopTheRollerCoaster;
 		}
 
 		private void Start()
 		{
 			_transform = transform;
-			_lowestAllowedY = GameObject.FindGameObjectWithTag("BonusRamp").GetComponent<BonusRamp>().LowestPointY - 1.8f;
+			_bonusRamp = GameObject.FindGameObjectWithTag("BonusRamp").GetComponent<BonusRamp>();
+			_lowestAllowedY = _bonusRamp.LowestPointY - 1.8f;
 		}
 		
 		public void SetForwardOrientedValues()
 		{
 			if (!_shouldMove) return;
-			
-			_currentForwardSpeed = forwardSpeedLimits.max;
-			_currentDownSpeed = downwardSpeedLimits.min;
+
+			if (_speedTween.IsActive()) _speedTween.Kill();
+
+			var tempVal = 0f;
+			_speedTween = DOTween.To(() => tempVal, value => tempVal = value, 1f, speedTweenDuration)
+				.SetEase(speedTweenEase)
+				.OnUpdate(() =>
+				{
+					_currentForwardSpeed = Mathf.Lerp(_currentForwardSpeed, forwardSpeedLimits.max, tempVal);
+					_currentDownSpeed = Mathf.Lerp(_currentDownSpeed, downwardSpeedLimits.min, tempVal);
+				});
 		}
 
 		public void SetDownwardOrientedValues()
 		{
 			if (!_shouldMove) return;
-			_currentForwardSpeed = forwardSpeedLimits.min;
-			_currentDownSpeed = downwardSpeedLimits.max;
+			
+			if (_speedTween.IsActive()) _speedTween.Kill();
+
+			var tempVal = 0f;
+			_speedTween = DOTween.To(() => tempVal, value => tempVal = value, 1f, speedTweenDuration)
+				.SetEase(speedTweenEase)
+				.OnUpdate(() =>
+				{
+					_currentForwardSpeed = Mathf.Lerp(_currentForwardSpeed, forwardSpeedLimits.min, tempVal);
+					_currentDownSpeed = Mathf.Lerp(_currentDownSpeed, downwardSpeedLimits.max, tempVal);
+				});
 		}
 		
 		public void CalculateForwardMovement() => 
@@ -75,7 +96,9 @@ namespace Kart
 
 		private void OnReachEndOfTrack()
 		{
-			transform.DORotate(new Vector3(0f, 90f, 0f), 0.5f);
+			var dir = _bonusRamp.transform.forward;
+			dir.y = 0;
+			transform.DORotateQuaternion( Quaternion.LookRotation(dir), 0.5f);
 		}
 
 		private void OnStopTheRollerCoaster()

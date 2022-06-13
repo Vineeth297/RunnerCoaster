@@ -16,13 +16,22 @@ namespace StateMachine
 			Fly.ApplyMovement();
 		}
 	}
-	
-	public sealed class FallingFlyingState : FlyingStateBase { }
+
+	public sealed class FallingFlyingState : FlyingStateBase
+	{
+		public override void OnEnter()
+		{
+			Fly.SetDownwardOrientedValues();
+			CameraFxController.only.DoNormalFov();
+		}
+	}
 
 	public sealed class ForwardFlyingState : FlyingStateBase
 	{
-		public override void OnEnter() => Fly.SetForwardOrientedValues();
-
-		public override void OnExit() => Fly.SetDownwardOrientedValues();
+		public override void OnEnter()
+		{
+			Fly.SetForwardOrientedValues();
+			CameraFxController.only.DoWideFov();
+		}
 	}
 }

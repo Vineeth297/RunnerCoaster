@@ -6,8 +6,8 @@ public class CameraFxController : MonoBehaviour
 	public static CameraFxController only;
 
 	[SerializeField] private GameObject speedParticleSystem;
-	[SerializeField] private Transform finalPosition;
 	private Camera _cam;
+	private Tween _fovTween;
 
 	private void Awake()
 	{
@@ -30,9 +30,23 @@ public class CameraFxController : MonoBehaviour
 		GameEvents.ObstacleCollision -= OnObstacleCollision;
 	}
 	
-	public void DoNormalFov() => _cam.DOFieldOfView(60, 0.5f);
+	public void DoNormalFov()
+	{
+		if (_fovTween.IsActive()) _fovTween.Kill();
+		_fovTween = _cam.DOFieldOfView(60, 0.5f);
+	}
 
-	public void DoWideFov() => _cam.DOFieldOfView(70, 0.5f);
+	public void DoWideFov()
+	{
+		if (_fovTween.IsActive()) _fovTween.Kill();
+		_fovTween = _cam.DOFieldOfView(70, 0.5f);
+	}
+
+	public void DoCustomFov(float fov)
+	{
+		if (_fovTween.IsActive()) _fovTween.Kill();
+		_fovTween = _cam.DOFieldOfView(fov, 0.5f);
+	}
 
 	public void SetSpeedLinesStatus(bool status) => speedParticleSystem.SetActive(status);
 	

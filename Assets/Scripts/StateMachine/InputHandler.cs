@@ -25,13 +25,13 @@ namespace StateMachine
 		private void OnEnable()
 		{
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
-			GameEvents.StopOnBonusRamp += OnReachEndOfRamp;
+			GameEvents.RunOutOfPassengers += OnReachEndOfRamp;
 		}
 
 		private void OnDisable()
 		{
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
-			GameEvents.StopOnBonusRamp -= OnReachEndOfRamp;
+			GameEvents.RunOutOfPassengers -= OnReachEndOfRamp;
 		}
 
 		private void Start()
@@ -52,13 +52,16 @@ namespace StateMachine
 		private void Update()
 		{
 			//print($"{_currentInputState}");
-			var newState = HandleInput();
-			
-			if(_currentInputState != newState)
+			if(!(_currentInputState is DisabledState))
 			{
-				_currentInputState?.OnExit();
-				_currentInputState = newState;
-				_currentInputState?.OnEnter();
+				var newState = HandleInput();
+
+				if (_currentInputState != newState)
+				{
+					_currentInputState?.OnExit();
+					_currentInputState = newState;
+					_currentInputState?.OnEnter();
+				}
 			}
 
 			_currentInputState?.Execute();
@@ -116,6 +119,6 @@ namespace StateMachine
 
 		private static void OnReachEndOfTrack() => AssignNewState(InputState.FallingFlying);
 
-		private void OnReachEndOfRamp() => AssignNewState(InputState.Disabled);
+		private static void OnReachEndOfRamp() => AssignNewState(InputState.Disabled);
 	}
 }
