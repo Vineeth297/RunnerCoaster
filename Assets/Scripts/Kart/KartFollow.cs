@@ -4,18 +4,22 @@ namespace Kart
 {
 	public class KartFollow : MonoBehaviour
 	{
-		public Vector3 followOffset;
 		public Transform charToFollow;
-		public float damping;
+		[SerializeField] private Vector3 followOffset;
+		[SerializeField] private float damping;
 		
+		private Transform _transform;
+
+		private void Start() => _transform = transform;
+
 		private void LateUpdate()
 		{
 			if(!charToFollow) return;
 			
-			var smoothPos = Vector3.Lerp(transform.position, charToFollow.position + followOffset,
+			var smoothPos = Vector3.Lerp(_transform.position, charToFollow.position + followOffset,
 				Time.deltaTime * damping);
-			transform.position = smoothPos;
-			transform.eulerAngles = charToFollow.eulerAngles;
+			_transform.position = smoothPos;
+			_transform.eulerAngles = charToFollow.eulerAngles;
 		}
 	}
 }

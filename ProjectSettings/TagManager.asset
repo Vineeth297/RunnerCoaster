@@ -10,6 +10,7 @@ TagManager:
   - BonusRamp
   - BonusTile
   - Kart
+  - ObstacleKart
   layers:
   - Default
   - TransparentFX

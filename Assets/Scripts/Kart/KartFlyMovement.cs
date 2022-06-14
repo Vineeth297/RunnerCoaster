@@ -33,7 +33,7 @@ namespace Kart
 		{
 			_transform = transform;
 			_bonusRamp = GameObject.FindGameObjectWithTag("BonusRamp").GetComponent<BonusRamp>();
-			_lowestAllowedY = _bonusRamp.LowestPointY - 1.8f;
+			_lowestAllowedY = _bonusRamp.LowestPointY - 2.2f;
 		}
 		
 		public void SetForwardOrientedValues()
@@ -86,12 +86,15 @@ namespace Kart
 		private void BringToAStop()
 		{
 			_shouldMove = false;
-			const float duration = 1.75f;
+			const float duration = 2.25f;
+			
+			if(_currentForwardSpeed < forwardSpeedLimits.max / 2f)
+				_currentForwardSpeed = forwardSpeedLimits.max / 2f;
 			DOTween.To(() => _currentForwardSpeed, value => _currentForwardSpeed = value, 0f, duration)
 				.SetEase(Ease.OutQuint)
 				.OnUpdate(() => _transform.position += transform.forward * (_currentForwardSpeed * Time.deltaTime));
 
-			_transform.DOMoveY(_lowestAllowedY, duration).SetEase(Ease.OutQuint);
+			_transform.DOMoveY(_lowestAllowedY, duration * 0.75f).SetEase(Ease.OutBounce);
 		}
 
 		private void OnReachEndOfTrack()

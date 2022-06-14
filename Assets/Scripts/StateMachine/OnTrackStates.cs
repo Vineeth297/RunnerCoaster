@@ -18,7 +18,7 @@ namespace StateMachine
 	{
 		public override void Execute()
 		{
-			CalculateForces();
+			//CalculateForces();
 			
 			Player.Brake();
 

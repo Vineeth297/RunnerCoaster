@@ -26,12 +26,14 @@ namespace StateMachine
 		{
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
 			GameEvents.RunOutOfPassengers += OnReachEndOfRamp;
+			GameEvents.ObstacleCollision += OnObstacleCollision;
 		}
 
 		private void OnDisable()
 		{
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
 			GameEvents.RunOutOfPassengers -= OnReachEndOfRamp;
+			GameEvents.ObstacleCollision -= OnObstacleCollision;
 		}
 
 		private void Start()
@@ -120,5 +122,7 @@ namespace StateMachine
 		private static void OnReachEndOfTrack() => AssignNewState(InputState.FallingFlying);
 
 		private static void OnReachEndOfRamp() => AssignNewState(InputState.Disabled);
+
+		private void OnObstacleCollision(Vector3 obj) => AssignNewState(InputState.Disabled);
 	}
 }

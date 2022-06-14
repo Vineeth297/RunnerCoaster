@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217306337678752466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.99, z: 0.53}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2830,7 +2830,7 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
     percent: 0.014516328585711707
-  wrapMode: 1
+  wrapMode: 0
   followMode: 0
   autoStartPosition: 0
   _follow: 1
@@ -3003,13 +3003,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeedLimits:
-    min: 15
-    max: 30
+    min: 20
+    max: 40
   downwardSpeedLimits:
     min: 5
     max: 10
-  speedTweenEase: 0
-  speedTweenDuration: 0
+  speedTweenEase: 9
+  speedTweenDuration: 1
 --- !u!114 &8003798788902779248
 MonoBehaviour:
   m_ObjectHideFlags: 0

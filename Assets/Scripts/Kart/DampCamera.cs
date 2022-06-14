@@ -79,6 +79,10 @@ namespace Kart
 
 		private void OnObstacleCollision(Vector3 collisionPoint) => target.DOMove(deathCamPos.position, cameraTransitionDuration);
 
-		private void OnReachEndOfTrack() => target.DOLocalMove(bonusCameraPos.localPosition, cameraTransitionDuration);
+		private void OnReachEndOfTrack()
+		{
+			target.DOLocalMove(bonusCameraPos.localPosition, cameraTransitionDuration);
+			target.DOLocalRotateQuaternion(bonusCameraPos.localRotation, cameraTransitionDuration);
+		}
 	}
 }
