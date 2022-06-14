@@ -50,4 +50,15 @@ public class SplineTriggerHelper : MonoBehaviour
 		GameEvents.InvokeReachEndOfTrack();
 		GameEvents.InvokeUpdateHype(true);
 	}
+
+	public void EnterArea(int currentAreaCode)
+	{
+		GameEvents.InvokeStartParade(currentAreaCode);
+	}
+
+	public void AttackAction(int currentAreaCode)
+	{
+		GameEvents.InvokeAttackPlayer(currentAreaCode);
+	}
+	
 }
