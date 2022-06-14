@@ -39,16 +39,6 @@ namespace Kart
 				transform.GetChild(0).GetChild(childCount - 1).gameObject,
 				transform.GetChild(0).GetChild(childCount - 2).gameObject
 			};
-
-			//add main kart passengers
-		}
-
-		private void PickUpThePassengers(GameObject platform)
-		{
-			var pickupPlatform = platform.GetComponent<PickupPlatform>();
-			var kartSpawnCount = pickupPlatform.passengers.Count / 2 + 1;
-			SpawnKarts(kartSpawnCount);
-			pickupPlatform.JumpOnToTheKart();
 		}
 
 		public void SpawnKarts(int kartsToSpawn) => DOVirtual.DelayedCall(0.15f, SpawnNewKart).SetLoops(kartsToSpawn);
@@ -156,16 +146,14 @@ namespace Kart
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.CompareTag("PickUpPlatform"))
-			{
-				PickUpThePassengers(other.gameObject);
-				other.enabled = false;
-			}
-			/*if (other.CompareTag("BonusRamp"))
-			{
-				DisablePassengersForBonusRamp();
-				other.enabled = false;
-			}*/
+			if (!other.CompareTag("PickUpPlatform")) return;
+			
+			var pickUpPlatform = other.GetComponent<PickupPlatform>();
+			var kartPassenger1 = transform.GetChild(0).transform.GetChild(5).gameObject;
+			var kartPassenger2 = transform.GetChild(0).transform.GetChild(6).gameObject;
+			pickUpPlatform.JumpOnToTheKart(kartPassenger1,kartPassenger2);
+			
+			other.enabled = false;
 		}
 
 		private void OnObstacleCollision(Vector3 collisionPoint) => Explode(collisionPoint);

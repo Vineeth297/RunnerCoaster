@@ -6,24 +6,27 @@ using UnityEngine;
 public class PickupPlatform : MonoBehaviour
 {
 	public List<GameObject> passengers;
-
+	
 	[SerializeField] private Transform[] jumpPositions;
 
-	public void JumpOnToTheKart()
+	public void JumpOnToTheKart(GameObject kartPassenger1,GameObject kartPassenger2)
 	{
-		StartCoroutine(JumpingRoutine());
+		StartCoroutine(JumpingRoutine(kartPassenger1, kartPassenger2));
 	}
 
-	private IEnumerator JumpingRoutine()
+	private IEnumerator JumpingRoutine(GameObject kartPassenger1,GameObject kartPassenger2)
 	{
-		foreach (var passenger in passengers)
+		passengers[0].transform.DOJump(jumpPositions[0].position, 3f, 1, 0.5f).OnComplete(() =>
 		{
-			var randomJumpPos = Random.Range(0, 2);
-			print(randomJumpPos);
-			passenger.transform.DOJump(jumpPositions[randomJumpPos].position, 3f, 1, 0.5f)
-				.OnComplete(() => passenger.SetActive(false));
+			kartPassenger1.SetActive(true);
+			passengers[0].SetActive(false);
+		});
+		passengers[1].transform.DOJump(jumpPositions[1].position, 3f, 1, 0.5f).OnComplete(() =>
+		{
+			kartPassenger2.SetActive(true);
+			passengers[1].SetActive(false);
+		});
+		yield return null;
 
-			yield return new WaitForSeconds(0.1f);
-		}
 	}
 }
