@@ -39,11 +39,17 @@ namespace Kart
 			_currentLimits = plainSpeedLimits;
 		}
 
-		public void CalculateForces()
+		public float BasicDecelerate()
 		{
 			var dot = Vector3.Dot(transform.forward, Vector3.down);
 			var dotPercent = Mathf.Lerp(-slopeRange / 90f, slopeRange / 90f, (dot + 1f) / 2f);
 			currentSpeed -= Time.deltaTime * frictionForce * (1f - _brakeForce);
+
+			return dotPercent;
+		}
+		
+		public void CalculateForces(float dotPercent)
+		{
 			var speedAdd = 0f;
 			var speedPercent = Mathf.InverseLerp(_currentLimits.min, _currentLimits.max, currentSpeed);
 			if (dotPercent > 0f)

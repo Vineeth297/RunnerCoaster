@@ -123,6 +123,6 @@ namespace StateMachine
 
 		private static void OnReachEndOfRamp() => AssignNewState(InputState.Disabled);
 
-		private void OnObstacleCollision(Vector3 obj) => AssignNewState(InputState.Disabled);
+		private static void OnObstacleCollision(Vector3 obj) => AssignNewState(InputState.Disabled);
 	}
 }

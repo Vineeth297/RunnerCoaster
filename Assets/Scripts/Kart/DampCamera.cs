@@ -10,9 +10,9 @@ namespace Kart
 		[SerializeField] private Transform target;
 		[SerializeField] private float lerpMul, cameraTransitionDuration = 0.5f;
 
-		[SerializeField] private Transform leftCameraPos, bonusCameraPos, deathCamPos;
+		[SerializeField] private Transform rightActionCamera, bonusCameraPos, deathCamPos, leftObstacleCam;
 
-		private Transform _transform;
+		private Transform _transform, _lastCamTarget;
 		private Vector3 _initLocalPosition;
 		private Quaternion _iniLocalRotation;
 
@@ -71,7 +71,7 @@ namespace Kart
 
 		private void OnEnterHelix(bool isLeftHelix)
 		{
-			target.DOLocalMove(leftCameraPos.localPosition, cameraTransitionDuration);
+			target.DOLocalMove(rightActionCamera.localPosition, cameraTransitionDuration);
 			target.DOLocalRotate( new Vector3(15f,-30f,0f) , cameraTransitionDuration); 
 		}
 
@@ -83,6 +83,19 @@ namespace Kart
 		{
 			target.DOLocalMove(bonusCameraPos.localPosition, cameraTransitionDuration);
 			target.DOLocalRotateQuaternion(bonusCameraPos.localRotation, cameraTransitionDuration);
+		}
+
+		public void ReturnFromObstacleCam()
+		{
+			target.DOLocalMove(_lastCamTarget.position, cameraTransitionDuration);
+			target.DOLocalRotateQuaternion(_lastCamTarget.localRotation, cameraTransitionDuration);
+		}
+
+		public void SendToObstacleCam(bool shouldGoToLeftCam)
+		{
+			_lastCamTarget = target;
+			target.DOLocalMove(leftObstacleCam.position, cameraTransitionDuration);
+			target.DOLocalRotateQuaternion(leftObstacleCam.localRotation, cameraTransitionDuration);
 		}
 	}
 }
