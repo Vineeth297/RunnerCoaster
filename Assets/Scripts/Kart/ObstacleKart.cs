@@ -3,11 +3,14 @@ using UnityEngine;
 
 namespace Kart
 {
-	public class ObstacleMainKart : MonoBehaviour
+	public class ObstacleKart : MonoBehaviour
 	{
+		[SerializeField] private bool isMainKart;
 		private MainKartController _my;
+
 		private void Start()
 		{
+			if(!isMainKart) return;
 			_my = GetComponent<MainKartController>();
 
 			Tween checker = null;

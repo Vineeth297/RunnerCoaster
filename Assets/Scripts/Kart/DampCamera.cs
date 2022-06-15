@@ -12,9 +12,9 @@ namespace Kart
 
 		[SerializeField] private Transform rightActionCamera, bonusCameraPos, deathCamPos, leftObstacleCam;
 
-		private Transform _transform, _lastCamTarget;
+		private Transform _transform;
+		private Quaternion _initLocalRotation;
 		private Vector3 _initLocalPosition;
-		private Quaternion _iniLocalRotation;
 
 		private void OnEnable()
 		{
@@ -48,7 +48,7 @@ namespace Kart
 			_transform.parent = null;
 
 			_initLocalPosition = target.localPosition;
-			_iniLocalRotation = target.localRotation;
+			_initLocalRotation = target.localRotation;
 		}
 
 		private void LateUpdate()
@@ -57,16 +57,22 @@ namespace Kart
 			_transform.rotation = Quaternion.SlerpUnclamped(_transform.rotation, target.rotation, Time.deltaTime * lerpMul);
 		}
 
+		public void SendToObstacleCam(bool shouldGoToLeftCam)
+		{
+			target.DOLocalMove(leftObstacleCam.localPosition, cameraTransitionDuration);
+			target.DOLocalRotateQuaternion(leftObstacleCam.localRotation, cameraTransitionDuration);
+		}
+
+		public void CameraResetPosition()
+		{
+			target.DOLocalMove(_initLocalPosition, cameraTransitionDuration);
+			target.DOLocalRotateQuaternion(_initLocalRotation, cameraTransitionDuration);
+		}
+
 		private void RightCurveCameraPosition()
 		{
 			target.DOLocalMove(target.localPosition + Vector3.right * -5.5f,cameraTransitionDuration);
 			target.DOLocalRotate( new Vector3(-15f,30f,0f) , cameraTransitionDuration); 
-		}
-
-		private void CameraResetPosition()
-		{
-			target.DOLocalMove(_initLocalPosition, cameraTransitionDuration);
-			target.DOLocalRotateQuaternion(_iniLocalRotation, cameraTransitionDuration);
 		}
 
 		private void OnEnterHelix(bool isLeftHelix)
@@ -77,25 +83,16 @@ namespace Kart
 
 		private void OnExitHelix() => CameraResetPosition();
 
-		private void OnObstacleCollision(Vector3 collisionPoint) => target.DOMove(deathCamPos.position, cameraTransitionDuration);
+		private void OnObstacleCollision(Vector3 collisionPoint)
+		{
+			target.DOMove(deathCamPos.position, cameraTransitionDuration);
+			target.DORotateQuaternion(deathCamPos.rotation, cameraTransitionDuration);
+		}
 
 		private void OnReachEndOfTrack()
 		{
 			target.DOLocalMove(bonusCameraPos.localPosition, cameraTransitionDuration);
 			target.DOLocalRotateQuaternion(bonusCameraPos.localRotation, cameraTransitionDuration);
-		}
-
-		public void ReturnFromObstacleCam()
-		{
-			target.DOLocalMove(_lastCamTarget.position, cameraTransitionDuration);
-			target.DOLocalRotateQuaternion(_lastCamTarget.localRotation, cameraTransitionDuration);
-		}
-
-		public void SendToObstacleCam(bool shouldGoToLeftCam)
-		{
-			_lastCamTarget = target;
-			target.DOLocalMove(leftObstacleCam.position, cameraTransitionDuration);
-			target.DOLocalRotateQuaternion(leftObstacleCam.localRotation, cameraTransitionDuration);
 		}
 	}
 }
