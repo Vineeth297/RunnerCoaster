@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217306337678752466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.99, z: 0.53}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -502,6 +502,7 @@ Transform:
   - {fileID: 5770543819735466121}
   - {fileID: 5649958707522921265}
   - {fileID: 2837650913040193779}
+  - {fileID: 5510232436839853790}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2830,7 +2831,7 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
     percent: 0.014516328585711707
-  wrapMode: 1
+  wrapMode: 0
   followMode: 0
   autoStartPosition: 0
   _follow: 1
@@ -3003,13 +3004,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeedLimits:
-    min: 15
-    max: 30
+    min: 20
+    max: 40
   downwardSpeedLimits:
     min: 5
     max: 10
-  speedTweenEase: 0
-  speedTweenDuration: 0
+  speedTweenEase: 9
+  speedTweenDuration: 1
 --- !u!114 &8003798788902779248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3022,6 +3023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554e6b79d50b3344fa4cc67469b77666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInitialised: 0
 --- !u!1 &2685788260469733467
 GameObject:
   m_ObjectHideFlags: 0
@@ -3212,6 +3214,37 @@ Transform:
   m_Father: {fileID: 2685788260203797356}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 25.533, y: 0, z: 0}
+--- !u!1 &5882218645106395158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5510232436839853790}
+  m_Layer: 0
+  m_Name: ObstacleLeftCam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5510232436839853790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5882218645106395158}
+  m_LocalRotation: {x: 0.20933232, y: 0.20285058, z: -0.050969567, w: 0.955214}
+  m_LocalPosition: {x: -25.8009, y: 27.083433, z: -52.79171}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2685788260203797356}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 26.465, y: 120.82, z: 0}
 --- !u!1 &6700444228412219829
 GameObject:
   m_ObjectHideFlags: 0
@@ -3362,9 +3395,10 @@ MonoBehaviour:
   target: {fileID: 5766981375557146804}
   lerpMul: 10
   cameraTransitionDuration: 0.5
-  leftCameraPos: {fileID: 3350341359700029455}
+  rightActionCamera: {fileID: 3350341359700029455}
   bonusCameraPos: {fileID: 5649958707522921265}
   deathCamPos: {fileID: 5770543819735466121}
+  leftObstacleCam: {fileID: 5510232436839853790}
 --- !u!1 &7936708378448459765
 GameObject:
   m_ObjectHideFlags: 0

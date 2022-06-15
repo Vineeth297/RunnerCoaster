@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class BonusTile : MonoBehaviour
 {
+	[SerializeField] private Transform leftFlag, rightFlag;
 	[SerializeField] private bool isFlipped;
 	[HideInInspector] public MeshRenderer meshRenderer;
-	private Collider _collider;
-	
+	private bool _hasEntered, _hasExited;
+
 	private static AdditionalKartManager _rollerCoasterManager;
 	private static float _lowestAllowedY = -9999f;
 
 	private void Start()
 	{
-		_collider = GetComponent<Collider>();
 		meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
 
 		if (!_rollerCoasterManager)
@@ -23,11 +23,8 @@ public class BonusTile : MonoBehaviour
 			_lowestAllowedY = GameObject.FindGameObjectWithTag("BonusRamp").GetComponent<BonusRamp>().LowestPointY - 1.8f;
 	}
 
-	private void OnTriggerEnter(Collider other)
+	private void EjectPassenger(Transform myPassengerChild)
 	{
-		if (!other.CompareTag("Player")) return;
-		var myPassengerChild = transform.GetChild(2);
-
 		if (_rollerCoasterManager.AvailablePassengers.Count <= 0)
 		{
 			GameEvents.InvokeRunOutOfPassengers();
@@ -46,11 +43,34 @@ public class BonusTile : MonoBehaviour
 			myPassengerChild.gameObject.SetActive(true);
 			if(isFlipped)
 				myPassengerChild.rotation *= Quaternion.AngleAxis(180f, Vector3.up);
-			
-			//turn kart off
-			//kartPassenger.transform.parent.GetChild(0).gameObject.SetActive(false);
 			kartPassenger.SetActive(false);
 		});
-		_collider.enabled = false;
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if(_hasEntered) return;
+		if (!other.CompareTag("Player")) return;
+		var myPassengerChild = transform.GetChild(2);
+
+		_hasEntered = true;
+		
+		leftFlag.DOLocalRotate(Vector3.up * -90f, 0.5f).SetEase(Ease.OutElastic);
+		//leftFlag.DOPunchScale(leftFlag.localScale * 1.25f, 0.25f);
+		rightFlag.DOLocalRotate(Vector3.up * 90f, 0.5f).SetEase(Ease.OutElastic);
+		//rightFlag.DOPunchScale(rightFlag.localScale * 1.25f, 0.25f);
+		
+		EjectPassenger(myPassengerChild);
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if(_hasExited) return;
+		if (!other.CompareTag("Player")) return;
+		var myPassengerChild = transform.GetChild(3);
+
+		_hasExited = true;
+
+		EjectPassenger(myPassengerChild);
 	}
 }

@@ -8,7 +8,6 @@ namespace Kart
 		public Rigidbody explosionKart;
 		public SplinePositioner Positioner { get; private set; }
 		public Wagon Wagon { get; private set; }
-		public TrainEngine TrainEngine { get; private set; }
 		public KartFollow KartFollow { get; private set; }
 		public Collider BoxCollider { get; private set; }
 

@@ -9,11 +9,12 @@ namespace Kart
 		public KartTrackMovement TrackMovement { get; private set; }
 		public Wagon Wagon { get; private set; }
 		public TrainEngine TrainEngine { get; private set; }
-		
 		public KartFlyMovement FlyMovement { get; private set; }
 		public AdditionalKartManager AdditionalKartManager { get; private set; }
 		public Collider BoxCollider { get; private set; }
-
+		
+		public bool isInitialised;
+		
 		private void OnEnable()
 		{
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
@@ -33,6 +34,7 @@ namespace Kart
 			FlyMovement = GetComponent<KartFlyMovement>();
 			AdditionalKartManager = GetComponent<AdditionalKartManager>();
 			BoxCollider = GetComponent<Collider>();
+			isInitialised = true;
 		}
 
 		private void OnReachEndOfTrack()

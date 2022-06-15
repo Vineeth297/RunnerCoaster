@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BonusRamp : MonoBehaviour
 {
-	[SerializeField] private BonusTile[] leftTiles, rightTiles;
+	[SerializeField] private BonusTile[] leftTiles;
 	[SerializeField] private Color[] colors;
 
 	public float LowestPointY => transform.position.y;
@@ -25,8 +25,8 @@ public class BonusRamp : MonoBehaviour
 		for (var i = 0; i < leftTiles.Length; i++)
 		{
 			var color = Color.Lerp(currentStartColor, currentEndColor, (float) (i - lastToColor % (perCombo + 1)) / perCombo);
-			leftTiles[i].meshRenderer.material.color = rightTiles[i].meshRenderer.material.color = color;
-
+			leftTiles[i].meshRenderer.material.color = color;
+			
 			if (i == 0 || (i % perCombo) != 0) continue;
 			lastToColor++;
 			currentStartColor = colors[lastToColor - 1];

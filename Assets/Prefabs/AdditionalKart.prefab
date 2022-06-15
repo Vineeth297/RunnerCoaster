@@ -2494,8 +2494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69ce7ff2fc678a48b2d881693ab8934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followOffset: {x: -3, y: 0, z: 0}
   charToFollow: {fileID: 0}
+  followOffset: {x: -3, y: 0, z: 0}
   damping: 10
 --- !u!65 &8037255153193103840
 BoxCollider:

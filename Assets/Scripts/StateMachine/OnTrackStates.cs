@@ -9,7 +9,8 @@ namespace StateMachine
 		protected TrackStateBase() { }
 		public TrackStateBase(KartTrackMovement player) => Player = player;
 
-		protected static void CalculateForces() => Player.CalculateForces();
+		protected static float BasicDecelerate() => Player.BasicDecelerate();
+		protected static void CalculateForces(float dotPercent) => Player.CalculateForces(dotPercent);
 
 		protected static void CalculateBrakingForces() => Player.CalculateBraking();
 	}
@@ -18,7 +19,7 @@ namespace StateMachine
 	{
 		public override void Execute()
 		{
-			CalculateForces();
+			Player.BasicDecelerate();
 			
 			Player.Brake();
 
@@ -31,7 +32,7 @@ namespace StateMachine
 		public override void OnEnter() => Player.StartFollow();
 		public override void Execute()
 		{
-			CalculateForces();
+			CalculateForces(BasicDecelerate());
 			
 			Player.Accelerate();
 
