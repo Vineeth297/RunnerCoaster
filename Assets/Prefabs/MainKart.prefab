@@ -69,6 +69,37 @@ Transform:
   m_Father: {fileID: 2685788260203797356}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+--- !u!1 &1036132278149109619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3833225671568016261}
+  m_Layer: 0
+  m_Name: AfterBonusRampCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3833225671568016261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036132278149109619}
+  m_LocalRotation: {x: 0.028610842, y: -0.9712851, z: 0.15964592, w: 0.17406836}
+  m_LocalPosition: {x: 12.5, y: 10.5, z: 18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2685788260203797356}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 18.668, y: -159.597, z: 2.422}
 --- !u!1 &2685788258877783164
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,6 +534,7 @@ Transform:
   - {fileID: 5649958707522921265}
   - {fileID: 2837650913040193779}
   - {fileID: 5510232436839853790}
+  - {fileID: 3833225671568016261}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2931,7 +2963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2aa7704d2a647d095c7792d7626f948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpeed: 10
+  currentSpeed: 20
   speedGain:
     serializedVersion: 2
     m_Curve:
@@ -3011,6 +3043,7 @@ MonoBehaviour:
     max: 10
   speedTweenEase: 9
   speedTweenDuration: 1
+  stopTweenDuration: 2
 --- !u!114 &8003798788902779248
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,8 @@ namespace Kart
 		[SerializeField] private Transform target;
 		[SerializeField] private float lerpMul, cameraTransitionDuration = 0.5f;
 
-		[SerializeField] private Transform rightActionCamera, bonusCameraPos, deathCamPos, leftObstacleCam;
+		[SerializeField] private Transform leftObstacleCam, rightActionCamera, deathCamPos;
+		[SerializeField] private Transform bonusCameraPos, postBonusCamera;
 
 		private Transform _transform;
 		private Quaternion _initLocalRotation;
@@ -24,6 +25,7 @@ namespace Kart
 			GameEvents.ObstacleCollision += OnObstacleCollision;
 			
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
+			GameEvents.ReachEndOfBonusRamp += OnMainKartEndBonusRampMovement;
 		}
 
 		private void OnDisable()
@@ -34,6 +36,7 @@ namespace Kart
 			GameEvents.ObstacleCollision -= OnObstacleCollision;
 			
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
+			GameEvents.ReachEndOfBonusRamp -= OnMainKartEndBonusRampMovement;
 		}
 
 		private void Awake()
@@ -93,6 +96,12 @@ namespace Kart
 		{
 			target.DOLocalMove(bonusCameraPos.localPosition, cameraTransitionDuration);
 			target.DOLocalRotateQuaternion(bonusCameraPos.localRotation, cameraTransitionDuration);
+		}
+
+		private void OnMainKartEndBonusRampMovement()
+		{
+			target.DOLocalMove(postBonusCamera.localPosition, cameraTransitionDuration);
+			target.DOLocalRotateQuaternion(postBonusCamera.localRotation, cameraTransitionDuration);
 		}
 	}
 }
