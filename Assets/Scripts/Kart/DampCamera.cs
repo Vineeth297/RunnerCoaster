@@ -22,10 +22,10 @@ namespace Kart
 			GameEvents.EnterHelix += OnEnterHelix;
 			GameEvents.ExitHelix += OnExitHelix;
 
-			GameEvents.ObstacleCollision += OnObstacleCollision;
+			GameEvents.KartCrash += OnObstacleCollision;
 			
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
-			GameEvents.ReachEndOfBonusRamp += OnMainKartEndBonusRampMovement;
+			GameEvents.GameWin += OnMainKartEndBonusRampMovement;
 		}
 
 		private void OnDisable()
@@ -33,10 +33,10 @@ namespace Kart
 			GameEvents.EnterHelix -= OnEnterHelix;
 			GameEvents.ExitHelix -= OnExitHelix;
 			
-			GameEvents.ObstacleCollision -= OnObstacleCollision;
+			GameEvents.KartCrash -= OnObstacleCollision;
 			
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
-			GameEvents.ReachEndOfBonusRamp -= OnMainKartEndBonusRampMovement;
+			GameEvents.GameWin -= OnMainKartEndBonusRampMovement;
 		}
 
 		private void Awake()

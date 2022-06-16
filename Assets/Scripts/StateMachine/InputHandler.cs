@@ -24,16 +24,18 @@ namespace StateMachine
 
 		private void OnEnable()
 		{
+			GameEvents.TapToPlay += OnTapToPlay;
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
 			GameEvents.RunOutOfPassengers += OnReachEndOfRamp;
-			GameEvents.ObstacleCollision += OnObstacleCollision;
+			GameEvents.KartCrash += OnObstacleCollision;
 		}
 
 		private void OnDisable()
 		{
+			GameEvents.TapToPlay -= OnTapToPlay;
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
 			GameEvents.RunOutOfPassengers -= OnReachEndOfRamp;
-			GameEvents.ObstacleCollision -= OnObstacleCollision;
+			GameEvents.KartCrash -= OnObstacleCollision;
 		}
 
 		private void Start()
@@ -53,6 +55,8 @@ namespace StateMachine
 
 		private void Update()
 		{
+			if(!_hasTappedToPlay) return;
+			
 			//print($"{_currentInputState}");
 			if(!(_currentInputState is DisabledState))
 			{
@@ -118,6 +122,8 @@ namespace StateMachine
 			_currentInputState = newState;
 			_currentInputState?.OnEnter();
 		}
+
+		private void OnTapToPlay() => _hasTappedToPlay = true;
 
 		private static void OnReachEndOfTrack() => AssignNewState(InputState.FallingFlying);
 

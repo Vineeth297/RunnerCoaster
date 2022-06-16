@@ -46,13 +46,15 @@ public class BodyChangeGate : MonoBehaviour
 				rollerCoasterManager.SpawnKarts(factor);
 				break;
 			case ChangeType.Subtract:
-				rollerCoasterManager.HideKarts(factor);
+				//rollerCoasterManager.HideKarts(factor);
+				print("hi");
 				break;
 			case ChangeType.Multiply:
 				rollerCoasterManager.SpawnKarts(factor);
 				break;
 			case ChangeType.Divide:
-				rollerCoasterManager.HideKarts(factor);
+				//rollerCoasterManager.HideKarts(factor);
+				print("hi");
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();

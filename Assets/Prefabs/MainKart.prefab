@@ -2818,7 +2818,7 @@ MonoBehaviour:
   buildOnEnable: 0
   _isUpdated: 1
   applyDirectionRotation: 1
-  useTriggers: 0
+  useTriggers: 1
   triggerGroup: 0
   _direction: 1
   _dontLerpDirection: 0
@@ -2870,7 +2870,7 @@ MonoBehaviour:
   preserveUniformSpeedWithOffset: 0
   _followSpeed: 25
   _followDuration: 1
-  _startPosition: 0.006000000052154064
+  _startPosition: 0.006500000134110451
   _speedModifier:
     blend: 1
     keys: []
@@ -3042,8 +3042,14 @@ MonoBehaviour:
     min: 5
     max: 10
   speedTweenEase: 9
+  fallTweenEase:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   speedTweenDuration: 1
-  stopTweenDuration: 2
+  fallTweenDuration: 2
 --- !u!114 &8003798788902779248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3428,10 +3434,11 @@ MonoBehaviour:
   target: {fileID: 5766981375557146804}
   lerpMul: 10
   cameraTransitionDuration: 0.5
-  rightActionCamera: {fileID: 3350341359700029455}
-  bonusCameraPos: {fileID: 5649958707522921265}
-  deathCamPos: {fileID: 5770543819735466121}
   leftObstacleCam: {fileID: 5510232436839853790}
+  rightActionCamera: {fileID: 3350341359700029455}
+  deathCamPos: {fileID: 5770543819735466121}
+  bonusCameraPos: {fileID: 5649958707522921265}
+  postBonusCamera: {fileID: 0}
 --- !u!1 &7936708378448459765
 GameObject:
   m_ObjectHideFlags: 0

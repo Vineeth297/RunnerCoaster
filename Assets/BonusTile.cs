@@ -56,10 +56,8 @@ public class BonusTile : MonoBehaviour
 		_hasEntered = true;
 		
 		leftFlag.DOLocalRotate(Vector3.up * -90f, 0.5f).SetEase(Ease.OutElastic);
-		//leftFlag.DOPunchScale(leftFlag.localScale * 1.25f, 0.25f);
 		rightFlag.DOLocalRotate(Vector3.up * 90f, 0.5f).SetEase(Ease.OutElastic);
-		//rightFlag.DOPunchScale(rightFlag.localScale * 1.25f, 0.25f);
-		
+
 		EjectPassenger(myPassengerChild);
 	}
 
