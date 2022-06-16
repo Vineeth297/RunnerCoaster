@@ -8,6 +8,9 @@ public class CameraFxController : MonoBehaviour
 	[SerializeField] private GameObject speedParticleSystem;
 	private Camera _cam;
 	private Tween _fovTween;
+	[SerializeField] private float shakeDuration = 5f,shakeStrength = 5f;
+
+	private Vector3 _initialLocalPos;
 
 	private void Awake()
 	{
@@ -54,5 +57,12 @@ public class CameraFxController : MonoBehaviour
 	private void OnObstacleCollision(Vector3 collisionPoint)
 	{
 		SetSpeedLinesStatus(false);
+	}
+	
+	public void ScreenShake(float intensity)
+	{
+		_initialLocalPos = _cam.transform.localPosition;
+		_cam.DOShakePosition(shakeDuration * intensity / 2f, shakeStrength * intensity, 10, 45f)
+			.OnComplete(() => _cam.transform.DOLocalMove(_initialLocalPos, 0.15f));
 	}
 }
