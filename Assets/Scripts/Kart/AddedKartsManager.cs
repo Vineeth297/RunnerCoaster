@@ -4,17 +4,29 @@ using UnityEngine;
 
 namespace Kart
 {
-	public class AdditionalKartManager : MonoBehaviour
+	public class AddedKartsManager : MonoBehaviour
 	{
 		[SerializeField] private GameObject kartPrefab;
 		[SerializeField] private float forceMultiplier, upForce;
 
-		private List<AdditionalKartController> _additionalKarts;
-		public List<GameObject> AvailablePassengers { get; private set; }
+		private List<AdditionalKartController> AddedKarts { get; set; }
+
+		private List<GameObject> _availablePassengers;
 
 		private Wagon _lastKart;
 		private MainKartController _my;
+		
+		public int PassengerCount => _availablePassengers.Count;
 
+		public GameObject PopPassenger
+		{
+			get
+			{
+				var x = _availablePassengers[^1];
+				_availablePassengers.RemoveAt(_availablePassengers.Count - 1);
+				return x;
+			}
+		}
 
 		private void OnEnable()
 		{
@@ -31,9 +43,9 @@ namespace Kart
 			_lastKart = GetComponent<Wagon>();
 			_my = GetComponent<MainKartController>();
 
-			_additionalKarts = new List<AdditionalKartController>();
+			AddedKarts = new List<AdditionalKartController>();
 			var childCount = transform.GetChild(0).childCount;
-			AvailablePassengers = new List<GameObject>
+			_availablePassengers = new List<GameObject>
 			{
 				//add main kart passengers
 				transform.GetChild(0).GetChild(childCount - 1).gameObject,
@@ -54,11 +66,11 @@ namespace Kart
 		private void SpawnNewKart()
 		{
 			var newKart = Instantiate(kartPrefab, transform.parent).GetComponent<AdditionalKartController>();
-			_additionalKarts.Add(newKart);
+			AddedKarts.Add(newKart);
 			
 			//add new kart passengers
-			AvailablePassengers.Add(newKart.transform.GetChild(1).gameObject);
-			AvailablePassengers.Add(newKart.transform.GetChild(2).gameObject);
+			_availablePassengers.Add(newKart.transform.GetChild(1).gameObject);
+			_availablePassengers.Add(newKart.transform.GetChild(2).gameObject);
 			
 			newKart.transform.GetChild(0).gameObject.SetActive(true);
 			newKart.transform.GetChild(1).gameObject.SetActive(true);
@@ -88,7 +100,7 @@ namespace Kart
 			direction = direction.normalized;
 
 			_my.BoxCollider.enabled = false;
-			foreach (var kart in _additionalKarts)
+			foreach (var kart in AddedKarts)
 			{
 				for (var i = 0; i < 3; i++) 
 					kart.transform.GetChild(i).gameObject.SetActive(false);

@@ -2813,7 +2813,7 @@ MonoBehaviour:
   animClipTo: 1
   _sampleCount: 370
   startSampleIndex: 0
-  multithreaded: 0
+  multithreaded: 1
   buildOnAwake: 0
   buildOnEnable: 0
   _isUpdated: 1
@@ -2963,7 +2963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2aa7704d2a647d095c7792d7626f948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpeed: 20
+  currentSpeed: 15
   speedGain:
     serializedVersion: 2
     m_Curve:
@@ -2994,12 +2994,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 1.5476414
+      outSlope: 1.5476414
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.051813472
     - serializedVersion: 3
       time: 1
       value: 1
@@ -3044,7 +3044,52 @@ MonoBehaviour:
   speedTweenEase: 9
   fallTweenEase:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 3.3236008
+      outSlope: -8.128369
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.06528497
+      outWeight: 0.072538845
+    - serializedVersion: 3
+      time: 0.75025904
+      value: 1
+      inSlope: 7.9658012
+      outSlope: -5.9427404
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.057971016
+      outWeight: 0.074688815
+    - serializedVersion: 3
+      time: 0.9
+      value: 1
+      inSlope: 6.19058
+      outSlope: -1.6039956
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.08650501
+      outWeight: 0.5497381
+    - serializedVersion: 3
+      time: 0.9989637
+      value: 0.9976415
+      inSlope: 1.5172923
+      outSlope: 1.5172923
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5654452
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -3183,14 +3228,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3420430107206399302}
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 16.5, z: -40}
+  m_LocalRotation: {x: 0.2824094, y: -0.24750985, z: 0.07567136, w: 0.92371947}
+  m_LocalPosition: {x: 12, y: 25, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2685788260203797356}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 34, y: -30, z: 0}
 --- !u!1 &3692237336602721464
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,14 +11,13 @@ public class AudioManager : MonoBehaviour
 
 	public Sound[] sounds;
 
-    private void OnEnable() =>
-        SceneManager.sceneLoaded += OnLevelLoaded;
+    private void OnEnable() => SceneManager.sceneLoaded += OnLevelLoaded;
 
-    private void OnDisable() =>
-		SceneManager.sceneLoaded -= OnLevelLoaded;
+    private void OnDisable() => SceneManager.sceneLoaded -= OnLevelLoaded;
 
-    void Awake()
+	private void Awake()
 	{
+		transform.parent = null;
 		if (instance != null)
 		{
 			Destroy(gameObject);

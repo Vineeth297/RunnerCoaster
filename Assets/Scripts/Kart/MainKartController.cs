@@ -10,7 +10,7 @@ namespace Kart
 		public Wagon Wagon { get; private set; }
 		public TrainEngine TrainEngine { get; private set; }
 		public KartFlyMovement FlyMovement { get; private set; }
-		public AdditionalKartManager AdditionalKartManager { get; private set; }
+		public AddedKartsManager AddedKartsManager { get; private set; }
 		public Collider BoxCollider { get; private set; }
 		
 		public bool isInitialised;
@@ -32,7 +32,7 @@ namespace Kart
 			Wagon = GetComponent<Wagon>();
 			TrainEngine = GetComponent<TrainEngine>();
 			FlyMovement = GetComponent<KartFlyMovement>();
-			AdditionalKartManager = GetComponent<AdditionalKartManager>();
+			AddedKartsManager = GetComponent<AddedKartsManager>();
 			BoxCollider = GetComponent<Collider>();
 			isInitialised = true;
 		}

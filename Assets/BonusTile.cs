@@ -9,15 +9,15 @@ public class BonusTile : MonoBehaviour
 	[HideInInspector] public MeshRenderer meshRenderer;
 	private bool _hasEntered, _hasExited;
 
-	private static AdditionalKartManager _rollerCoasterManager;
+	private static AddedKartsManager _addedKarts;
 	private static float _lowestAllowedY = -9999f;
 
 	private void Start()
 	{
 		meshRenderer = transform.GetChild(0).GetComponent<MeshRenderer>();
 
-		if (!_rollerCoasterManager)
-			_rollerCoasterManager = GameObject.FindGameObjectWithTag("Player").GetComponent<AdditionalKartManager>();
+		if (!_addedKarts)
+			_addedKarts = GameObject.FindGameObjectWithTag("Player").GetComponent<AddedKartsManager>();
 		
 		if(_lowestAllowedY < -999f)
 			_lowestAllowedY = GameObject.FindGameObjectWithTag("BonusRamp").GetComponent<BonusRamp>().LowestPointY - 1.8f;
@@ -25,14 +25,17 @@ public class BonusTile : MonoBehaviour
 
 	private void EjectPassenger(Transform myPassengerChild)
 	{
-		if (_rollerCoasterManager.AvailablePassengers.Count <= 0)
+		if (_addedKarts.PassengerCount <= 0)
 		{
 			GameEvents.InvokeRunOutOfPassengers();
 			return;
 		}
 		
-		var kartPassenger = _rollerCoasterManager.AvailablePassengers[^1];
-		_rollerCoasterManager.AvailablePassengers.Remove(kartPassenger);
+		var kartPassenger = _addedKarts.PopPassenger;
+
+		if (_addedKarts.PassengerCount % 2 == 0)
+			DampCamera.only.UpdateFilledKartCount(_addedKarts.PassengerCount / 2);
+		
 		kartPassenger.transform.DORotateQuaternion(myPassengerChild.rotation * Quaternion.AngleAxis(180f, Vector3.up), 0.5f);
 		
 		kartPassenger.transform.DOJump(myPassengerChild.position,
@@ -43,7 +46,7 @@ public class BonusTile : MonoBehaviour
 			myPassengerChild.gameObject.SetActive(true);
 			if(isFlipped)
 				myPassengerChild.rotation *= Quaternion.AngleAxis(180f, Vector3.up);
-			kartPassenger.SetActive(false);
+			kartPassenger.gameObject.SetActive(false);
 		});
 	}
 
