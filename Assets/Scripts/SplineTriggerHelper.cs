@@ -14,12 +14,20 @@ public class SplineTriggerHelper : MonoBehaviour
 
 	public void EnterNormalSpeed() => EnterNormalcy();
 
-	public void EnterHelix(bool isLeftHelix)
+	public void EnterLeftHelix()
 	{
 		EnterAction();
 		
 		CameraFxController.only.SetSpeedLinesStatus(false);
-		GameEvents.InvokeEnterHelix(isLeftHelix);
+		GameEvents.InvokeEnterHelix(true);
+	}
+	
+	public void EnterRightHelix()
+	{
+	    EnterAction();
+    		
+		CameraFxController.only.SetSpeedLinesStatus(false);
+		GameEvents.InvokeEnterHelix(false);
 	}
 
 	public void ExitHelix()
