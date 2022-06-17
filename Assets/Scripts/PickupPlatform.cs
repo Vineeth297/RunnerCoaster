@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -11,11 +10,6 @@ public class PickupPlatform : MonoBehaviour
 
 	public void JumpOnToTheKart(GameObject kartPassenger1,GameObject kartPassenger2)
 	{
-		StartCoroutine(JumpingRoutine(kartPassenger1, kartPassenger2));
-	}
-
-	private IEnumerator JumpingRoutine(GameObject kartPassenger1,GameObject kartPassenger2)
-	{
 		passengers[0].transform.DOJump(jumpPositions[0].position, 3f, 1, 0.5f).OnComplete(() =>
 		{
 			kartPassenger1.SetActive(true);
@@ -26,7 +20,5 @@ public class PickupPlatform : MonoBehaviour
 			kartPassenger2.SetActive(true);
 			passengers[1].SetActive(false);
 		});
-		yield return null;
-
 	}
 }

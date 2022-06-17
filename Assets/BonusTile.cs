@@ -5,7 +5,6 @@ using UnityEngine;
 public class BonusTile : MonoBehaviour
 {
 	[SerializeField] private Transform leftFlag, rightFlag;
-	[SerializeField] private bool isFlipped;
 	[HideInInspector] public MeshRenderer meshRenderer;
 	private bool _hasEntered, _hasExited;
 
@@ -44,8 +43,6 @@ public class BonusTile : MonoBehaviour
 			1.25f).OnComplete(() =>
 		{
 			myPassengerChild.gameObject.SetActive(true);
-			if(isFlipped)
-				myPassengerChild.rotation *= Quaternion.AngleAxis(180f, Vector3.up);
 			kartPassenger.gameObject.SetActive(false);
 		});
 	}

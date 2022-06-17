@@ -95,7 +95,7 @@ namespace Kart
 				.OnUpdate(() => _transform.position += transform.forward * (_currentForwardSpeed * Time.deltaTime))
 				.OnComplete(GameEvents.InvokeGameWin);
 
-			_transform.DOMoveY(_lowestAllowedY, fallTweenDuration * 0.75f).SetEase(fallTweenEase);
+			_transform.DOMoveY(_lowestAllowedY, fallTweenDuration * .75f).SetEase(fallTweenEase);
 		}
 
 		private void OnReachEndOfTrack()

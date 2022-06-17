@@ -67,10 +67,10 @@ namespace Kart
 			_transform.rotation = Quaternion.Lerp(_transform.rotation, target.rotation, Time.deltaTime * lerpMul);
 		}
 
-		public void UpdateFilledKartCount(int filledKarts)
+		public void UpdateFilledKartCount(int filledKarts, bool goSlow = false)
 		{ 
-			target.DOLocalMoveZ(_initBonusCamLocalPosition.z - perCartBonusCamDelta * filledKarts, cameraTransitionDuration)
-				.SetEase(Ease.OutBack);
+			target.DOLocalMoveZ(_initBonusCamLocalPosition.z - (perCartBonusCamDelta * filledKarts), cameraTransitionDuration * (goSlow ? 3 : 1))
+				.SetEase(Ease.InSine);
 		}
 
 		public void SendToObstacleCam(bool shouldGoToLeftCam)
@@ -107,9 +107,9 @@ namespace Kart
 
 		private void OnReachEndOfTrack()
 		{
-			target.DOLocalMoveX(bonusCameraPos.localPosition.x, cameraTransitionDuration);
-			target.DOLocalMoveY(bonusCameraPos.localPosition.y, cameraTransitionDuration);
-			UpdateFilledKartCount(_player.PassengerCount / 2);
+			target.DOLocalMoveX(bonusCameraPos.localPosition.x, cameraTransitionDuration * 2);
+			target.DOLocalMoveY(bonusCameraPos.localPosition.y, cameraTransitionDuration * 2);
+			UpdateFilledKartCount(_player.PassengerCount / 2, true);
 			
 			target.DOLocalRotateQuaternion(bonusCameraPos.localRotation, cameraTransitionDuration);
 		}

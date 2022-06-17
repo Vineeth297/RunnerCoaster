@@ -2814,7 +2814,7 @@ MonoBehaviour:
   _sampleCount: 370
   startSampleIndex: 0
   multithreaded: 1
-  buildOnAwake: 0
+  buildOnAwake: 1
   buildOnEnable: 0
   _isUpdated: 1
   applyDirectionRotation: 1
@@ -3048,20 +3048,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 4.5566087
+      outSlope: 4.5566087
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.08281565
     - serializedVersion: 3
       time: 0.5
       value: 1
-      inSlope: 3.3236008
+      inSlope: 0.843808
       outSlope: -8.128369
       tangentMode: 1
       weightedMode: 0
-      inWeight: 0.06528497
+      inWeight: 0.11180222
       outWeight: 0.072538845
     - serializedVersion: 3
       time: 0.75025904
@@ -3094,7 +3094,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   speedTweenDuration: 1
-  fallTweenDuration: 2
+  fallTweenDuration: 1
 --- !u!114 &8003798788902779248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3464,6 +3464,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedParticleSystem: {fileID: 3272935274291745237}
+  shakeDuration: 5
+  shakeStrength: 5
 --- !u!114 &8882828301481964409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3479,6 +3481,7 @@ MonoBehaviour:
   target: {fileID: 5766981375557146804}
   lerpMul: 10
   cameraTransitionDuration: 0.5
+  perCartBonusCamDelta: 4.4
   leftObstacleCam: {fileID: 5510232436839853790}
   rightActionCamera: {fileID: 3350341359700029455}
   deathCamPos: {fileID: 5770543819735466121}

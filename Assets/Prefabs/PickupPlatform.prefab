@@ -84,8 +84,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   passengers:
-  - {fileID: 6798555817744947048}
   - {fileID: 6798555816090169314}
+  - {fileID: 6798555817744947048}
   jumpPositions:
   - {fileID: 3833846469938774573}
   - {fileID: 3833846468989905411}
