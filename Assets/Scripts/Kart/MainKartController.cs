@@ -14,7 +14,8 @@ namespace Kart
 		public Collider BoxCollider { get; private set; }
 		
 		public bool isInitialised;
-		
+		[SerializeField] private ParticleSystem leftSparks, rightSparks;
+
 		private void OnEnable()
 		{
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
@@ -37,6 +38,20 @@ namespace Kart
 			isInitialised = true;
 		}
 
+		public void SetSparksStatus(bool status)
+		{
+			if (status)
+			{
+				leftSparks.Play();
+				rightSparks.Play();
+			}
+			else
+			{
+				leftSparks.Stop();
+				rightSparks.Stop();
+			}
+		}
+		
 		private void OnReachEndOfTrack()
 		{
 			Follower.follow = false;
