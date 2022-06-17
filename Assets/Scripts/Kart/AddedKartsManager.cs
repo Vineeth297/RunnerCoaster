@@ -108,8 +108,8 @@ namespace Kart
 			if (!other.CompareTag("PickUpPlatform")) return;
 			
 			var pickUpPlatform = other.GetComponent<PickupPlatform>();
-			var kartPassenger1 = transform.GetChild(0).transform.GetChild(5).gameObject;
-			var kartPassenger2 = transform.GetChild(0).transform.GetChild(6).gameObject;
+			var kartPassenger1 = transform.GetChild(0).transform.GetChild(5);
+			var kartPassenger2 = transform.GetChild(0).transform.GetChild(6);
 			pickUpPlatform.JumpOnToTheKart(kartPassenger1,kartPassenger2);
 			
 			other.enabled = false; 
