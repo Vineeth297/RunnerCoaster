@@ -7,7 +7,7 @@ public static class GameEvents
 	public static event Action<bool> UpdateHype;
 	public static event Action<bool> EnterHelix;
 	public static event Action ExitHelix;
-	
+
 	public static event Action<int> StartParade;
 	public static event Action<int> AttackPlayer;
 	
