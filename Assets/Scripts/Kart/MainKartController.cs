@@ -11,8 +11,9 @@ namespace Kart
 		public TrainEngine TrainEngine { get; private set; }
 		public KartFlyMovement FlyMovement { get; private set; }
 		public AddedKartsManager AddedKartsManager { get; private set; }
+		public Rigidbody ExplosionKart { get; private set; }
 		public Collider BoxCollider { get; private set; }
-		
+
 		public bool isInitialised;
 		[SerializeField] private ParticleSystem leftSparks, rightSparks;
 
@@ -34,6 +35,7 @@ namespace Kart
 			TrainEngine = GetComponent<TrainEngine>();
 			FlyMovement = GetComponent<KartFlyMovement>();
 			AddedKartsManager = GetComponent<AddedKartsManager>();
+			ExplosionKart = transform.GetChild(1).GetComponent<Rigidbody>();
 			BoxCollider = GetComponent<Collider>();
 			isInitialised = true;
 		}

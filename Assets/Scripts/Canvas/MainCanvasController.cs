@@ -27,10 +27,10 @@ public class MainCanvasController : MonoBehaviour
 		GameEvents.GameWin -= OnGameWin;
 	}
 
+	private void Awake() => DOTween.KillAll();
+
 	private void Start()
 	{
-		DOTween.KillAll();
-		
 		var levelNo = PlayerPrefs.GetInt("levelNo", 1);
 		levelText.text = "Level " + levelNo;
 	}

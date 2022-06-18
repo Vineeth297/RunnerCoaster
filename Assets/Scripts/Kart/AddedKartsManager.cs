@@ -85,13 +85,16 @@ namespace Kart
 
 		private void Explode(Vector3 collisionPoint)
 		{
+			//default main cart disable
 			transform.GetChild(0).gameObject.SetActive(false);
-			transform.GetChild(1).gameObject.SetActive(true);
 
 			var direction = transform.position - collisionPoint;
 			direction = direction.normalized;
 
 			_my.BoxCollider.enabled = false;
+
+			_my.ExplosionKart.gameObject.SetActive(true);
+			_my.ExplosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce, ForceMode.Impulse);
 			foreach (var kart in AddedKarts)
 			{
 				for (var i = 0; i < 3; i++) 
