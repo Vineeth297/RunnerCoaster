@@ -6,8 +6,9 @@ namespace Kart
 	public class DampCamera : MonoBehaviour
 	{
 		public static DampCamera only;
-		
+
 		[SerializeField] private Transform target;
+		private Transform _targetParent;
 		[SerializeField] private float lerpMul, cameraTransitionDuration = 0.5f;
 
 		[SerializeField] private Transform rightActionCamera, bonusCameraPos, deathCamPos, leftObstacleCam;
@@ -46,7 +47,8 @@ namespace Kart
 		{
 			_transform = transform;
 			_transform.parent = null;
-
+			_targetParent = target.parent;
+			
 			_initLocalPosition = target.localPosition;
 			_initLocalRotation = target.localRotation;
 		}
@@ -81,6 +83,19 @@ namespace Kart
 			target.DOLocalRotate( new Vector3(15f,-30f,0f) , cameraTransitionDuration); 
 		}
 
+		public void OnEnterSpecialCamera(Transform specialCamera)
+		{
+			target.parent = null;
+			target.DOMove(specialCamera.position, cameraTransitionDuration);
+		}
+
+		public void OnExitSpecialCamera()
+		{
+			target.parent = _targetParent;
+			CameraResetPosition();
+		}
+		
+		
 		private void OnExitHelix() => CameraResetPosition();
 
 		private void OnObstacleCollision(Vector3 collisionPoint)

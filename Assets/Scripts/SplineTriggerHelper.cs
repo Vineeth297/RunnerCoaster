@@ -68,5 +68,16 @@ public class SplineTriggerHelper : MonoBehaviour
 	{
 		GameEvents.InvokeAttackPlayer(currentAreaCode);
 	}
-	
+
+	public void OnEnterSpecialCamera(Transform specialCamera)
+	{
+		DampCamera.only.OnEnterSpecialCamera(specialCamera);
+	}
+
+	public void OnExitSpecialCamera()
+	{
+		DampCamera.only.OnExitSpecialCamera();	
+	}
+
+
 }
