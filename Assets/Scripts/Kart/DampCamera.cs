@@ -6,25 +6,32 @@ namespace Kart
 	public class DampCamera : MonoBehaviour
 	{
 		public static DampCamera only;
-
+		
 		[SerializeField] private Transform target;
+		[SerializeField] private float lerpMul, cameraTransitionDuration = 0.5f, perCartBonusCamDelta = 4.4f;
+		//percart bonus cam delta calculated by taking difference between 5 carts local z value of -47 and 0 carts local z of -25
+		//47-25 = 22
+		//22/5 = 4.4f
 		private Transform _targetParent;
 		[SerializeField] private float lerpMul, cameraTransitionDuration = 0.5f;
 
-		[SerializeField] private Transform rightActionCamera, bonusCameraPos, deathCamPos, leftObstacleCam;
+		[SerializeField] private Transform leftObstacleCam, rightActionCamera, deathCamPos;
+		[SerializeField] private Transform bonusCameraPos, postBonusCamera;
 
+		private AddedKartsManager _player;
 		private Transform _transform;
 		private Quaternion _initLocalRotation;
-		private Vector3 _initLocalPosition;
+		private Vector3 _initLocalPosition, _initBonusCamLocalPosition;
 
 		private void OnEnable()
 		{
 			GameEvents.EnterHelix += OnEnterHelix;
 			GameEvents.ExitHelix += OnExitHelix;
 
-			GameEvents.ObstacleCollision += OnObstacleCollision;
+			GameEvents.KartCrash += OnObstacleCollision;
 			
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
+			GameEvents.GameWin += OnMainKartEndBonusRampMovement;
 		}
 
 		private void OnDisable()
@@ -32,9 +39,10 @@ namespace Kart
 			GameEvents.EnterHelix -= OnEnterHelix;
 			GameEvents.ExitHelix -= OnExitHelix;
 			
-			GameEvents.ObstacleCollision -= OnObstacleCollision;
+			GameEvents.KartCrash -= OnObstacleCollision;
 			
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
+			GameEvents.GameWin -= OnMainKartEndBonusRampMovement;
 		}
 
 		private void Awake()
@@ -46,17 +54,26 @@ namespace Kart
 		private void Start()
 		{
 			_transform = transform;
+			_player = _transform.parent.GetComponent<AddedKartsManager>();
 			_transform.parent = null;
 			_targetParent = target.parent;
 			
 			_initLocalPosition = target.localPosition;
 			_initLocalRotation = target.localRotation;
+
+			_initBonusCamLocalPosition = bonusCameraPos.localPosition;
 		}
 
 		private void LateUpdate()
 		{
 			_transform.position = target.position;
-			_transform.rotation = Quaternion.SlerpUnclamped(_transform.rotation, target.rotation, Time.deltaTime * lerpMul);
+			_transform.rotation = Quaternion.Lerp(_transform.rotation, target.rotation, Time.deltaTime * lerpMul);
+		}
+
+		public void UpdateFilledKartCount(int filledKarts, bool goSlow = false)
+		{ 
+			target.DOLocalMoveZ(_initBonusCamLocalPosition.z - (perCartBonusCamDelta * filledKarts), cameraTransitionDuration * (goSlow ? 3 : 1))
+				.SetEase(Ease.InSine);
 		}
 
 		public void SendToObstacleCam(bool shouldGoToLeftCam)
@@ -95,7 +112,6 @@ namespace Kart
 			CameraResetPosition();
 		}
 		
-		
 		private void OnExitHelix() => CameraResetPosition();
 
 		private void OnObstacleCollision(Vector3 collisionPoint)
@@ -106,8 +122,17 @@ namespace Kart
 
 		private void OnReachEndOfTrack()
 		{
-			target.DOLocalMove(bonusCameraPos.localPosition, cameraTransitionDuration);
+			target.DOLocalMoveX(bonusCameraPos.localPosition.x, cameraTransitionDuration * 2);
+			target.DOLocalMoveY(bonusCameraPos.localPosition.y, cameraTransitionDuration * 2);
+			UpdateFilledKartCount(_player.PassengerCount / 2, true);
+			
 			target.DOLocalRotateQuaternion(bonusCameraPos.localRotation, cameraTransitionDuration);
+		}
+
+		private void OnMainKartEndBonusRampMovement()
+		{
+			target.DOLocalMove(postBonusCamera.localPosition, cameraTransitionDuration);
+			target.DOLocalRotateQuaternion(postBonusCamera.localRotation, cameraTransitionDuration);
 		}
 	}
 }

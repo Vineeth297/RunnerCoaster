@@ -23,13 +23,13 @@ namespace Kart
 
 		private void OnEnable()
 		{
-			GameEvents.ObstacleCollision += OnExplosion;
+			GameEvents.KartCrash += OnExplosion;
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
 		}
 
 		private void OnDisable()
 		{
-			GameEvents.ObstacleCollision -= OnExplosion;
+			GameEvents.KartCrash -= OnExplosion;
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
 		}
 

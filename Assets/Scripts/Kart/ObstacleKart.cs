@@ -28,7 +28,7 @@ namespace Kart
 			if (!other.CompareTag("Player") && !other.CompareTag("Kart")) return;
 			
 			var collisionPoint = other.ClosestPoint(transform.position);
-			GameEvents.InvokeObstacleCollision(collisionPoint);
+			GameEvents.InvokeKartCrash(collisionPoint);
 		}
 	}
 }

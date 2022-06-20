@@ -4,6 +4,7 @@ namespace StateMachine
 {
 	public class InputStateBase
 	{
+		protected static bool IsPersistent;
 		protected InputStateBase() { }
 
 		public virtual void OnEnter() { }

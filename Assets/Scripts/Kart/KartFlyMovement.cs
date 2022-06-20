@@ -7,7 +7,8 @@ namespace Kart
 	{
 		[SerializeField] private Limits forwardSpeedLimits, downwardSpeedLimits;
 		[SerializeField] private Ease speedTweenEase;
-		[SerializeField] private float speedTweenDuration;
+		[SerializeField] private AnimationCurve fallTweenEase;
+		[SerializeField] private float speedTweenDuration, fallTweenDuration = 2f;
 
 		private Transform _transform;
 		private BonusRamp _bonusRamp;
@@ -86,15 +87,15 @@ namespace Kart
 		private void BringToAStop()
 		{
 			_shouldMove = false;
-			const float duration = 2.25f;
-			
+
 			if(_currentForwardSpeed < forwardSpeedLimits.max / 2f)
 				_currentForwardSpeed = forwardSpeedLimits.max / 2f;
-			DOTween.To(() => _currentForwardSpeed, value => _currentForwardSpeed = value, 0f, duration)
+			DOTween.To(() => _currentForwardSpeed, value => _currentForwardSpeed = value, 0f, fallTweenDuration)
 				.SetEase(Ease.OutQuint)
-				.OnUpdate(() => _transform.position += transform.forward * (_currentForwardSpeed * Time.deltaTime));
+				.OnUpdate(() => _transform.position += transform.forward * (_currentForwardSpeed * Time.deltaTime))
+				.OnComplete(GameEvents.InvokeGameWin);
 
-			_transform.DOMoveY(_lowestAllowedY, duration * 0.75f).SetEase(Ease.OutBounce);
+			_transform.DOMoveY(_lowestAllowedY, fallTweenDuration * .75f).SetEase(fallTweenEase);
 		}
 
 		private void OnReachEndOfTrack()

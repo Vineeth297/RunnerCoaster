@@ -25,12 +25,12 @@ public class CameraFxController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		GameEvents.ObstacleCollision += OnObstacleCollision;
+		GameEvents.KartCrash += OnObstacleCollision;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.ObstacleCollision -= OnObstacleCollision;
+		GameEvents.KartCrash -= OnObstacleCollision;
 	}
 	
 	public void DoNormalFov()

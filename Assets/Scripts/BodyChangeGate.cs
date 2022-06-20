@@ -8,7 +8,7 @@ public class BodyChangeGate : MonoBehaviour
 {
 	private enum ChangeType { Add, Subtract, Multiply, Divide }
 
-	[SerializeField] private AdditionalKartManager rollerCoasterManager;
+	private AddedKartsManager _additionalKartManager;
 
 	[SerializeField] private float moveDuration = 3f;
 	[SerializeField] private float horizontalDistance;
@@ -23,10 +23,8 @@ public class BodyChangeGate : MonoBehaviour
 
 	private void Start()
 	{
-		if (changeType == ChangeType.Add || changeType == ChangeType.Multiply)
-			transform.GetChild(0).GetComponent<MeshRenderer>().material.color = positiveColor;
-		else
-			transform.GetChild(0).GetComponent<MeshRenderer>().material.color = negativeColor;
+		_additionalKartManager = GameObject.FindGameObjectWithTag("Player").GetComponent<AddedKartsManager>();
+		transform.GetChild(0).GetComponent<MeshRenderer>().material.color = (changeType == ChangeType.Add || changeType == ChangeType.Multiply) ? positiveColor : negativeColor;
 
 		transform.position -= transform.right * horizontalDistance / 2;
 		transform.DOMove(transform.position + transform.right * horizontalDistance, moveDuration)
@@ -43,16 +41,18 @@ public class BodyChangeGate : MonoBehaviour
 		switch (changeType)
 		{
 			case ChangeType.Add:
-				rollerCoasterManager.SpawnKarts(factor);
+				_additionalKartManager.SpawnKarts(factor);
 				break;
 			case ChangeType.Subtract:
-				rollerCoasterManager.HideKarts(factor);
+				//rollerCoasterManager.HideKarts(factor);
+				print("hi");
 				break;
 			case ChangeType.Multiply:
-				rollerCoasterManager.SpawnKarts(factor);
+				_additionalKartManager.SpawnKarts(factor);
 				break;
 			case ChangeType.Divide:
-				rollerCoasterManager.HideKarts(factor);
+				//rollerCoasterManager.HideKarts(factor);
+				print("hi");
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();
@@ -61,12 +61,12 @@ public class BodyChangeGate : MonoBehaviour
 
 	private void OnValidate()
 	{
-		name = changeType switch
+		text.text = name = changeType switch
 		{
-			ChangeType.Add => text.text = " + " + factor,
-			ChangeType.Subtract => text.text = " - " + factor,
-			ChangeType.Multiply => text.text = " + " + factor,
-			ChangeType.Divide => text.text = " - " + factor,
+			ChangeType.Add =>  "+" + factor,
+			ChangeType.Subtract => "-" + factor,
+			ChangeType.Multiply => "+" + factor,
+			ChangeType.Divide => "-" + factor,
 			_ => name
 		};
 	}
