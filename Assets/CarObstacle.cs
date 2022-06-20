@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CarObstacle : MonoBehaviour
@@ -10,6 +7,6 @@ public class CarObstacle : MonoBehaviour
 		if (!other.CompareTag("Player")) return;
 		
 		var collisionPoint = other.ClosestPoint(transform.position);
-		GameEvents.InvokeObstacleCollision(collisionPoint);
+		GameEvents.InvokeKartCrash(collisionPoint);
 	}
 }
