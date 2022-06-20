@@ -14,17 +14,13 @@ public class BouncingBall : MonoBehaviour
 	private Sequence _sequence;
 
 	private Vector3 _initialScale;
+
+	private Animator _animator;
 	private void Start()
 	{
 		_initialScale = transform.lossyScale;
 		_startPosition = transform.localPosition;
-		
-		_sequence = DOTween.Sequence();
-		_sequence.Append(transform.DOLocalMove(_startPosition + Vector3.up * jumpHeight, jumpDuration)
-			.SetEase(Ease.InExpo));
-		_sequence.AppendInterval(delay);
-		_sequence.Append(transform.DOLocalMove(_startPosition, jumpDuration).SetEase(Ease.OutExpo));
-		_sequence.SetLoops(-1);	
+		_animator = GetComponent<Animator>();
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -38,6 +34,6 @@ public class BouncingBall : MonoBehaviour
 
 	public void StopBouncing()
 	{
-		_sequence.Kill();
+		_animator.enabled = false;
 	}
 }
