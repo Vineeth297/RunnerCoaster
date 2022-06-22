@@ -1,4 +1,5 @@
 using Kart;
+using StateMachine;
 using UnityEngine;
 
 public class SplineTriggerHelper : MonoBehaviour
@@ -13,6 +14,9 @@ public class SplineTriggerHelper : MonoBehaviour
 	public void EnterHighSpeed() => EnterAction();
 
 	public void EnterNormalSpeed() => EnterNormalcy();
+
+	public void RemoveInputControl() => MoveOnTrackState.ChangeStatePersistence(true);
+	public void RestoreInputControl() => MoveOnTrackState.ChangeStatePersistence(false);
 
 	public void EnterHelix(bool isLeftHelix)
 	{

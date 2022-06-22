@@ -29,6 +29,8 @@ namespace StateMachine
 
 	public sealed class MoveOnTrackState : TrackStateBase
 	{
+		public static bool IsPersistent { get; private set; } = false;
+		
 		public override void OnEnter() => Player.StartFollow();
 		public override void Execute()
 		{
@@ -38,5 +40,12 @@ namespace StateMachine
 
 			CalculateBrakingForces();
 		}
+
+		public override void OnExit()
+		{
+			IsPersistent = false;
+		}
+
+		public static void ChangeStatePersistence(bool newStatus) => IsPersistent = newStatus;
 	}
 }
