@@ -6,14 +6,15 @@ namespace Kart
 	public class DampCamera : MonoBehaviour
 	{
 		public static DampCamera only;
-		
+
+		public float lerpMul;
 		[SerializeField] private Transform target;
-		[SerializeField] private float lerpMul, cameraTransitionDuration = 0.5f, perCartBonusCamDelta = 4.4f, specialCameraTransitionDuration = 0.5f;
+		[SerializeField] private float cameraTransitionDuration = 0.5f, perCartBonusCamDelta = 4.4f, specialCameraTransitionDuration = 0.5f;
 		//percart bonus cam delta calculated by taking difference between 5 carts local z value of -47 and 0 carts local z of -25
 		//47-25 = 22
 		//22/5 = 4.4f
 
-		[SerializeField] private Transform leftObstacleCam,rightObstacleCam, rightActionCamera, deathCamPos;
+		[SerializeField] private Transform obstacleOnLeftCam, obstacleOnRightCam, rightActionCamera, deathCamPos;
 		[SerializeField] private Transform bonusCameraPos, postBonusCamera;
 
 		private Transform _targetParent;
@@ -75,10 +76,10 @@ namespace Kart
 				.SetEase(Ease.InSine);
 		}
 
-		public void SendToObstacleCam(bool shouldGoToLeftCam)
+		public void SendToObstacleCam(bool isObstacleOnRight)
 		{
-			target.DOLocalMove(shouldGoToLeftCam ? rightObstacleCam.localPosition : leftObstacleCam.localPosition, cameraTransitionDuration);
-			target.DOLocalRotateQuaternion(shouldGoToLeftCam ? rightObstacleCam.localRotation : leftObstacleCam.localRotation, cameraTransitionDuration);
+			target.DOLocalMove(isObstacleOnRight ? obstacleOnRightCam.localPosition : obstacleOnLeftCam.localPosition, cameraTransitionDuration);
+			target.DOLocalRotateQuaternion(isObstacleOnRight ? obstacleOnRightCam.localRotation : obstacleOnLeftCam.localRotation, cameraTransitionDuration);
 		}
 
 		public void CameraResetPosition()
@@ -111,7 +112,20 @@ namespace Kart
 			target.parent = _targetParent;
 			CameraResetPosition();
 		}
-		
+
+		public Transform TakeControlOfTarget()
+		{
+			target.parent = null;
+			return target;
+		}
+
+		public void ReleaseControlOfTarget(float overTime)
+		{
+			target.parent = _targetParent;
+			target.DOLocalMove(_initLocalPosition, overTime);
+			target.DOLocalRotateQuaternion(_initLocalRotation, overTime);
+		}
+
 		private void OnExitHelix() => CameraResetPosition();
 
 		private void OnObstacleCollision(Vector3 collisionPoint)

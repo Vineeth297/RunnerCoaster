@@ -22,7 +22,7 @@ public class ObstacleCamHelper : MonoBehaviour
 		}
 	}
 
-	private void SendToObstacleCam() => DampCamera.only.SendToObstacleCam(!isObstacleOnRight);
+	private void SendToObstacleCam() => DampCamera.only.SendToObstacleCam(isObstacleOnRight);
 
 	private static void ReturnFromObstacleCam() => DampCamera.only.CameraResetPosition();
 }
