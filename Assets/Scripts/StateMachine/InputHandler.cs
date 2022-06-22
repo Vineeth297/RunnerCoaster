@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
-using DG.Tweening;
 using Kart;
 using UnityEngine;
-using UnityEngine.Video;
 
 public enum InputState { Disabled, IdleOnTracks, MoveOnTracks, FallingFlying, ForwardFlying }
 

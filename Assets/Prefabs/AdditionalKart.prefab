@@ -2497,7 +2497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charToFollow: {fileID: 0}
-  followOffset: {x: -3, y: 0, z: 0}
+  followOffset: {x: 3, y: 0, z: 0}
   damping: 10
 --- !u!65 &8037255153193103840
 BoxCollider:

@@ -2920,8 +2920,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.174063, y: 6.275092, z: 2.1896152}
-  m_Center: {x: -0.035242766, y: 5.1402893, z: 1.520635}
+  m_Size: {x: 4.688515, y: 4.308624, z: 2.1896152}
+  m_Center: {x: -0.03526903, y: 4.1570263, z: 1.5206351}
 --- !u!114 &9029539004900498350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3490,7 +3490,7 @@ MonoBehaviour:
   rightActionCamera: {fileID: 3350341359700029455}
   deathCamPos: {fileID: 5770543819735466121}
   bonusCameraPos: {fileID: 5649958707522921265}
-  postBonusCamera: {fileID: 0}
+  postBonusCamera: {fileID: 3833225671568016261}
 --- !u!1 &7936708378448459765
 GameObject:
   m_ObjectHideFlags: 0

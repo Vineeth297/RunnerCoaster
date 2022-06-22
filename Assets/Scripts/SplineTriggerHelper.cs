@@ -18,12 +18,20 @@ public class SplineTriggerHelper : MonoBehaviour
 	public void RemoveInputControl() => MoveOnTrackState.ChangeStatePersistence(true);
 	public void RestoreInputControl() => MoveOnTrackState.ChangeStatePersistence(false);
 
-	public void EnterHelix(bool isLeftHelix)
+	public void EnterLeftHelix()
 	{
 		EnterAction();
 		
 		CameraFxController.only.SetSpeedLinesStatus(false);
-		GameEvents.InvokeEnterHelix(isLeftHelix);
+		GameEvents.InvokeEnterHelix(true);
+	}
+
+	public void EnterRightHelix()
+	{
+	    EnterAction();
+    		
+		CameraFxController.only.SetSpeedLinesStatus(false);
+		GameEvents.InvokeEnterHelix(false);
 	}
 
 	public void ExitHelix()
@@ -64,5 +72,16 @@ public class SplineTriggerHelper : MonoBehaviour
 	{
 		GameEvents.InvokeAttackPlayer(currentAreaCode);
 	}
-	
+
+	public void OnEnterSpecialCamera(Transform specialCamera)
+	{
+		DampCamera.only.OnEnterSpecialCamera(specialCamera);
+	}
+
+	public void OnExitSpecialCamera()
+	{
+		DampCamera.only.OnExitSpecialCamera();	
+	}
+
+
 }
