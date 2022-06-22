@@ -36,7 +36,7 @@ public class ParadeAnimal : MonoBehaviour
 	private void Start()
 	{
 		_animator = GetComponent<Animator>();
-
+		_toRun = true;
 		SetInitialDirection();
 	}
 
@@ -49,7 +49,7 @@ public class ParadeAnimal : MonoBehaviour
 
 	private void OnRunAlong(int currentAreaCode)
 	{
-		if (myAreaCode != currentAreaCode) return;
+		//if (myAreaCode != currentAreaCode) return;
 		_toRun = true;
 		_animator.SetTrigger(RunHash);
 	}

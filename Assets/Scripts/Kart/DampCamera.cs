@@ -13,7 +13,7 @@ namespace Kart
 		//47-25 = 22
 		//22/5 = 4.4f
 
-		[SerializeField] private Transform leftObstacleCam, rightActionCamera, deathCamPos;
+		[SerializeField] private Transform leftObstacleCam,rightObstacleCam, rightActionCamera, deathCamPos;
 		[SerializeField] private Transform bonusCameraPos, postBonusCamera;
 
 		private Transform _targetParent;
@@ -77,8 +77,8 @@ namespace Kart
 
 		public void SendToObstacleCam(bool shouldGoToLeftCam)
 		{
-			target.DOLocalMove(leftObstacleCam.localPosition, cameraTransitionDuration);
-			target.DOLocalRotateQuaternion(leftObstacleCam.localRotation, cameraTransitionDuration);
+			target.DOLocalMove(shouldGoToLeftCam ? rightObstacleCam.localPosition : leftObstacleCam.localPosition, cameraTransitionDuration);
+			target.DOLocalRotateQuaternion(shouldGoToLeftCam ? rightObstacleCam.localRotation : leftObstacleCam.localRotation, cameraTransitionDuration);
 		}
 
 		public void CameraResetPosition()

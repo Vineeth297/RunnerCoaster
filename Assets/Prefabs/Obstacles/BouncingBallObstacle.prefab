@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990714980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.331, y: 0.35100904, z: 5.331}
+  m_LocalPosition: {x: -0.26, y: -0.22, z: 0.15}
+  m_LocalScale: {x: 10, y: 0.18587926, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1220447066498153303}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 266fc0f65b6457a4fa408a1787da0dda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220447067516075951}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 3.5}
+  m_LocalPosition: {x: -0, y: 10, z: 4.53}
   m_LocalScale: {x: 20, y: 20, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e21700700bb771418114c8e8ff96d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bouncingBall: {fileID: 1220447067200892090}
+  bouncingBall: {fileID: 7179160110382937238}
 --- !u!1001 &1220447067200892092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -345,11 +345,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1220447067200892090
+--- !u!4 &6791609669733023599 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5669824290298942419, guid: fb5dcebe035d2b341876836e38453dfa, type: 3}
+  m_PrefabInstance: {fileID: 1220447067200892092}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7179160110382937238 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8308690724638578730, guid: fb5dcebe035d2b341876836e38453dfa, type: 3}
+  m_PrefabInstance: {fileID: 1220447067200892092}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5133690121410747336}
   m_Enabled: 1
@@ -357,11 +361,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04feabb92e02aa4499fcd98649a8d4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 12.5
-  jumpDuration: 0.4
-  delay: 1
---- !u!4 &6791609669733023599 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5669824290298942419, guid: fb5dcebe035d2b341876836e38453dfa, type: 3}
-  m_PrefabInstance: {fileID: 1220447067200892092}
-  m_PrefabAsset: {fileID: 0}

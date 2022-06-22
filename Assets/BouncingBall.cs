@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class BouncingBall : MonoBehaviour
 {
-	private Sequence _sequence;
-
 	private Animator _animator;
 	private void Start()
 	{

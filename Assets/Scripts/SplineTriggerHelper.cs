@@ -52,7 +52,7 @@ public class SplineTriggerHelper : MonoBehaviour
 		GameEvents.InvokeUpdateHype(true);
 		CameraFxController.only.DoWideFov();
 	}
-
+	
 	public void OnReachTrackEnd()
 	{
 		GameEvents.InvokeReachEndOfTrack();
