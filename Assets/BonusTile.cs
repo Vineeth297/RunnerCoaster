@@ -22,7 +22,7 @@ public class BonusTile : MonoBehaviour
 			_lowestAllowedY = GameObject.FindGameObjectWithTag("BonusRamp").GetComponent<BonusRamp>().LowestPointY - 1.8f;
 	}
 
-	private void EjectPassenger(Transform myPassengerChild)
+	private static void EjectPassenger(Transform myPassengerChild)
 	{
 		if (_addedKarts.PassengerCount <= 0)
 		{

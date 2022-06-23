@@ -8,14 +8,15 @@ namespace Kart
 	{
 		[SerializeField] private GameObject kartPrefab;
 		[SerializeField] private float forceMultiplier, upForce;
+		[SerializeField] private float passengerJumpDelayStep;
 
 		private List<AdditionalKartController> AddedKarts { get; set; }
 
-		private List<GameObject> _availablePassengers;
+		private List<Passenger> _availablePassengers;
 
 		private Wagon _lastKart;
 		private MainKartController _my;
-		
+
 		public int PassengerCount => _availablePassengers.Count;
 
 		public GameObject PopPassenger
@@ -24,17 +25,19 @@ namespace Kart
 			{
 				var x = _availablePassengers[^1];
 				_availablePassengers.RemoveAt(_availablePassengers.Count - 1);
-				return x;
+				return x.gameObject;
 			}
 		}
 
 		private void OnEnable()
 		{
+			GameEvents.PassengerJump += OnPassengerJump;
 			GameEvents.KartCrash += OnObstacleCollision;
 		}
 
 		private void OnDisable()
 		{
+			GameEvents.PassengerJump -= OnPassengerJump;
 			GameEvents.KartCrash -= OnObstacleCollision;
 		}
 
@@ -44,12 +47,10 @@ namespace Kart
 			_my = GetComponent<MainKartController>();
 
 			AddedKarts = new List<AdditionalKartController>();
-			var childCount = transform.GetChild(0).childCount;
-			_availablePassengers = new List<GameObject>
+			_availablePassengers = new List<Passenger>
 			{
 				//add main kart passengers
-				transform.GetChild(0).GetChild(childCount - 1).gameObject,
-				transform.GetChild(0).GetChild(childCount - 2).gameObject
+				_my.passenger1, _my.passenger2
 			};
 		}
 
@@ -61,8 +62,8 @@ namespace Kart
 			AddedKarts.Add(newKart);
 			
 			//add new kart passengers
-			_availablePassengers.Add(newKart.transform.GetChild(1).gameObject);
-			_availablePassengers.Add(newKart.transform.GetChild(2).gameObject);
+			_availablePassengers.Add(newKart.passenger1);
+			_availablePassengers.Add(newKart.passenger2);
 			
 			newKart.transform.GetChild(0).gameObject.SetActive(true);
 			newKart.transform.GetChild(1).gameObject.SetActive(true);
@@ -116,6 +117,17 @@ namespace Kart
 			pickUpPlatform.JumpOnToTheKart(kartPassenger1,kartPassenger2);
 			
 			other.enabled = false; 
+		}
+
+		private void OnPassengerJump()
+		{
+			var delay = -passengerJumpDelayStep;
+			
+			for (var index = 0; index < _availablePassengers.Count; index++)
+			{
+				if (index % 2 == 0) delay += passengerJumpDelayStep;
+				_availablePassengers[index].MakePassengerJump(delay);
+			}
 		}
 
 		private void OnObstacleCollision(Vector3 collisionPoint) => Explode(collisionPoint);

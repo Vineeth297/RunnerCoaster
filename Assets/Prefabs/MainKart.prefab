@@ -2938,6 +2938,7 @@ MonoBehaviour:
   kartPrefab: {fileID: 3746853534499139346, guid: 0e3c86d24dea9ac48982c3e07a9720f1, type: 3}
   forceMultiplier: 20
   upForce: 10
+  passengerJumpDelayStep: 0.1
 --- !u!54 &5647499974886853244
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3110,6 +3111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554e6b79d50b3344fa4cc67469b77666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  passenger1: {fileID: 1306529882366420451}
+  passenger2: {fileID: 4571655729456925116}
   isInitialised: 0
   leftSparks: {fileID: 0}
   rightSparks: {fileID: 0}
@@ -3761,6 +3764,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
+--- !u!114 &1306529882366420451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1888167796147219131, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
+  m_PrefabInstance: {fileID: 582552709141221208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 316f6fbb05ccce64ea12e4d018f20e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7164455244952745650 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7744193048902007274, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
@@ -3835,6 +3849,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
+--- !u!114 &4571655729456925116 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1888167796147219131, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}
+  m_PrefabInstance: {fileID: 2685788259812320007}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 316f6fbb05ccce64ea12e4d018f20e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5637715898587241197 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7744193048902007274, guid: a825791e789d9c74b81b273dbd8997c9, type: 3}

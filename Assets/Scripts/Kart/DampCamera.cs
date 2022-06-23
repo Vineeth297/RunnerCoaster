@@ -100,11 +100,11 @@ namespace Kart
 			target.DOLocalRotate( new Vector3(15f,-30f,0f) , cameraTransitionDuration); 
 		}
 
-		public void OnEnterSpecialCamera(Transform specialCamera)
+		public void OnEnterSpecialCamera(Transform specialCamera, bool slowTransition = false)
 		{
 			target.parent = null;
-			target.DOMove(specialCamera.position, specialCameraTransitionDuration);
-			target.DORotateQuaternion(specialCamera.rotation, specialCameraTransitionDuration);
+			target.DOMove(specialCamera.position, 2f);
+			target.DORotateQuaternion(specialCamera.rotation, 0.5f);
 		}
 
 		public void OnExitSpecialCamera()

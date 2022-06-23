@@ -11,6 +11,8 @@ namespace Kart
 		public KartFollow KartFollow { get; private set; }
 		public Collider BoxCollider { get; private set; }
 
+		public Passenger passenger1, passenger2;
+
 		public bool isInitialised;
 
 		private void OnEnable()

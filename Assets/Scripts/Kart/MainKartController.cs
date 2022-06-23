@@ -14,6 +14,8 @@ namespace Kart
 		public Rigidbody ExplosionKart { get; private set; }
 		public Collider BoxCollider { get; private set; }
 
+		public Passenger passenger1, passenger2;
+
 		public bool isInitialised;
 		[SerializeField] private ParticleSystem leftSparks, rightSparks;
 

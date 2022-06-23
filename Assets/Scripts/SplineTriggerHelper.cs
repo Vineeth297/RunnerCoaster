@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Kart;
 using StateMachine;
 using UnityEngine;
@@ -43,6 +44,14 @@ public class SplineTriggerHelper : MonoBehaviour
 		GameEvents.InvokeExitHelix();
 	}
 
+	public void PassengerJump()
+	{
+		GameEvents.InvokePassengerJump();
+		CameraFxController.only.DoCustomFov(75);
+		TimeController.only.SlowDownTime();
+		DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());
+	}
+
 	private void EnterNormalcy()
 	{
 		_player.TrackMovement.SetNormalSpeedValues();
@@ -70,6 +79,7 @@ public class SplineTriggerHelper : MonoBehaviour
 	public void AttackAction(int currentAreaCode) => GameEvents.InvokeAttackPlayer(currentAreaCode);
 
 	public void OnEnterSpecialCamera(Transform specialCamera) => DampCamera.only.OnEnterSpecialCamera(specialCamera);
+	public void OnEnterSpecialCameraSlow(Transform specialCamera) => DampCamera.only.OnEnterSpecialCamera(specialCamera, true);
 
 	public void OnExitSpecialCamera() => DampCamera.only.OnExitSpecialCamera();
 }

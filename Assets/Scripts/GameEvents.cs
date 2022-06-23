@@ -5,6 +5,7 @@ public static class GameEvents
 {
 	public static event Action TapToPlay;
 	public static event Action<bool> UpdateHype;
+	public static event Action PassengerJump;
 	public static event Action<bool> EnterHelix;
 	public static event Action ExitHelix;
 
@@ -32,4 +33,6 @@ public static class GameEvents
 	public static void InvokeGameWin() => GameWin?.Invoke();
 	public static void InvokeStartParade(int currentAreaCode) => StartParade?.Invoke(currentAreaCode);
 	public static void InvokeAttackPlayer(int currentAreaCode) => AttackPlayer?.Invoke(currentAreaCode);
+
+	public static void InvokePassengerJump() => PassengerJump?.Invoke();
 }
