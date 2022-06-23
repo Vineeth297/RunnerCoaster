@@ -98,7 +98,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2685788260203797356}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 18.668, y: -159.597, z: 2.422}
 --- !u!1 &2685788258877783164
 GameObject:
@@ -520,8 +520,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2685788260203797358}
-  m_LocalRotation: {x: 0, y: -0.005365564, z: -0, w: 0.99998564}
-  m_LocalPosition: {x: 0.09915476, y: 0.26, z: 2.2731154}
+  m_LocalRotation: {x: 0, y: -0.005596674, z: -0, w: 0.9999844}
+  m_LocalPosition: {x: 0.060887653, y: 0.26, z: 5.7729063}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -533,6 +533,7 @@ Transform:
   - {fileID: 5770543819735466121}
   - {fileID: 5649958707522921265}
   - {fileID: 2837650913040193779}
+  - {fileID: 7507035437282316512}
   - {fileID: 5510232436839853790}
   - {fileID: 3833225671568016261}
   - {fileID: 1210895146413611466}
@@ -3209,6 +3210,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3378755015950875981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7507035437282316512}
+  m_Layer: 0
+  m_Name: ObstacleOnLeftCam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7507035437282316512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3378755015950875981}
+  m_LocalRotation: {x: 0.18427856, y: -0.21039954, z: -0.024613481, w: 0.9597748}
+  m_LocalPosition: {x: 25.8009, y: 27.083433, z: -52.79171}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2685788260203797356}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 16.588, y: -31.643, z: -6.76}
 --- !u!1 &3420430107206399302
 GameObject:
   m_ObjectHideFlags: 0
@@ -3312,7 +3344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5510232436839853790}
   m_Layer: 0
-  m_Name: ObstacleLeftCam
+  m_Name: ObstacleOnRightCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3331,7 +3363,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2685788260203797356}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 26.465, y: 120.82, z: 0}
 --- !u!1 &6700444228412219829
 GameObject:
@@ -3486,7 +3518,9 @@ MonoBehaviour:
   lerpMul: 10
   cameraTransitionDuration: 0.5
   perCartBonusCamDelta: 4.4
-  leftObstacleCam: {fileID: 5510232436839853790}
+  specialCameraTransitionDuration: 0.5
+  obstacleOnLeftCam: {fileID: 7507035437282316512}
+  obstacleOnRightCam: {fileID: 5510232436839853790}
   rightActionCamera: {fileID: 3350341359700029455}
   deathCamPos: {fileID: 5770543819735466121}
   bonusCameraPos: {fileID: 5649958707522921265}
@@ -3609,7 +3643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4006382145959490693, guid: 5cfd053cc168f7940a7eec59ae42dd10, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4006382145959490693, guid: 5cfd053cc168f7940a7eec59ae42dd10, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3827,7 +3861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4006382145959490693, guid: 5cfd053cc168f7940a7eec59ae42dd10, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4006382145959490693, guid: 5cfd053cc168f7940a7eec59ae42dd10, type: 3}
       propertyPath: m_LocalPosition.x

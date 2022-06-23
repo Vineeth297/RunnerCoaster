@@ -57,7 +57,7 @@ namespace StateMachine
 		{
 			if(!_hasTappedToPlay) return;
 			
-			print($"{_currentInputState} {MoveOnTrackState.IsPersistent} {(!(_currentInputState is DisabledState) && !(_currentInputState is MoveOnTrackState && MoveOnTrackState.IsPersistent))}");
+			//print($"{_currentInputState}");
 			if(!(_currentInputState is DisabledState) && !(_currentInputState is MoveOnTrackState && MoveOnTrackState.IsPersistent))
 			{
 				var newState = HandleInput();
