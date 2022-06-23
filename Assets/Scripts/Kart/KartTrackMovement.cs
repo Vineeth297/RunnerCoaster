@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Kart
 {
@@ -71,10 +72,7 @@ namespace Kart
 			_my.Follower.followSpeed *= 1f - _brakeForce;
 		}
 
-		public void Brake()
-		{
-			_my.Follower.followSpeed -= Time.deltaTime * currentSpeed;
-		}
+		public void Brake() => _my.Follower.followSpeed -= Time.deltaTime * currentSpeed;
 
 		public void CalculateBraking()
 		{
@@ -83,6 +81,17 @@ namespace Kart
 				Mathf.MoveTowards(_brakeForce, 0f, Time.deltaTime * brakeReleaseSpeed);
 		}
 
+		public void SetCurrentLimits(float freezeSpeedValue)
+		{
+			
+			_currentLimits.min = _currentLimits.max = freezeSpeedValue;
+		}
+
+		public void GetCurrentLimits()
+		{
+			
+		}
+		
 		public void StartFollow() => _my.Follower.follow = true;
 		public void SetHighSpeedValues() => _currentLimits = highSpeedLimits;
 		public void SetNormalSpeedValues() => _currentLimits = plainSpeedLimits;

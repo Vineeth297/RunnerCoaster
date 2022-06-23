@@ -83,5 +83,8 @@ public class SplineTriggerHelper : MonoBehaviour
 		DampCamera.only.OnExitSpecialCamera();	
 	}
 
-
+	/*public void VariableSpeedRange(Vector2 newRange)
+	{
+		_player.TrackMovement.SetCurrentLimits(newRange);
+	}*/
 }
