@@ -10,10 +10,12 @@ public class TrainObstacle : MonoBehaviour
 
 	private void Start()
 	{
-		_train1Tween = train1.DOLocalMove(train1.localPosition + train1.forward * travelLoopDistance, travelLoopDuration).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+		_train1Tween = train1.DOLocalMove(train1.localPosition + train1.forward * travelLoopDistance, travelLoopDuration)
+			.SetEase(Ease.Linear)
+			.SetLoops(-1, LoopType.Restart);
 
 		var train2InitLocalPos = train2.localPosition;
-		train2.position += train2.forward * travelLoopDistance;
+		train2.localPosition += train2.forward * travelLoopDistance;
 		_train2Tween = train2.DOLocalMove(train2InitLocalPos, travelLoopDuration).SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart).SetDelay(train2Delay);
 	}
 
@@ -23,7 +25,6 @@ public class TrainObstacle : MonoBehaviour
 		_train1Tween.Kill();
 		_train2Tween.Kill();
 
-		print("obs");
 		DOVirtual.DelayedCall(tweenKillDelay, () =>
 		{
 			train1.gameObject.SetActive(false);

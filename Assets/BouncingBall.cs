@@ -3,10 +3,32 @@ using UnityEngine;
 
 public class BouncingBall : MonoBehaviour
 {
+	[SerializeField] private float delay;
+	
 	private Animator _animator;
+	private Rigidbody _rb;
+	private Collider _collider;
+
+	private Vector3 _initScale;
+
 	private void Start()
 	{
 		_animator = GetComponent<Animator>();
+		_rb = GetComponent<Rigidbody>();
+		_collider = GetComponent<Collider>();
+		_initScale = transform.localScale;
+		
+		if (delay < 0.001f)
+		{
+			_animator.enabled = true;
+			return;
+		}
+
+		DOVirtual.DelayedCall(delay, () =>
+		{
+			print("starts");
+			_animator.enabled = true;
+		});
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -16,6 +38,11 @@ public class BouncingBall : MonoBehaviour
 		//Hulk Smash
 		var collisionPoint = other.ClosestPoint(transform.position);
 		GameEvents.InvokeKartCrash(collisionPoint);
+
+		_rb.isKinematic = false;
+		_collider.isTrigger = false;
+		transform.DOScale(_initScale, 0.25f);
+		StopBouncing();
 	}
 
 	public void StopBouncing()

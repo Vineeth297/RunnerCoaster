@@ -12,8 +12,10 @@ public class SplineTriggerHelper : MonoBehaviour
 	}
 
 	public void EnterHighSpeed() => EnterAction();
-
 	public void EnterNormalSpeed() => EnterNormalcy();
+	
+	public void EnterHypeArea() => 	GameEvents.InvokeUpdateHype(true);
+	public void ExitHypeArea() => 	GameEvents.InvokeUpdateHype(false);
 
 	public void RemoveInputControl() => MoveOnTrackState.ChangeStatePersistence(true);
 	public void RestoreInputControl() => MoveOnTrackState.ChangeStatePersistence(false);
@@ -63,25 +65,11 @@ public class SplineTriggerHelper : MonoBehaviour
 		GameEvents.InvokeUpdateHype(true);
 	}
 
-	public void EnterArea(int currentAreaCode)
-	{
-		GameEvents.InvokeStartParade(currentAreaCode);
-	}
+	public void EnterArea(int currentAreaCode) => GameEvents.InvokeStartParade(currentAreaCode);
 
-	public void AttackAction(int currentAreaCode)
-	{
-		GameEvents.InvokeAttackPlayer(currentAreaCode);
-	}
+	public void AttackAction(int currentAreaCode) => GameEvents.InvokeAttackPlayer(currentAreaCode);
 
-	public void OnEnterSpecialCamera(Transform specialCamera)
-	{
-		DampCamera.only.OnEnterSpecialCamera(specialCamera);
-	}
+	public void OnEnterSpecialCamera(Transform specialCamera) => DampCamera.only.OnEnterSpecialCamera(specialCamera);
 
-	public void OnExitSpecialCamera()
-	{
-		DampCamera.only.OnExitSpecialCamera();	
-	}
-
-
+	public void OnExitSpecialCamera() => DampCamera.only.OnExitSpecialCamera();
 }

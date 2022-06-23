@@ -75,7 +75,7 @@ namespace Kart
 				
 				_lastKart.back = newKart.Wagon;
 				newKart.Wagon.Setup(_lastKart);
-				newKart.KartFollow.charToFollow = _lastKart.transform;
+				newKart.KartFollow.SetKartToFollow(_lastKart.transform);
 
 				_lastKart = newKart.Wagon;
 				

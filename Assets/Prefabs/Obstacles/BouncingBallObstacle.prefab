@@ -325,6 +325,35 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6327946512348460916, guid: fb5dcebe035d2b341876836e38453dfa, type: 3}
   m_PrefabInstance: {fileID: 1220447067200892092}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &5383068324485279616
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5133690121410747336}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &8614647602035925323
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5133690121410747336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.10000001
+  m_Center: {x: 0, y: -0.0000009536743, z: -0.00000011920929}
 --- !u!95 &1546650713115608006
 Animator:
   serializedVersion: 4
@@ -333,7 +362,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5133690121410747336}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: c33900ffaecca7e4a96be8d9aa97963f, type: 2}
   m_CullingMode: 0
