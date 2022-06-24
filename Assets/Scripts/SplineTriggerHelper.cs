@@ -46,7 +46,15 @@ public class SplineTriggerHelper : MonoBehaviour
 
 	public void PassengerJump()
 	{
-		GameEvents.InvokePassengerJump();
+		_player.AddedKartsManager.MakePassengerJump(1);
+		CameraFxController.only.DoCustomFov(75);
+		TimeController.only.SlowDownTime();
+		DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());
+	}
+
+	public void PassengerJumpCustomDuration(float duration = 1f)
+	{
+		_player.AddedKartsManager.MakePassengerJump(duration);
 		CameraFxController.only.DoCustomFov(75);
 		TimeController.only.SlowDownTime();
 		DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());

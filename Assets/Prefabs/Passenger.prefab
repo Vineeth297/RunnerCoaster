@@ -714,7 +714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: 7.5
   upTime: 0.25
-  holdTime: 0.65
+  holdTime: 0.5
   downTime: 0.25
 --- !u!1 &7740791378287246571
 GameObject:

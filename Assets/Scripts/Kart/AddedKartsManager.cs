@@ -31,13 +31,11 @@ namespace Kart
 
 		private void OnEnable()
 		{
-			GameEvents.PassengerJump += OnPassengerJump;
 			GameEvents.KartCrash += OnObstacleCollision;
 		}
 
 		private void OnDisable()
 		{
-			GameEvents.PassengerJump -= OnPassengerJump;
 			GameEvents.KartCrash -= OnObstacleCollision;
 		}
 
@@ -55,6 +53,17 @@ namespace Kart
 		}
 
 		public void SpawnKarts(int kartsToSpawn) => DOVirtual.DelayedCall(0.15f, SpawnNewKart).SetLoops(kartsToSpawn);
+
+		public void MakePassengerJump(float duration)
+		{
+			var delay = -passengerJumpDelayStep;
+			
+			for (var index = 0; index < _availablePassengers.Count; index++)
+			{
+				if (index % 2 == 0) delay += passengerJumpDelayStep;
+				_availablePassengers[index].MakePassengerJump(duration, delay);
+			}
+		}
 
 		private void SpawnNewKart()
 		{
@@ -117,17 +126,6 @@ namespace Kart
 			pickUpPlatform.JumpOnToTheKart(kartPassenger1,kartPassenger2);
 			
 			other.enabled = false; 
-		}
-
-		private void OnPassengerJump()
-		{
-			var delay = -passengerJumpDelayStep;
-			
-			for (var index = 0; index < _availablePassengers.Count; index++)
-			{
-				if (index % 2 == 0) delay += passengerJumpDelayStep;
-				_availablePassengers[index].MakePassengerJump(delay);
-			}
 		}
 
 		private void OnObstacleCollision(Vector3 collisionPoint) => Explode(collisionPoint);
