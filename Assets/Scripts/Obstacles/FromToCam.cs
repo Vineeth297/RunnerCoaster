@@ -6,6 +6,7 @@ public class FromToCam : MonoBehaviour
 {
 	[SerializeField] private Collider fromTrigger, toTrigger;
 	[SerializeField] private Transform startTransform, endTransform;
+	[SerializeField] private float cameraOutTransitionDuration = 3f;
 
 	private Transform _toTransform, _player, _cameraTarget;
 	private Vector3 _fromTriggerPosition, _toTriggerPosition, _fromToTriggerVector;
@@ -26,7 +27,7 @@ public class FromToCam : MonoBehaviour
 
 		_fromToTriggerVector = _toTriggerPosition - _fromTriggerPosition;
 		_fromToTriggerVector.y = 0f;
-		
+
 		_fromFromTriggerDot = Vector3.Dot(_fromToTriggerVector, _fromToTriggerVector);
 	}
 
@@ -62,7 +63,7 @@ public class FromToCam : MonoBehaviour
 		else
 		{
 			_hasExited = true;
-			DampCamera.only.ReleaseControlOfTarget(3);
+			DampCamera.only.ReleaseControlOfTarget(cameraOutTransitionDuration);
 		}
 	}
 }
