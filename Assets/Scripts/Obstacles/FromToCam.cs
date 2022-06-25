@@ -6,13 +6,15 @@ public class FromToCam : MonoBehaviour
 {
 	[SerializeField] private Collider fromTrigger, toTrigger;
 	[SerializeField] private Transform startTransform, endTransform;
+	[SerializeField] private float duration = 1f;
 
 	private Transform _toTransform, _player, _cameraTarget;
 	private Vector3 _fromTriggerPosition, _toTriggerPosition, _fromToTriggerVector;
 	private Vector3 _fromCameraPosition, _toCameraPosition;
-	
+
 	private float _fromToTriggerDistance, _fromFromTriggerDot;
 	private bool _hasEntered, _hasExited;
+
 
 	private void Start()
 	{
@@ -57,7 +59,7 @@ public class FromToCam : MonoBehaviour
 			
 			var initVal = DampCamera.only.lerpMul;
 			DampCamera.only.lerpMul = 0f;
-			DOTween.To(() => DampCamera.only.lerpMul, value => DampCamera.only.lerpMul = value, initVal, 1);
+			DOTween.To(() => DampCamera.only.lerpMul, value => DampCamera.only.lerpMul = value, initVal, duration);
 		}
 		else
 		{
