@@ -10,12 +10,16 @@ public class BouncingBall : MonoBehaviour
 	private Collider _collider;
 
 	private Vector3 _initScale;
+	private AudioSource _audio;
+
+	private float _initPitch;
 
 	private void Start()
 	{
 		_animator = GetComponent<Animator>();
 		_rb = GetComponent<Rigidbody>();
 		_collider = GetComponent<Collider>();
+		_audio = GetComponent<AudioSource>();
 		_initScale = transform.localScale;
 		
 		if (delay < 0.001f)
@@ -48,5 +52,11 @@ public class BouncingBall : MonoBehaviour
 	public void StopBouncing()
 	{
 		_animator.enabled = false;
+	}
+
+	public void PlayBounceSound()
+	{
+		_audio.pitch = _initPitch + Random.Range(0, 0.2f);
+		_audio.Play();
 	}
 }

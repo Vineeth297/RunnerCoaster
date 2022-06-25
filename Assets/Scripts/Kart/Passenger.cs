@@ -12,6 +12,7 @@ namespace Kart
 		private Sequence _jumpSequence;
 		private Transform _transform;
 		private float _initLocalY;
+		private bool _isHypedUp;
 
 		private static readonly int Hype = Animator.StringToHash("Hype");
 		private Tween _delayedCall;
@@ -34,7 +35,13 @@ namespace Kart
 			_initLocalY = _transform.localPosition.y;
 		}
 
-		private void OnUpdateHype(bool newStatus) => _anim.SetBool(Hype, newStatus);
+		private void OnUpdateHype(bool newStatus)
+		{
+			if(_isHypedUp == newStatus) return;
+			
+			_anim.SetBool(Hype, newStatus);
+			_isHypedUp = newStatus;
+		}
 
 		public void MakePassengerJump(float duration, float delay)
 		{

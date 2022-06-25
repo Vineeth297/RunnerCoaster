@@ -57,8 +57,11 @@ public class BonusTile : MonoBehaviour
 		
 		leftFlag.DOLocalRotate(Vector3.up * -90f, 0.5f).SetEase(Ease.OutElastic);
 		rightFlag.DOLocalRotate(Vector3.up * 90f, 0.5f).SetEase(Ease.OutElastic);
-
+		
 		EjectPassenger(myPassengerChild);
+		
+		if(AudioManager.instance)
+			AudioManager.instance.Play("BonusTile");
 	}
 
 	private void OnTriggerExit(Collider other)
@@ -70,5 +73,8 @@ public class BonusTile : MonoBehaviour
 		_hasExited = true;
 
 		EjectPassenger(myPassengerChild);
+		
+		if(AudioManager.instance)
+			AudioManager.instance.Play("BonusTile");
 	}
 }

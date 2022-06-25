@@ -52,7 +52,19 @@ namespace Kart
 			};
 		}
 
-		public void SpawnKarts(int kartsToSpawn) => DOVirtual.DelayedCall(0.15f, SpawnNewKart).SetLoops(kartsToSpawn);
+		public void SpawnKarts(int kartsToSpawn)
+		{
+			var pitch = 0.9f;
+			DOVirtual.DelayedCall(0.15f, () =>
+			{
+				SpawnNewKart();
+
+				if (AudioManager.instance)
+					AudioManager.instance.Play("AddKart", -1f, pitch);
+
+				pitch += 0.1f;
+			}).SetLoops(kartsToSpawn);
+		}
 
 		public void MakePassengersJump(float duration)
 		{
@@ -102,19 +114,40 @@ namespace Kart
 			var direction = transform.position - collisionPoint;
 			direction = direction.normalized;
 
+			var perpendicular = direction;
+			perpendicular.x = -direction.z;
+			perpendicular.z = direction.x;
+
 			_my.BoxCollider.enabled = false;
 
 			_my.ExplosionKart.gameObject.SetActive(true);
 			_my.ExplosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce, ForceMode.Impulse);
+			_my.ExplosionKart.AddTorque(perpendicular * forceMultiplier, ForceMode.Impulse);
+
+			var audioIndex = 0;
 			foreach (var kart in AddedKarts)
 			{
 				for (var i = 0; i < 3; i++) 
 					kart.transform.GetChild(i).gameObject.SetActive(false);
 
+				direction = transform.position - collisionPoint;
+				direction = direction.normalized;
+				
+				perpendicular = direction;
+				perpendicular.x = -direction.z;
+				perpendicular.z = direction.x;
+
 				kart.explosionKart.gameObject.SetActive(true);
 				kart.BoxCollider.enabled = false;
 				kart.explosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce, ForceMode.Impulse);
+				kart.explosionKart.AddTorque(perpendicular * forceMultiplier * 1.5f, ForceMode.Impulse);
+				
+				if(AudioManager.instance)
+					AudioManager.instance.Play("Death" + ((++audioIndex % 4) + 1));
 			}
+			
+			if(AudioManager.instance)
+				AudioManager.instance.Play("KartCrash");
 		}
 
 		private void OnTriggerEnter(Collider other)

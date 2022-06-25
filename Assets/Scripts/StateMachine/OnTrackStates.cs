@@ -5,9 +5,12 @@ namespace StateMachine
 	public class TrackStateBase : InputStateBase
 	{
 		protected static KartTrackMovement Player { get; private set; }
-		
 		protected TrackStateBase() { }
-		public TrackStateBase(KartTrackMovement player) => Player = player;
+
+		public TrackStateBase(KartTrackMovement player)
+		{
+			Player = player;
+		}
 
 		protected static float BasicDecelerate() => Player.BasicDecelerate();
 		protected static void CalculateForces(float dotPercent) => Player.CalculateForces(dotPercent);
@@ -22,6 +25,7 @@ namespace StateMachine
 			Player.BasicDecelerate();
 			
 			Player.Brake();
+			Player.GetAudio.UpdatePitch();
 
 			CalculateBrakingForces();
 		}
@@ -31,18 +35,28 @@ namespace StateMachine
 	{
 		public static bool IsPersistent { get; private set; } = false;
 		
-		public override void OnEnter() => Player.StartFollow();
+		public override void OnEnter()
+		{
+			Player.StartFollow();
+			Player.GetAudio.PlayIfNotPlaying();
+			Player.GetAudio.StartMoving();
+		}
+
 		public override void Execute()
 		{
 			CalculateForces(BasicDecelerate());
 			
 			Player.Accelerate();
+			Player.GetAudio.UpdatePitch();
 
 			CalculateBrakingForces();
 		}
 
 		public override void OnExit()
 		{
+			Player.PauseFollow();
+			Player.GetAudio.StopMoving();
+			
 			IsPersistent = false;
 		}
 

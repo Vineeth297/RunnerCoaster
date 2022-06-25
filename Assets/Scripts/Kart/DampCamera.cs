@@ -9,7 +9,7 @@ namespace Kart
 
 		public float lerpMul;
 		[SerializeField] private Transform target;
-		[SerializeField] private float cameraTransitionDuration = 0.5f, perCartBonusCamDelta = 4.4f, specialCameraTransitionDuration = 0.5f;
+		[SerializeField] private float cameraTransitionDuration = 0.5f, perCartBonusCamDelta = 4.4f;
 		//percart bonus cam delta calculated by taking difference between 5 carts local z value of -47 and 0 carts local z of -25
 		//47-25 = 22
 		//22/5 = 4.4f

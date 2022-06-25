@@ -11,6 +11,7 @@ namespace Kart
 		public TrainEngine TrainEngine { get; private set; }
 		public KartFlyMovement FlyMovement { get; private set; }
 		public AddedKartsManager AddedKartsManager { get; private set; }
+		public PlayerAudio PlayerAudio { get; private set; }
 		public Rigidbody ExplosionKart { get; private set; }
 		public Collider BoxCollider { get; private set; }
 
@@ -39,6 +40,7 @@ namespace Kart
 			AddedKartsManager = GetComponent<AddedKartsManager>();
 			ExplosionKart = transform.GetChild(1).GetComponent<Rigidbody>();
 			BoxCollider = GetComponent<Collider>();
+			PlayerAudio = GetComponent<PlayerAudio>();
 			isInitialised = true;
 		}
 

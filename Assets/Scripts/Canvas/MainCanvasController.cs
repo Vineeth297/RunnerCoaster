@@ -80,7 +80,8 @@ public class MainCanvasController : MonoBehaviour
 		constantRetryButton.SetActive(false);
 		_hasLost = true;
 		
-		AudioManager.instance.Play("Lose");
+		if(AudioManager.instance)
+			AudioManager.instance.Play("Lose");
 	}
 	
 	private void TapToPlay()
@@ -95,7 +96,9 @@ public class MainCanvasController : MonoBehaviour
 	public void Retry()
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		AudioManager.instance.Play("Button");
+		
+		if(AudioManager.instance)
+			AudioManager.instance.Play("Button");
 	}
 	
 	public void NextLevel()
@@ -116,7 +119,8 @@ public class MainCanvasController : MonoBehaviour
 		}
 		PlayerPrefs.SetInt("levelNo", PlayerPrefs.GetInt("levelNo", 1) + 1);
 		
-		AudioManager.instance.Play("Button");
+		if(AudioManager.instance)
+			AudioManager.instance.Play("Button");
 		Vibration.Vibrate(15);
 	}
 	

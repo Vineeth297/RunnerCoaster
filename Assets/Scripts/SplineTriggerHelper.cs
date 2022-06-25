@@ -15,7 +15,18 @@ public class SplineTriggerHelper : MonoBehaviour
 	public void EnterHighSpeed() => EnterAction();
 	public void EnterNormalSpeed() => EnterNormalcy();
 	
-	public void EnterHypeArea() => 	GameEvents.InvokeUpdateHype(true);
+	public void Cheer()
+	{
+		if(AudioManager.instance) AudioManager.instance.Play("Jump");
+	}
+
+	public void EnterHypeArea()
+	{
+		if(AudioManager.instance)
+				AudioManager.instance.Play("Hype" + Random.Range(1, 5));
+		GameEvents.InvokeUpdateHype(true);
+	}
+
 	public void ExitHypeArea() => 	GameEvents.InvokeUpdateHype(false);
 
 	public void RemoveInputControl() => MoveOnTrackState.ChangeStatePersistence(true);
@@ -25,6 +36,7 @@ public class SplineTriggerHelper : MonoBehaviour
 	{
 		EnterAction();
 		
+		_player.PlayerAudio.DistantCameraDistanceVolume();
 		CameraFxController.only.SetSpeedLinesStatus(false);
 		GameEvents.InvokeEnterHelix(true);
 	}
@@ -32,7 +44,8 @@ public class SplineTriggerHelper : MonoBehaviour
 	public void EnterRightHelix()
 	{
 	    EnterAction();
-    		
+    	
+		_player.PlayerAudio.DistantCameraDistanceVolume();
 		CameraFxController.only.SetSpeedLinesStatus(false);
 		GameEvents.InvokeEnterHelix(false);
 	}
@@ -41,6 +54,7 @@ public class SplineTriggerHelper : MonoBehaviour
 	{
 		EnterNormalcy();
 		
+		_player.PlayerAudio.NormalCameraDistanceVolume();
 		GameEvents.InvokeExitHelix();
 	}
 
@@ -48,28 +62,49 @@ public class SplineTriggerHelper : MonoBehaviour
 	{
 		_player.AddedKartsManager.MakePassengersJump(1);
 		CameraFxController.only.DoCustomFov(75);
+		_player.PlayerAudio.SlowMoPitch();
 		TimeController.only.SlowDownTime();
-		DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());
+		GameEvents.InvokeUpdateHype(true);
+		RemoveInputControl();
+		if(AudioManager.instance) AudioManager.instance.Play("Jump");
+
+		DOVirtual.DelayedCall(0.75f, () =>
+		{
+			TimeController.only.RevertTime();
+			_player.PlayerAudio.NormalTimeScalePitch();
+			RestoreInputControl();
+		});
 	}
 
 	public void PassengerJumpNoSloMo()
 	{
 		_player.AddedKartsManager.MakePassengersJump(1);
 		CameraFxController.only.DoCustomFov(75);
+		GameEvents.InvokeUpdateHype(true);
 	}
 
 	public void PassengerJumpCustomDuration(float duration = 1f)
 	{
 		_player.AddedKartsManager.MakePassengersJump(duration);
 		CameraFxController.only.DoCustomFov(75);
+		_player.PlayerAudio.SlowMoPitch();
 		TimeController.only.SlowDownTime();
-		DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());
+		GameEvents.InvokeUpdateHype(true);
+		RemoveInputControl();
+		if(AudioManager.instance) AudioManager.instance.Play("Jump");
+
+		DOVirtual.DelayedCall(duration * 0.75f, () =>
+		{
+			TimeController.only.RevertTime();
+			_player.PlayerAudio.NormalTimeScalePitch();
+			RestoreInputControl();
+		});
 	}
 
 	private void EnterNormalcy()
 	{
 		_player.TrackMovement.SetNormalSpeedValues();
-		GameEvents.InvokeUpdateHype(false);
+		ExitHypeArea();
 		CameraFxController.only.SetSpeedLinesStatus(false);
 		CameraFxController.only.DoNormalFov();
 	}
@@ -78,14 +113,17 @@ public class SplineTriggerHelper : MonoBehaviour
 	{
 		_player.TrackMovement.SetHighSpeedValues();
 		CameraFxController.only.SetSpeedLinesStatus(true);
-		GameEvents.InvokeUpdateHype(true);
+		EnterHypeArea();
 		CameraFxController.only.DoWideFov();
 	}
 
 	public void OnReachTrackEnd()
 	{
 		GameEvents.InvokeReachEndOfTrack();
-		GameEvents.InvokeUpdateHype(true);
+		EnterHypeArea();
+		
+		if(AudioManager.instance)
+			AudioManager.instance?.Play("ReachEndTrack");
 	}
 
 	public void EnterArea(int currentAreaCode) => GameEvents.InvokeStartParade(currentAreaCode);

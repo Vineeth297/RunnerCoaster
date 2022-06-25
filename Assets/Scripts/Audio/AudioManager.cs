@@ -10,8 +10,8 @@ public class AudioManager : MonoBehaviour
 	public AudioMixerGroup mixerGroup;
 
 	public Sound[] sounds;
-
-    private void OnEnable() => SceneManager.sceneLoaded += OnLevelLoaded;
+	
+	private void OnEnable() => SceneManager.sceneLoaded += OnLevelLoaded;
 
     private void OnDisable() => SceneManager.sceneLoaded -= OnLevelLoaded;
 

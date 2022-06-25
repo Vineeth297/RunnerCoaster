@@ -8,7 +8,7 @@ namespace Kart
 	{
 		private MainKartController _my;
 
-		public float currentSpeed = 10f;
+		[SerializeField] private float currentSpeed = 10f;
 		[SerializeField] private AnimationCurve speedGain, speedLoss;
 
 		[SerializeField] private Limits plainSpeedLimits, highSpeedLimits;
@@ -17,7 +17,11 @@ namespace Kart
 		[SerializeField] private float frictionForce = 0.1f, gravityForce = 1f;
 		[SerializeField] private float slopeRange = 60f;
 
+		public Limits CurrentLimits => _currentLimits;
+		public float CurrentSpeed => currentSpeed;
+		
 		private Limits _currentLimits;
+
 		private const float BrakeTime = 0f;
 		private float _brakeForce = 0f, _addForce = 0f;
 		private bool _toMove;
@@ -84,8 +88,14 @@ namespace Kart
 				Mathf.MoveTowards(_brakeForce, 0f, Time.deltaTime * brakeReleaseSpeed);
 		}
 
+		public PlayerAudio GetAudio => _my.PlayerAudio;
+		
 		public void StartFollow() => _my.Follower.follow = true;
+
+		public void PauseFollow() => _my.PlayerAudio.StopMoving();
+
 		public void SetHighSpeedValues() => _currentLimits = highSpeedLimits;
+
 		public void SetNormalSpeedValues() => _currentLimits = plainSpeedLimits;
 
 		private void StopFollowingTrack() => _my.Follower.follow = false;
