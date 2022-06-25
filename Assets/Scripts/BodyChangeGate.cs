@@ -19,7 +19,6 @@ public class BodyChangeGate : MonoBehaviour
 	[SerializeField] private Color positiveColor, negativeColor;
 
 	private bool _hasBeenUsed;
-	private bool _isAtExtreme;
 
 	private void Start()
 	{
@@ -31,7 +30,7 @@ public class BodyChangeGate : MonoBehaviour
 			.SetEase(Ease.Linear)
 			.SetLoops(-1, LoopType.Yoyo);
 	}
-
+	
 	private void OnTriggerEnter(Collider other)
 	{
 		if (_hasBeenUsed) return;

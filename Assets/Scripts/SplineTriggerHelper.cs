@@ -20,7 +20,7 @@ public class SplineTriggerHelper : MonoBehaviour
 
 	public void RemoveInputControl() => MoveOnTrackState.ChangeStatePersistence(true);
 	public void RestoreInputControl() => MoveOnTrackState.ChangeStatePersistence(false);
-
+	
 	public void EnterLeftHelix()
 	{
 		EnterAction();
@@ -46,15 +46,21 @@ public class SplineTriggerHelper : MonoBehaviour
 
 	public void PassengerJump()
 	{
-		_player.AddedKartsManager.MakePassengerJump(1);
+		_player.AddedKartsManager.MakePassengersJump(1);
 		CameraFxController.only.DoCustomFov(75);
 		TimeController.only.SlowDownTime();
 		DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());
 	}
 
+	public void PassengerJumpNoSloMo()
+	{
+		_player.AddedKartsManager.MakePassengersJump(1);
+		CameraFxController.only.DoCustomFov(75);
+	}
+
 	public void PassengerJumpCustomDuration(float duration = 1f)
 	{
-		_player.AddedKartsManager.MakePassengerJump(duration);
+		_player.AddedKartsManager.MakePassengersJump(duration);
 		CameraFxController.only.DoCustomFov(75);
 		TimeController.only.SlowDownTime();
 		DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());

@@ -54,13 +54,14 @@ namespace Kart
 
 		public void SpawnKarts(int kartsToSpawn) => DOVirtual.DelayedCall(0.15f, SpawnNewKart).SetLoops(kartsToSpawn);
 
-		public void MakePassengerJump(float duration)
+		public void MakePassengersJump(float duration)
 		{
-			var delay = -passengerJumpDelayStep;
+			var delay = 0f;
 			
 			for (var index = 0; index < _availablePassengers.Count; index++)
 			{
 				if (index % 2 == 0) delay += passengerJumpDelayStep;
+				
 				_availablePassengers[index].MakePassengerJump(duration, delay);
 			}
 		}

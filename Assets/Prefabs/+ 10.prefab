@@ -400,10 +400,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5df6e059a1ab504096d516e365e7d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDuration: 3
-  horizontalDistance: 10
+  moveDuration: 0.5
+  horizontalDistance: 5
   factor: 10
   text: {fileID: 9073054546760705199}
   changeType: 0
-  positiveColor: {r: 0.6313726, g: 1, b: 0.039215688, a: 0.95686275}
-  negativeColor: {r: 1, g: 0, b: 0, a: 0.95686275}
+  positiveColor: {r: 0.6313726, g: 1, b: 0.039215688, a: 1}
+  negativeColor: {r: 1, g: 0, b: 0, a: 1}

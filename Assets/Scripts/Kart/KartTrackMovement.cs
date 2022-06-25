@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace Kart
 {
@@ -92,5 +93,7 @@ namespace Kart
 		private void OnExplosion(Vector3 collisionPoint) => StopFollowingTrack();
 
 		private void OnReachEndOfTrack() => StopFollowingTrack();
+
+		public void AddSpeedBoost() => DOTween.To(() => currentSpeed, value => currentSpeed = value, _currentLimits.max, 0.5f).SetRecyclable(true);
 	}
 }

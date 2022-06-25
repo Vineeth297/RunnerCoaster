@@ -59,7 +59,7 @@ namespace Kart
 			});
 			
 			_jumpSequence.Join(_transform.DOLocalMoveY(_initLocalY + distance, upTime * duration));
-			_jumpSequence.AppendInterval(holdTime * duration);
+			//_jumpSequence.AppendInterval(holdTime * duration);
 			_jumpSequence.AppendCallback(() => _anim.SetBool(Hype, false));
 			_jumpSequence.Join(transform.DOLocalMoveY(_initLocalY, downTime * duration));
 

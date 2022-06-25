@@ -14,7 +14,7 @@ namespace Kart
 		//47-25 = 22
 		//22/5 = 4.4f
 
-		[SerializeField] private Transform obstacleOnLeftCam, obstacleOnRightCam, rightActionCamera, deathCamPos;
+		[SerializeField] private Transform obstacleOnLeftCam, obstacleOnRightCam, leftHelixCam, rightHelixCam, deathCamPos;
 		[SerializeField] private Transform bonusCameraPos, postBonusCamera;
 
 		private Transform _targetParent;
@@ -96,8 +96,8 @@ namespace Kart
 
 		private void OnEnterHelix(bool isLeftHelix)
 		{
-			target.DOLocalMove(rightActionCamera.localPosition, cameraTransitionDuration);
-			target.DOLocalRotate( new Vector3(15f,-30f,0f) , cameraTransitionDuration); 
+			target.DOLocalMove(isLeftHelix ? leftHelixCam.localPosition : rightHelixCam.localPosition, cameraTransitionDuration);
+			target.DOLocalRotateQuaternion(isLeftHelix ? leftHelixCam.localRotation : rightHelixCam.localRotation , cameraTransitionDuration); 
 		}
 
 		public void OnEnterSpecialCamera(Transform specialCamera, bool slowTransition = false)
