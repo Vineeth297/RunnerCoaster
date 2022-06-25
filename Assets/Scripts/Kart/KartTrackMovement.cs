@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Kart
@@ -76,10 +76,7 @@ namespace Kart
 			_my.Follower.followSpeed *= 1f - _brakeForce;
 		}
 
-		public void Brake()
-		{
-			_my.Follower.followSpeed -= Time.deltaTime * currentSpeed;
-		}
+		public void Brake() => _my.Follower.followSpeed -= Time.deltaTime * currentSpeed;
 
 		public void CalculateBraking()
 		{
@@ -89,7 +86,7 @@ namespace Kart
 		}
 
 		public PlayerAudio GetAudio => _my.PlayerAudio;
-		
+
 		public void StartFollow() => _my.Follower.follow = true;
 
 		public void PauseFollow() => _my.PlayerAudio.StopMoving();

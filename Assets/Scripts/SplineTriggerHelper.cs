@@ -134,4 +134,8 @@ public class SplineTriggerHelper : MonoBehaviour
 	public void OnEnterSpecialCameraSlow(Transform specialCamera) => DampCamera.only.OnEnterSpecialCamera(specialCamera, true);
 
 	public void OnExitSpecialCamera() => DampCamera.only.OnExitSpecialCamera();
+	/*public void VariableSpeedRange(Vector2 newRange)
+	{
+		_player.TrackMovement.SetCurrentLimits(newRange);
+	}*/
 }
