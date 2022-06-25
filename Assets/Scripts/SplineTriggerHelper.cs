@@ -17,13 +17,14 @@ public class SplineTriggerHelper : MonoBehaviour
 	
 	public void Cheer()
 	{
-		if(AudioManager.instance) AudioManager.instance.Play("Jump");
+		if(AudioManager.instance) AudioManager.instance.Play("Hype" + Random.Range(1, 5));
 	}
 
 	public void EnterHypeArea()
 	{
-		if(AudioManager.instance)
-				AudioManager.instance.Play("Hype" + Random.Range(1, 5));
+		//if(AudioManager.instance) AudioManager.instance.Play("Hype" + Random.Range(1, 5));
+		if(AudioManager.instance) AudioManager.instance.Play("Jump");
+
 		GameEvents.InvokeUpdateHype(true);
 	}
 

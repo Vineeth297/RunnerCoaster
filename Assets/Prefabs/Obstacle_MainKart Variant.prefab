@@ -88,6 +88,10 @@ PrefabInstance:
       value: ObstacleTrain
       objectReference: {fileID: 0}
     - target: {fileID: 2685788260203797359, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: _follow
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2685788260203797359, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: _spline
       value: 
       objectReference: {fileID: 0}
@@ -11489,3 +11493,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6760c292d34a7193b0e5c65cdbae8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMainKart: 0
