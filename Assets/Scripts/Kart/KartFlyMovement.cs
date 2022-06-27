@@ -21,13 +21,13 @@ namespace Kart
 		private void OnEnable()
 		{
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
-			GameEvents.RunOutOfPassengers += OnStopTheRollerCoaster;
+			GameEvents.RunOutOfPassengers += OnStopOnBonusRamp;
 		}
 
 		private void OnDisable()
 		{
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
-			GameEvents.RunOutOfPassengers -= OnStopTheRollerCoaster;
+			GameEvents.RunOutOfPassengers -= OnStopOnBonusRamp;
 		}
 
 		private void Start()
@@ -105,7 +105,7 @@ namespace Kart
 			transform.DORotateQuaternion( Quaternion.LookRotation(dir), 0.5f);
 		}
 
-		private void OnStopTheRollerCoaster()
+		private void OnStopOnBonusRamp()
 		{
 			BringToAStop();
 			//forwardSpeedLimits.min = forwardSpeedLimits.max = _currentForwardSpeed = 0f;
