@@ -84,6 +84,24 @@ public class SplineTriggerHelper : MonoBehaviour
 			RestoreInputControl();
 		});
 	}
+	
+	public void PassengerJumpUninterrupted()
+	{
+		_player.AddedKartsManager.MakePassengersJump(1);
+		CameraFxController.only.DoCustomFov(75);
+		_player.PlayerAudio.SlowMoPitch();
+		TimeController.only.SlowDownTime();
+		GameEvents.InvokeUpdateHype(true);
+		RemoveInputControl();
+		if(AudioManager.instance) AudioManager.instance.Play("Jump");
+
+		DOVirtual.DelayedCall(0.75f, () =>
+		{
+			TimeController.only.RevertTime();
+			_player.PlayerAudio.NormalTimeScalePitch();
+//			RestoreInputControl();
+		});
+	}
 
 	public void PassengerJumpNoSloMo()
 	{
