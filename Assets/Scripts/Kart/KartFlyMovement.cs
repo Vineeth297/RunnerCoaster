@@ -78,7 +78,11 @@ namespace Kart
 		public void ApplyMovement()
 		{
 			if(!_shouldMove) return;
-			if (_transform.position.y < _lowestAllowedY) BringToAStop();
+			if (_transform.position.y < _lowestAllowedY)
+			{
+				GameEvents.InvokeRunOutOfPassengers();
+				return;
+			}
 
 			_transform.position += _currentMovementVector;
 			_currentMovementVector = Vector3.zero;

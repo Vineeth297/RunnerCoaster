@@ -33,7 +33,11 @@ public class BonusTile : MonoBehaviour
 		var kartPassenger = _addedKarts.PopPassenger;
 
 		if (_addedKarts.PassengerCount % 2 == 0)
+		{
 			DampCamera.only.UpdateFilledKartCount(_addedKarts.PassengerCount / 2);
+			
+			if(_addedKarts.AddedKartCount > 0) _addedKarts.PopKart();
+		}
 		
 		kartPassenger.transform.DORotateQuaternion(myPassengerChild.rotation * Quaternion.AngleAxis(180f, Vector3.up), 0.5f);
 		

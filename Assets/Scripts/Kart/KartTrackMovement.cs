@@ -26,6 +26,7 @@ namespace Kart
 		private const float BrakeTime = 0f;
 		private float _brakeForce = 0f, _addForce = 0f;
 		private bool _toMove;
+		private bool _kartSlowedDownDueToCrash;
 
 		private void OnEnable()
 		{
@@ -102,11 +103,15 @@ namespace Kart
 
 		private void OnKartCrash(Vector3 point)
 		{
+			if(_kartSlowedDownDueToCrash) return;
+			_kartSlowedDownDueToCrash = true;
+			
 			var speed = currentSpeed;
 			currentSpeed = 0f;
 			
 			DOTween.To(GetCurrentSpeed, SetCurrentSpeed, speed - (speed - _currentLimits.min) / 2, 0.25f)
-				.OnComplete(() => DOTween.To(GetCurrentSpeed, SetCurrentSpeed, speed, 0.25f).SetDelay(1f));
+				.OnComplete(() => DOTween.To(GetCurrentSpeed, SetCurrentSpeed, speed, 0.25f).SetDelay(2f)
+					.OnComplete(() => _kartSlowedDownDueToCrash = false));
 		}
 
 		private void OnPlayerDeath() => StopFollowingTrack();

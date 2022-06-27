@@ -1,4 +1,6 @@
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,6 +19,7 @@ public class MainCanvasController : MonoBehaviour
 	private Color _originalRedColor, _lighterRedColor;
 	private bool _hasTapped, _hasLost;
 	private Sequence _emojiSequence;
+	private Tweener _redOverlayTween;
 
 	private void OnEnable()
 	{
@@ -144,8 +147,6 @@ public class MainCanvasController : MonoBehaviour
 		else
 		{
 			var x = Random.Range(5, SceneManager.sceneCountInBuildSettings - 1);
-			if (PlayerPrefs.GetInt("levelNo", 1) % 10 == 0)
-				x = 12;
 			PlayerPrefs.SetInt("lastBuildIndex", x);
 			SceneManager.LoadScene(x);
 		}
@@ -160,7 +161,9 @@ public class MainCanvasController : MonoBehaviour
 	{
 		red.enabled = true;
 		red.color = Color.clear;
-		red.DOColor(_lighterRedColor, 1f).SetLoops(2, LoopType.Yoyo);
+		
+		if(!_redOverlayTween.IsActive())
+			_redOverlayTween = red.DOColor(_lighterRedColor, 1f).SetLoops(2, LoopType.Yoyo);
 		
 		_emojiSequence.Restart();
 	}

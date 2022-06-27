@@ -13,15 +13,12 @@ namespace Kart
 		private List<AdditionalKartController> AddedKarts { get; set; }
 
 		private List<Passenger> _availablePassengers;
-
-		private Wagon _lastKart;
 		private MainKartController _my;
 
-		public static bool IsInKartCollisionCooldown; 
+		private static bool IsInKartCollisionCooldown; 
 		private static int _audioIndex;
-		
-		private Tween _kartCollisionCooldown;
 
+		public int AddedKartCount => AddedKarts.Count; 
 		public int PassengerCount => _availablePassengers.Count;
 
 		public GameObject PopPassenger
@@ -46,7 +43,6 @@ namespace Kart
 
 		private void Start()
 		{
-			_lastKart = GetComponent<Wagon>();
 			_my = GetComponent<MainKartController>();
 
 			AddedKarts = new List<AdditionalKartController>();
@@ -71,6 +67,32 @@ namespace Kart
 			}).SetLoops(kartsToSpawn);
 		}
 
+		public void PopKart()
+		{
+			var kartToPop = AddedKarts[^1];
+
+			kartToPop.transform.GetChild(0).gameObject.SetActive(false);
+			kartToPop.transform.GetChild(3).gameObject.SetActive(false);
+			kartToPop.explosionKart.transform.GetChild(1).gameObject.SetActive(false);
+			kartToPop.explosionKart.transform.GetChild(2).gameObject.SetActive(false);
+
+			kartToPop.gameObject.name += " fallen";
+			kartToPop.KartFollow.SetKartToFollow(null);
+			kartToPop.explosionKart.gameObject.SetActive(true);
+
+			var direction = -kartToPop.transform.forward + Vector3.up;
+			direction = direction.normalized;
+
+			kartToPop.BoxCollider.enabled = false;
+			kartToPop.Positioner.enabled = false;
+
+			kartToPop.explosionKart.gameObject.SetActive(true);
+			kartToPop.explosionKart.AddForce((direction * forceMultiplier + Vector3.up * upForce) + Vector3.left * sideForce , ForceMode.Impulse);
+			
+			AddedKarts.RemoveAt(AddedKarts.Count - 1);
+			if(AddedKartCount > 0) AddedKarts[^1].Wagon.back = null;
+		}
+
 		public void MakePassengersJump(float duration)
 		{
 			var delay = 0f;
@@ -86,8 +108,7 @@ namespace Kart
 		private void SpawnNewKart()
 		{
 			var newKart = Instantiate(kartPrefab, transform.parent).GetComponent<AdditionalKartController>();
-			AddedKarts.Add(newKart);
-			
+
 			//add new kart passengers
 			_availablePassengers.Add(newKart.passenger1);
 			_availablePassengers.Add(newKart.passenger2);
@@ -100,12 +121,21 @@ namespace Kart
 			checker = DOVirtual.DelayedCall(0.05f, () =>
 			{
 				if (!newKart.isInitialised) return;
-				
-				_lastKart.back = newKart.Wagon;
-				newKart.Wagon.Setup(_lastKart);
-				newKart.KartFollow.SetKartToFollow(_lastKart.transform);
 
-				_lastKart = newKart.Wagon;
+				if (AddedKarts.Count == 0)
+				{
+					_my.Wagon.back = newKart.Wagon;
+					newKart.Wagon.Setup(_my.Wagon);
+					newKart.KartFollow.SetKartToFollow(transform);
+				}
+				else
+				{
+					AddedKarts[^1].Wagon.back = newKart.Wagon;
+					newKart.Wagon.Setup(AddedKarts[^1].Wagon);
+					newKart.KartFollow.SetKartToFollow(AddedKarts[^1].Wagon.transform);
+				}
+				
+				AddedKarts.Add(newKart);
 				
 				checker.Kill();
 			}).SetLoops(-1);
@@ -119,6 +149,7 @@ namespace Kart
 				kartToPop.transform.GetChild(i).gameObject.SetActive(false);
 
 			kartToPop.gameObject.name += " fallen";
+			kartToPop.KartFollow.SetKartToFollow(null);
 			kartToPop.explosionKart.gameObject.SetActive(true);
 
 			var direction = collisionPoint - kartToPop.transform.position;
@@ -136,7 +167,7 @@ namespace Kart
 			kartToPop.explosionKart.AddTorque(perpendicular * forceMultiplier + Vector3.left * sideForce, ForceMode.Impulse);
 
 			AddedKarts.RemoveAt(AddedKarts.Count - 1);
-			AddedKarts[^1].Wagon.back = null;
+			if(AddedKartCount > 0) AddedKarts[^1].Wagon.back = null;
 
 			_availablePassengers.RemoveAt(_availablePassengers.Count - 1);
 			_availablePassengers.RemoveAt(_availablePassengers.Count - 1);
@@ -184,7 +215,7 @@ namespace Kart
 			if(IsInKartCollisionCooldown) return;
 
 			IsInKartCollisionCooldown = true;
-			_kartCollisionCooldown = DOVirtual.DelayedCall(0.1f, () => IsInKartCollisionCooldown = false);
+			DOVirtual.DelayedCall(0.1f, () => IsInKartCollisionCooldown = false);
 			CameraFxController.only.ScreenShake(5f);
 
 			if (AddedKarts.Count > 0)
