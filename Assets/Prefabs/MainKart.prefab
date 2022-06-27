@@ -3810,8 +3810,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedParticleSystem: {fileID: 3272935274291745237}
-  shakeDuration: 5
-  shakeStrength: 5
+  shakeDuration: 1
+  shakeStrength: 0.5
 --- !u!114 &8882828301481964409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3835,7 +3835,7 @@ MonoBehaviour:
   deathCamPos: {fileID: 5770543819735466121}
   bonusCameraPos: {fileID: 5649958707522921265}
   postBonusCamera: {fileID: 3833225671568016261}
-  targetMediator: {fileID: 0}
+  targetMediator: {fileID: 7935872029698375953}
 --- !u!1 &7936708378448459765
 GameObject:
   m_ObjectHideFlags: 0

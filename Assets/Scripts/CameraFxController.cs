@@ -10,7 +10,7 @@ public class CameraFxController : MonoBehaviour
 	[SerializeField] private float shakeDuration = 5f,shakeStrength = 5f;
 	
 	private Camera _cam;
-	private Tween _fovTween;
+	private Tween _fovTween, _screenShakeEnd;
 
 	private Tweener _screenShakeTween;
 
@@ -55,11 +55,18 @@ public class CameraFxController : MonoBehaviour
 
 	public void ScreenShake(float intensity)
 	{
-		var target = DampCamera.only.MediateTarget();;
+		var target = DampCamera.only.MediateTarget();
 
 		if (_screenShakeTween.IsActive()) _screenShakeTween.Kill(true);
-		_screenShakeTween = target.DOShakePosition(shakeDuration, shakeStrength * intensity, 10, 45f).OnComplete(
-			() => DampCamera.only.StopMediatingTarget());
+		_screenShakeTween = target.DOShakePosition(shakeDuration, shakeStrength * intensity, 10, 45f)
+			.OnComplete(RequestEndScreenShaker);
+	}
+
+	private void RequestEndScreenShaker()
+	{
+		if (_screenShakeEnd.IsActive()) _screenShakeEnd.Kill();
+		
+		_screenShakeEnd = DOVirtual.DelayedCall(0.5f, () => DampCamera.only.StopMediatingTarget());
 	}
 
 	public void SetSpeedLinesStatus(bool status) => speedParticleSystem.SetActive(status);

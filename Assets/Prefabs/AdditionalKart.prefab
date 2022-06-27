@@ -2470,6 +2470,7 @@ MonoBehaviour:
   explosionKart: {fileID: 473465841547120138}
   passenger1: {fileID: 3011608438897166873}
   passenger2: {fileID: 3011608438502687686}
+  emoji: {fileID: 0}
   isInitialised: 0
 --- !u!114 &5904755872824031590
 MonoBehaviour:

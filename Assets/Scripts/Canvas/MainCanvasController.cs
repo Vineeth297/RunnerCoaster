@@ -9,20 +9,27 @@ public class MainCanvasController : MonoBehaviour
 {
 	[SerializeField] private GameObject holdToAim, victory, defeat, nextLevel, retry, constantRetryButton, skipLevel;
 	[SerializeField] private TextMeshProUGUI levelText;
-	[SerializeField] private Image red;
+	[SerializeField] private Image red, emoji;
+	[SerializeField] private float emojiRotation;
 
 	[SerializeField] private Button nextLevelButton;
 
+	private Color _originalRedColor, _lighterRedColor;
 	private bool _hasTapped, _hasLost;
+	private Sequence _emojiSequence;
 
 	private void OnEnable()
 	{
+		GameEvents.KartCrash += OnObstacleCollision;
+
 		GameEvents.PlayerDeath += OnGameLose;
 		GameEvents.GameWin += OnGameWin;
 	}
 
 	private void OnDisable()
 	{
+		GameEvents.KartCrash -= OnObstacleCollision;
+		
 		GameEvents.PlayerDeath -= OnGameLose;
 		GameEvents.GameWin -= OnGameWin;
 	}
@@ -33,6 +40,30 @@ public class MainCanvasController : MonoBehaviour
 	{
 		var levelNo = PlayerPrefs.GetInt("levelNo", 1);
 		levelText.text = "Level " + levelNo;
+
+		_originalRedColor = red.color;
+		_lighterRedColor = _originalRedColor;
+		_lighterRedColor.a *= 0.5f;
+		
+		_emojiSequence = DOTween.Sequence();
+
+		var emojiTransform = emoji.transform;
+		const float duration = 0.175f;
+		
+		_emojiSequence.Append(emoji.DOColor(Color.white, duration));
+		_emojiSequence.AppendCallback(() => emojiTransform.localScale = Vector3.zero);
+		_emojiSequence.Join(emojiTransform.DOScale(Vector3.one, duration).SetEase(Ease.OutBack));
+		_emojiSequence.Append(emojiTransform.DOLocalRotate(Vector3.forward * -emojiRotation / 2, duration));
+		_emojiSequence.Append(emojiTransform.DOLocalRotate(Vector3.forward * emojiRotation, duration));
+		_emojiSequence.Append(emojiTransform.DOLocalRotate(Vector3.forward * -emojiRotation, duration));
+		_emojiSequence.Append(emojiTransform.DOLocalRotate(Vector3.forward * emojiRotation, duration));
+		_emojiSequence.Append(emojiTransform.DOLocalRotate(Vector3.forward * -emojiRotation / 2, duration));
+		_emojiSequence.Append(emoji.DOColor(Color.clear, duration));
+		_emojiSequence.Join(emojiTransform.DOScale(Vector3.zero, duration).SetEase(Ease.InBack));
+
+		_emojiSequence.SetRecyclable(true);
+		_emojiSequence.SetAutoKill(false);
+		_emojiSequence.Pause();
 	}
 
 	private void Update()
@@ -70,9 +101,10 @@ public class MainCanvasController : MonoBehaviour
 		if (_hasLost) return;
 		
 		red.enabled = true;
-		var originalColor = red.color;
 		red.color = Color.clear;
-		red.DOColor(originalColor, 1f);
+
+		DOTween.Kill(red);
+		red.DOColor(_originalRedColor, 1f);
 
 		defeat.SetActive(true);
 		retry.SetActive(true);
@@ -83,7 +115,7 @@ public class MainCanvasController : MonoBehaviour
 		if(AudioManager.instance)
 			AudioManager.instance.Play("Lose");
 	}
-	
+
 	private void TapToPlay()
 	{
 		_hasTapped = true;
@@ -100,7 +132,7 @@ public class MainCanvasController : MonoBehaviour
 		if(AudioManager.instance)
 			AudioManager.instance.Play("Button");
 	}
-	
+
 	public void NextLevel()
 	{
 		if (PlayerPrefs.GetInt("levelNo", 1) < SceneManager.sceneCountInBuildSettings - 1)
@@ -123,7 +155,16 @@ public class MainCanvasController : MonoBehaviour
 			AudioManager.instance.Play("Button");
 		Vibration.Vibrate(15);
 	}
-	
+
+	private void OnObstacleCollision(Vector3 obj)
+	{
+		red.enabled = true;
+		red.color = Color.clear;
+		red.DOColor(_lighterRedColor, 1f).SetLoops(2, LoopType.Yoyo);
+		
+		_emojiSequence.Restart();
+	}
+
 	private void OnGameLose()
 	{
 		DOVirtual.DelayedCall(1.5f, EnableLossObjects);
