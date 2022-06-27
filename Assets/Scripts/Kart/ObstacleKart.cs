@@ -17,6 +17,7 @@ namespace Kart
 		private readonly HashSet<Collider> _playerColliders = new HashSet<Collider>();
 		private Tween _waitToCheckIfOutOfCollision;
 		private static bool _outOfCollision;
+		private bool _shouldIgnoreFunctionality;
 
 		private void OnEnable()
 		{
@@ -60,7 +61,11 @@ namespace Kart
 			Wagon candidate = GetComponent<Wagon>();
 			
 			//other obstacles also use this script, but dont have wagons
-			if(!candidate) return;
+			if(!candidate)
+			{
+				_shouldIgnoreFunctionality = true;
+				return;
+			}
 			
 			do
 			{
@@ -93,6 +98,7 @@ namespace Kart
 
 		private void OnTriggerEnter(Collider other)
 		{
+			if(_shouldIgnoreFunctionality) return;
 			if (!other.CompareTag("Player") && !other.CompareTag("Kart")) return;
 
 			var collisionPoint = other.ClosestPoint(transform.position);
@@ -103,6 +109,7 @@ namespace Kart
 
 		private void OnTriggerExit(Collider other)
 		{
+			if(_shouldIgnoreFunctionality) return;
 			if (!other.CompareTag("Player") && !other.CompareTag("Kart")) return;
 			
 			_mainKart.MainKartCollisionExit(other);

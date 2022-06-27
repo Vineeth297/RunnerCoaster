@@ -14,5 +14,5 @@ public class FinishStation : MonoBehaviour
 		GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
 	}
 
-	private void OnReachEndOfTrack() => transform.DOScale(Vector3.zero, duration);
+	private void OnReachEndOfTrack() => transform.DOScale(Vector3.zero, duration).SetEase(Ease.InOutExpo);
 }
