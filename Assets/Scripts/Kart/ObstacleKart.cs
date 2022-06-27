@@ -98,12 +98,19 @@ namespace Kart
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if(_shouldIgnoreFunctionality) return;
 			if (!other.CompareTag("Player") && !other.CompareTag("Kart")) return;
 
 			var collisionPoint = other.ClosestPoint(transform.position);
 			GameEvents.InvokeKartCrash(collisionPoint);
 			
+			if(_shouldIgnoreFunctionality) return;
+
+			Wagon hit = null;
+			if (other.TryGetComponent(out AdditionalKartController addy)) hit = addy.Wagon;
+			else if (other.TryGetComponent(out MainKartController addu)) hit = addu.Wagon;
+			
+			
+
 			_mainKart.MainKartCollisionEnter(other);
 		}
 
@@ -123,6 +130,7 @@ namespace Kart
 		}
 
 		private static void InvokeStopAllObstacleTrains() => StopAllObstacleTrains?.Invoke();
+
 		private static void InvokeStartAllObstacleTrains() => StartAllObstacleTrains?.Invoke();
 
 		private void OnStopAllObstacleTrains() => _my.TrackMovement.StopFollowingTrack();

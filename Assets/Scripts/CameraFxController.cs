@@ -14,27 +14,29 @@ public class CameraFxController : MonoBehaviour
 
 	private Tweener _screenShakeTween;
 
+
 	private void Awake()
 	{
 		if (!only) only = this;
 		else Destroy(only);
 	}
 
-	private void Start()
-	{
-		_cam = Camera.main;
-	}
-
 	private void OnEnable()
 	{
 		GameEvents.PlayerDeath += OnPlayerDeath;
+		GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
+		GameEvents.RunOutOfPassengers += OnRunOutOfPassengers;
 	}
 
 	private void OnDisable()
 	{
 		GameEvents.PlayerDeath -= OnPlayerDeath;
+		GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
+		GameEvents.RunOutOfPassengers -= OnRunOutOfPassengers;
 	}
-	
+
+	private void Start() => _cam = Camera.main;
+
 	public void DoNormalFov()
 	{
 		if (_fovTween.IsActive()) _fovTween.Kill();
@@ -72,4 +74,8 @@ public class CameraFxController : MonoBehaviour
 	public void SetSpeedLinesStatus(bool status) => speedParticleSystem.SetActive(status);
 
 	private void OnPlayerDeath() => SetSpeedLinesStatus(false);
+
+	private void OnReachEndOfTrack() => SetSpeedLinesStatus(true);
+
+	private void OnRunOutOfPassengers() => SetSpeedLinesStatus(false);
 }

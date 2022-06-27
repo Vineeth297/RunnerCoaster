@@ -984,7 +984,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Tap To Play
+  m_text: 'Tap & Hold
 
 '
   m_isRightToLeft: 0

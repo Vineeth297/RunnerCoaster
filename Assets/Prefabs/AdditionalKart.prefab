@@ -2470,7 +2470,6 @@ MonoBehaviour:
   explosionKart: {fileID: 473465841547120138}
   passenger1: {fileID: 3011608438897166873}
   passenger2: {fileID: 3011608438502687686}
-  emoji: {fileID: 0}
   isInitialised: 0
 --- !u!114 &5904755872824031590
 MonoBehaviour:
@@ -3150,7 +3149,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7841834121180478184, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7841834120516907831, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7975310415337002297, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 6650214848727109737, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7841711610747210035, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7916988542637198830, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7916928381203694223, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7916937298689931489, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7915134460849522426, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7916873233648374192, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7916575339197041572, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7915878183360740152, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7916846658640175215, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+    - {fileID: 7916861855547060156, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
 --- !u!54 &473465841547120138 stripped
 Rigidbody:

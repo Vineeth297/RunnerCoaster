@@ -246,7 +246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tap!
+  m_text: Tap! TAP! TAP!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8eeb15be2a71a2540be3501163f7f8e8, type: 2}
   m_sharedMaterial: {fileID: -2323337353529357174, guid: 8eeb15be2a71a2540be3501163f7f8e8, type: 2}
@@ -273,8 +273,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 275
-  m_fontSizeBase: 275
+  m_fontSize: 157.45
+  m_fontSizeBase: 157.45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
