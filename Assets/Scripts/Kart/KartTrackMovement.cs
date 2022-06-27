@@ -18,7 +18,8 @@ namespace Kart
 		[SerializeField] private float slopeRange = 60f;
 
 		public Limits CurrentLimits => _currentLimits;
-		public float CurrentSpeed => currentSpeed;
+		public float GetCurrentSpeed() => currentSpeed;
+		private void SetCurrentSpeed(float value) => currentSpeed = value;
 		
 		private Limits _currentLimits;
 
@@ -28,13 +29,15 @@ namespace Kart
 
 		private void OnEnable()
 		{
-			GameEvents.KartCrash += OnExplosion;
+			GameEvents.KartCrash += OnKartCrash;
+			GameEvents.PlayerDeath += OnPlayerDeath;
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
 		}
 
 		private void OnDisable()
 		{
-			GameEvents.KartCrash -= OnExplosion;
+			GameEvents.KartCrash -= OnKartCrash;
+			GameEvents.PlayerDeath -= OnPlayerDeath;
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
 		}
 
@@ -87,7 +90,7 @@ namespace Kart
 
 		public PlayerAudio GetAudio => _my.PlayerAudio;
 
-		public void StartFollow() => _my.Follower.follow = true;
+		public void StartFollowingTrack() => _my.Follower.follow = true;
 
 		public void PauseFollow() => _my.PlayerAudio.StopMoving();
 
@@ -95,9 +98,18 @@ namespace Kart
 
 		public void SetNormalSpeedValues() => _currentLimits = plainSpeedLimits;
 
-		private void StopFollowingTrack() => _my.Follower.follow = false;
+		public void StopFollowingTrack() => _my.Follower.follow = false;
 
-		private void OnExplosion(Vector3 collisionPoint) => StopFollowingTrack();
+		private void OnKartCrash(Vector3 point)
+		{
+			var speed = currentSpeed;
+			currentSpeed = 0f;
+			
+			DOTween.To(GetCurrentSpeed, SetCurrentSpeed, speed - (speed - _currentLimits.min) / 2, 0.25f)
+				.OnComplete(() => DOTween.To(GetCurrentSpeed, SetCurrentSpeed, speed, 0.25f).SetDelay(1f));
+		}
+
+		private void OnPlayerDeath() => StopFollowingTrack();
 
 		private void OnReachEndOfTrack() => StopFollowingTrack();
 

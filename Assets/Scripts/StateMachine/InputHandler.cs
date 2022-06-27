@@ -27,7 +27,7 @@ namespace StateMachine
 			GameEvents.TapToPlay += OnTapToPlay;
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
 			GameEvents.RunOutOfPassengers += OnStopOnBonusRamp;
-			GameEvents.KartCrash += OnObstacleCollision;
+			GameEvents.PlayerDeath += OnPlayerDeath;
 		}
 
 		private void OnDisable()
@@ -35,7 +35,7 @@ namespace StateMachine
 			GameEvents.TapToPlay -= OnTapToPlay;
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
 			GameEvents.RunOutOfPassengers -= OnStopOnBonusRamp;
-			GameEvents.KartCrash -= OnObstacleCollision;
+			GameEvents.PlayerDeath -= OnPlayerDeath;
 		}
 
 		private void Start()
@@ -129,6 +129,6 @@ namespace StateMachine
 
 		private static void OnStopOnBonusRamp() => AssignNewState(InputState.Disabled);
 
-		private static void OnObstacleCollision(Vector3 obj) => AssignNewState(InputState.Disabled);
+		private static void OnPlayerDeath() => AssignNewState(InputState.Disabled);
 	}
 }

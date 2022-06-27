@@ -61,7 +61,10 @@ public class BonusTile : MonoBehaviour
 		EjectPassenger(myPassengerChild);
 		
 		if(AudioManager.instance)
+		{
 			AudioManager.instance.Play("BonusTile");
+			AudioManager.instance.Play("Hype" + Random.Range(1, 5));
+		}
 	}
 
 	private void OnTriggerExit(Collider other)

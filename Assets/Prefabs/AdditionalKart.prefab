@@ -120,8 +120,8 @@ Transform:
   - {fileID: 8070239017961280177}
   - {fileID: 6379236705500485960}
   - {fileID: 6379236705910657175}
-  - {fileID: 2974097282614942588}
   - {fileID: 7445819770811586810}
+  - {fileID: 2974097282614942588}
   - {fileID: 8434348035851213278}
   - {fileID: 4087588645646817332}
   m_Father: {fileID: 0}
@@ -2486,6 +2486,7 @@ MonoBehaviour:
   isEngine: 0
   back: {fileID: 0}
   offset: 3
+  front: {fileID: 0}
 --- !u!114 &2324552386967030151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2923,7 +2924,7 @@ GameObject:
   - component: {fileID: 1274390032980003324}
   - component: {fileID: 977314232838973678}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: BaseCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2942,7 +2943,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3746853534499139348}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3594779781471136901
 MeshFilter:
@@ -3098,7 +3099,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 528031366002851747, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 528031366002851747, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
       propertyPath: m_LocalPosition.x

@@ -6,7 +6,6 @@ public class TimeController : MonoBehaviour
 	public static TimeController only;
 
 	[SerializeField] private float slowedTimeScale, timeRampDownDuration = 0.5f, timeRampUpDuration = 0.5f;
-	//[SerializeField] private AnimationCurve easing;
 	
 	private const float DefaultFixedDeltaTime = 0.02f;
 	private float _slowedDeltaTime;
@@ -65,11 +64,5 @@ public class TimeController : MonoBehaviour
 		_timeDeltaTween = DOTween.To(() => Time.timeScale, value => Time.timeScale = value, _defaultTimeScale, timeRampUpDuration).SetUpdate(true);
 		_fixedTimeDeltaTween = DOTween.To(() => Time.fixedDeltaTime, value => Time.fixedDeltaTime = value, DefaultFixedDeltaTime, timeRampUpDuration)
 			.SetUpdate(true);
-
-		/*
-		if (!lastEnemy) return;
-
-		_timeDeltaTween.SetEase(easing);
-		_fixedTimeDeltaTween.SetEase(easing);*/
 	}
 }

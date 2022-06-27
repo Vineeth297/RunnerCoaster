@@ -10,17 +10,20 @@ public static class GameEvents
 
 	public static event Action<int> StartParade;
 	public static event Action<int> AttackPlayer;
-	
+
 	public static event Action<Vector3> KartCrash;
+	public static event Action PlayerDeath;
 	public static event Action ReachEndOfTrack;
-	public static event Action RunOutOfPassengers;
 
 	//invoked when the coasters completely stops on the bonus ramp
+	public static event Action RunOutOfPassengers;
+
 	public static event Action GameWin;
 
 	public static void InvokeTapToPlay() => TapToPlay?.Invoke();
 
 	public static void InvokeKartCrash(Vector3 collisionPoint) => KartCrash?.Invoke(collisionPoint);
+	public static void InvokePlayerDeath() => PlayerDeath?.Invoke();
 	public static void InvokeUpdateHype(bool status) => UpdateHype?.Invoke(status);
 	public static void InvokeEnterHelix(bool isLeftHelix) => EnterHelix?.Invoke(isLeftHelix);
 	public static void InvokeExitHelix() => ExitHelix?.Invoke();

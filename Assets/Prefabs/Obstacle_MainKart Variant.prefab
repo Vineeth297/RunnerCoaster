@@ -11493,4 +11493,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6760c292d34a7193b0e5c65cdbae8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMainKart: 0
+  isMainKart: 1

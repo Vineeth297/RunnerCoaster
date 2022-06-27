@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Kart;
 using UnityEngine;
 
 public class CameraFxController : MonoBehaviour
@@ -6,11 +7,12 @@ public class CameraFxController : MonoBehaviour
 	public static CameraFxController only;
 
 	[SerializeField] private GameObject speedParticleSystem;
+	[SerializeField] private float shakeDuration = 5f,shakeStrength = 5f;
+	
 	private Camera _cam;
 	private Tween _fovTween;
-	[SerializeField] private float shakeDuration = 5f,shakeStrength = 5f;
 
-	private Vector3 _initialLocalPos;
+	private Tweener _screenShakeTween;
 
 	private void Awake()
 	{
@@ -25,12 +27,12 @@ public class CameraFxController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		GameEvents.KartCrash += OnObstacleCollision;
+		GameEvents.PlayerDeath += OnPlayerDeath;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.KartCrash -= OnObstacleCollision;
+		GameEvents.PlayerDeath -= OnPlayerDeath;
 	}
 	
 	public void DoNormalFov()
@@ -51,18 +53,16 @@ public class CameraFxController : MonoBehaviour
 		_fovTween = _cam.DOFieldOfView(fov, 0.5f);
 	}
 
-	public void SetSpeedLinesStatus(bool status) => speedParticleSystem.SetActive(status);
-	
-
-	private void OnObstacleCollision(Vector3 collisionPoint)
-	{
-		SetSpeedLinesStatus(false);
-	}
-	
 	public void ScreenShake(float intensity)
 	{
-		_initialLocalPos = _cam.transform.localPosition;
-		_cam.DOShakePosition(shakeDuration * intensity / 2f, shakeStrength * intensity, 10, 45f)
-			.OnComplete(() => _cam.transform.DOLocalMove(_initialLocalPos, 0.15f));
+		var target = DampCamera.only.MediateTarget();;
+
+		if (_screenShakeTween.IsActive()) _screenShakeTween.Kill(true);
+		_screenShakeTween = target.DOShakePosition(shakeDuration, shakeStrength * intensity, 10, 45f).OnComplete(
+			() => DampCamera.only.StopMediatingTarget());
 	}
+
+	public void SetSpeedLinesStatus(bool status) => speedParticleSystem.SetActive(status);
+
+	private void OnPlayerDeath() => SetSpeedLinesStatus(false);
 }

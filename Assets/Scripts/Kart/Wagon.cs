@@ -88,7 +88,7 @@ namespace Kart
 		public bool isEngine = false;
 		public Wagon back;
 		public float offset = 0f;
-		private Wagon front;
+		public Wagon front;
 		private SplineSegment segment, tempSegment;
 
 		private Vector3 _initScale;

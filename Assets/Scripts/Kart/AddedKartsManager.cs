@@ -7,7 +7,7 @@ namespace Kart
 	public class AddedKartsManager : MonoBehaviour
 	{
 		[SerializeField] private GameObject kartPrefab;
-		[SerializeField] private float forceMultiplier, upForce;
+		[SerializeField] private float forceMultiplier, upForce, sideForce;
 		[SerializeField] private float passengerJumpDelayStep;
 
 		private List<AdditionalKartController> AddedKarts { get; set; }
@@ -16,6 +16,11 @@ namespace Kart
 
 		private Wagon _lastKart;
 		private MainKartController _my;
+
+		public static bool IsInKartCollisionCooldown; 
+		private static int _audioIndex;
+		
+		private Tween _kartCollisionCooldown;
 
 		public int PassengerCount => _availablePassengers.Count;
 
@@ -106,12 +111,46 @@ namespace Kart
 			}).SetLoops(-1);
 		}
 
-		private void Explode(Vector3 collisionPoint)
+		private void ExplodeRearKart(Vector3 collisionPoint)
+		{
+			var kartToPop = AddedKarts[^1];
+
+			for (var i = 0; i < 4; i++) 
+				kartToPop.transform.GetChild(i).gameObject.SetActive(false);
+
+			kartToPop.gameObject.name += " fallen";
+			kartToPop.explosionKart.gameObject.SetActive(true);
+
+			var direction = collisionPoint - kartToPop.transform.position;
+			direction = direction.normalized;
+
+			var perpendicular = direction;
+			perpendicular.x = -direction.z;
+			perpendicular.z = direction.x;
+
+			kartToPop.BoxCollider.enabled = false;
+			kartToPop.Positioner.enabled = false;
+
+			kartToPop.explosionKart.gameObject.SetActive(true);
+			kartToPop.explosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce + Vector3.left * sideForce, ForceMode.Impulse);
+			kartToPop.explosionKart.AddTorque(perpendicular * forceMultiplier + Vector3.left * sideForce, ForceMode.Impulse);
+
+			AddedKarts.RemoveAt(AddedKarts.Count - 1);
+			AddedKarts[^1].Wagon.back = null;
+
+			_availablePassengers.RemoveAt(_availablePassengers.Count - 1);
+			_availablePassengers.RemoveAt(_availablePassengers.Count - 1);
+
+			if(AudioManager.instance)
+				AudioManager.instance.Play("Death" + ((++_audioIndex % 4) + 1));
+		}
+
+		private void ExplodeMainKart(Vector3 collisionPoint)
 		{
 			//default main cart disable
 			transform.GetChild(0).gameObject.SetActive(false);
 
-			var direction = transform.position - collisionPoint;
+			var direction = collisionPoint - transform.position;
 			direction = direction.normalized;
 
 			var perpendicular = direction;
@@ -121,33 +160,10 @@ namespace Kart
 			_my.BoxCollider.enabled = false;
 
 			_my.ExplosionKart.gameObject.SetActive(true);
-			_my.ExplosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce, ForceMode.Impulse);
-			_my.ExplosionKart.AddTorque(perpendicular * forceMultiplier, ForceMode.Impulse);
+			_my.ExplosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce + Vector3.left * upForce, ForceMode.Impulse);
+			_my.ExplosionKart.AddTorque(perpendicular * forceMultiplier + Vector3.left * upForce, ForceMode.Impulse);
 
-			var audioIndex = 0;
-			foreach (var kart in AddedKarts)
-			{
-				for (var i = 0; i < 3; i++) 
-					kart.transform.GetChild(i).gameObject.SetActive(false);
-
-				direction = transform.position - collisionPoint;
-				direction = direction.normalized;
-				
-				perpendicular = direction;
-				perpendicular.x = -direction.z;
-				perpendicular.z = direction.x;
-
-				kart.explosionKart.gameObject.SetActive(true);
-				kart.BoxCollider.enabled = false;
-				kart.explosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce, ForceMode.Impulse);
-				kart.explosionKart.AddTorque(perpendicular * forceMultiplier * 1.5f, ForceMode.Impulse);
-				
-				if(AudioManager.instance)
-					AudioManager.instance.Play("Death" + ((++audioIndex % 4) + 1));
-			}
-			
-			if(AudioManager.instance)
-				AudioManager.instance.Play("KartCrash");
+			if(AudioManager.instance) AudioManager.instance.Play("Death" + ((++_audioIndex % 4) + 1));
 		}
 
 		private void OnTriggerEnter(Collider other)
@@ -162,6 +178,25 @@ namespace Kart
 			other.enabled = false; 
 		}
 
-		private void OnObstacleCollision(Vector3 collisionPoint) => Explode(collisionPoint);
+		private void OnObstacleCollision(Vector3 collisionPoint)
+		{
+			//Explode(collisionPoint);
+			if(IsInKartCollisionCooldown) return;
+
+			IsInKartCollisionCooldown = true;
+			_kartCollisionCooldown = DOVirtual.DelayedCall(0.1f, () => IsInKartCollisionCooldown = false);
+			CameraFxController.only.ScreenShake(5f);
+
+			if (AddedKarts.Count > 0)
+				ExplodeRearKart(collisionPoint);
+			else
+			{
+				ExplodeMainKart(collisionPoint);
+				GameEvents.InvokePlayerDeath();
+			}
+
+			TimeController.only.SlowDownTime();
+			DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());
+		}
 	}
 }

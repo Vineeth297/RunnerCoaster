@@ -78,5 +78,4 @@ public class Godzilla : MonoBehaviour
 	{
 		CameraFxController.only.ScreenShake(intensity);
 	}
-	
 }

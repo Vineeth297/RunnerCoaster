@@ -17,6 +17,9 @@ namespace Kart
 		[SerializeField] private Transform obstacleOnLeftCam, obstacleOnRightCam, leftHelixCam, rightHelixCam, deathCamPos;
 		[SerializeField] private Transform bonusCameraPos, postBonusCamera;
 
+		[SerializeField] private Transform targetMediator;
+		private bool _isMediatingTarget;
+		
 		private Transform _targetParent;
 		private AddedKartsManager _player;
 		private Transform _transform;
@@ -28,7 +31,7 @@ namespace Kart
 			GameEvents.EnterHelix += OnEnterHelix;
 			GameEvents.ExitHelix += OnExitHelix;
 
-			GameEvents.KartCrash += OnObstacleCollision;
+			GameEvents.PlayerDeath += OnPlayerDeath;
 			
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
 			GameEvents.GameWin += OnMainKartEndBonusRampMovement;
@@ -39,7 +42,7 @@ namespace Kart
 			GameEvents.EnterHelix -= OnEnterHelix;
 			GameEvents.ExitHelix -= OnExitHelix;
 			
-			GameEvents.KartCrash -= OnObstacleCollision;
+			GameEvents.PlayerDeath -= OnPlayerDeath;
 			
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
 			GameEvents.GameWin -= OnMainKartEndBonusRampMovement;
@@ -64,8 +67,22 @@ namespace Kart
 			_initBonusCamLocalPosition = bonusCameraPos.localPosition;
 		}
 
+		private void Update()
+		{
+			if(!_isMediatingTarget) return;
+			targetMediator.position = target.position;
+			targetMediator.rotation = target.rotation;
+		}
+
 		private void LateUpdate()
 		{
+			if (_isMediatingTarget)
+			{
+				_transform.position = targetMediator.position;
+				_transform.rotation = Quaternion.Lerp(_transform.rotation, targetMediator.rotation, Time.deltaTime * lerpMul);
+				 return;
+			}
+			
 			_transform.position = target.position;
 			_transform.rotation = Quaternion.Lerp(_transform.rotation, target.rotation, Time.deltaTime * lerpMul);
 		}
@@ -119,6 +136,17 @@ namespace Kart
 			return target;
 		}
 
+		public Transform MediateTarget()
+		{
+			_isMediatingTarget = true;
+			
+			return targetMediator;
+		}
+
+		public void StopMediatingTarget() => _isMediatingTarget = false;
+
+		public Transform GetTarget => target;
+
 		public void ReleaseControlOfTarget(float overTime)
 		{
 			target.parent = _targetParent;
@@ -128,7 +156,7 @@ namespace Kart
 
 		private void OnExitHelix() => CameraResetPosition();
 
-		private void OnObstacleCollision(Vector3 collisionPoint)
+		private void OnPlayerDeath()
 		{
 			target.DOMove(deathCamPos.position, cameraTransitionDuration);
 			target.DORotateQuaternion(deathCamPos.rotation, cameraTransitionDuration);

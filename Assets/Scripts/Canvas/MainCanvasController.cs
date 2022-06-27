@@ -17,13 +17,13 @@ public class MainCanvasController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		GameEvents.KartCrash += OnGameLose;
+		GameEvents.PlayerDeath += OnGameLose;
 		GameEvents.GameWin += OnGameWin;
 	}
 
 	private void OnDisable()
 	{
-		GameEvents.KartCrash -= OnGameLose;
+		GameEvents.PlayerDeath -= OnGameLose;
 		GameEvents.GameWin -= OnGameWin;
 	}
 
@@ -124,7 +124,7 @@ public class MainCanvasController : MonoBehaviour
 		Vibration.Vibrate(15);
 	}
 	
-	private void OnGameLose(Vector3 vector3)
+	private void OnGameLose()
 	{
 		DOVirtual.DelayedCall(1.5f, EnableLossObjects);
 	}

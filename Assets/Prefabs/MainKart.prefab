@@ -69,6 +69,37 @@ Transform:
   m_Father: {fileID: 2685788260203797356}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+--- !u!1 &736798148053563501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7935872029698375953}
+  m_Layer: 0
+  m_Name: MediatorTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7935872029698375953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736798148053563501}
+  m_LocalRotation: {x: 0.1931766, y: 0.000000007916242, z: -0.0000000015984369, w: 0.98116404}
+  m_LocalPosition: {x: 0, y: 12.179999, z: -21.140003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2685788260203797356}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!1 &1036132278149109619
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,6 +573,7 @@ Transform:
   - {fileID: 3833225671568016261}
   - {fileID: 1210895146413611466}
   - {fileID: 3794663629988383545}
+  - {fileID: 7935872029698375953}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2902,6 +2934,7 @@ MonoBehaviour:
   isEngine: 1
   back: {fileID: 0}
   offset: 0
+  front: {fileID: 0}
 --- !u!114 &2685788260203797355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2941,7 +2974,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kartPrefab: {fileID: 3746853534499139346, guid: 0e3c86d24dea9ac48982c3e07a9720f1, type: 3}
   forceMultiplier: 20
-  upForce: 10
+  upForce: 30
+  sideForce: 0
   passengerJumpDelayStep: 0.1
 --- !u!54 &5647499974886853244
 Rigidbody:
@@ -3801,6 +3835,7 @@ MonoBehaviour:
   deathCamPos: {fileID: 5770543819735466121}
   bonusCameraPos: {fileID: 5649958707522921265}
   postBonusCamera: {fileID: 3833225671568016261}
+  targetMediator: {fileID: 0}
 --- !u!1 &7936708378448459765
 GameObject:
   m_ObjectHideFlags: 0

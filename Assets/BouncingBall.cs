@@ -28,11 +28,7 @@ public class BouncingBall : MonoBehaviour
 			return;
 		}
 
-		DOVirtual.DelayedCall(delay, () =>
-		{
-			print("starts");
-			_animator.enabled = true;
-		});
+		DOVirtual.DelayedCall(delay, () => _animator.enabled = true);
 	}
 
 	private void OnTriggerEnter(Collider other)

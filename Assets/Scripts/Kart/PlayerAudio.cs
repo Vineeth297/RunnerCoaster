@@ -20,13 +20,13 @@ namespace Kart
 
 		private void OnEnable()
 		{
-			GameEvents.KartCrash += OnKartCrash;
+			GameEvents.PlayerDeath += OnPlayerDeath;
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
 		}
 
 		private void OnDisable()
 		{
-			GameEvents.KartCrash -= OnKartCrash;
+			GameEvents.PlayerDeath -= OnPlayerDeath;
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
 		}
 
@@ -41,7 +41,7 @@ namespace Kart
 
 		public void UpdatePitch() => rails.pitch = wind.pitch =
 			MyHelpers.RemapClamped(_kartTrackMovement.CurrentLimits.min, _kartTrackMovement.CurrentLimits.max, 
-				pitch.min, pitch.max, _kartTrackMovement.CurrentSpeed);
+				pitch.min, pitch.max, _kartTrackMovement.GetCurrentSpeed());
 
 		public void StartMoving()
 		{
@@ -85,7 +85,7 @@ namespace Kart
 		private float GetPitch() => rails.pitch;
 		private void SetPitch(float value) => rails.pitch = value;
 
-		private void OnKartCrash(Vector3 obj) => StopMoving();
+		private void OnPlayerDeath() => StopMoving();
 
 		private void OnReachEndOfTrack() => StopMoving();
 

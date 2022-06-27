@@ -37,7 +37,7 @@ namespace StateMachine
 		
 		public override void OnEnter()
 		{
-			Player.StartFollow();
+			Player.StartFollowingTrack();
 			Player.GetAudio.PlayIfNotPlaying();
 			Player.GetAudio.StartMoving();
 		}

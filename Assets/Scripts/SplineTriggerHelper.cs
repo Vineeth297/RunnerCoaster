@@ -102,22 +102,6 @@ public class SplineTriggerHelper : MonoBehaviour
 		});
 	}
 
-	private void EnterNormalcy()
-	{
-		_player.TrackMovement.SetNormalSpeedValues();
-		ExitHypeArea();
-		CameraFxController.only.SetSpeedLinesStatus(false);
-		CameraFxController.only.DoNormalFov();
-	}
-
-	private void EnterAction()
-	{
-		_player.TrackMovement.SetHighSpeedValues();
-		CameraFxController.only.SetSpeedLinesStatus(true);
-		EnterHypeArea();
-		CameraFxController.only.DoWideFov();
-	}
-
 	public void OnReachTrackEnd()
 	{
 		GameEvents.InvokeReachEndOfTrack();
@@ -135,8 +119,21 @@ public class SplineTriggerHelper : MonoBehaviour
 	public void OnEnterSpecialCameraSlow(Transform specialCamera) => DampCamera.only.OnEnterSpecialCamera(specialCamera, true);
 
 	public void OnExitSpecialCamera() => DampCamera.only.OnExitSpecialCamera();
-	/*public void VariableSpeedRange(Vector2 newRange)
+
+	private void EnterNormalcy()
 	{
-		_player.TrackMovement.SetCurrentLimits(newRange);
-	}*/
+		_player.TrackMovement.SetNormalSpeedValues();
+		ExitHypeArea();
+		CameraFxController.only.SetSpeedLinesStatus(false);
+		CameraFxController.only.DoNormalFov();
+	}
+
+
+	private void EnterAction()
+	{
+		_player.TrackMovement.SetHighSpeedValues();
+		CameraFxController.only.SetSpeedLinesStatus(true);
+		EnterHypeArea();
+		CameraFxController.only.DoWideFov();
+	}
 }
