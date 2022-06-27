@@ -17,13 +17,21 @@ public class SplineTriggerHelper : MonoBehaviour
 	
 	public void Cheer()
 	{
-		if(AudioManager.instance) AudioManager.instance.Play("Hype" + Random.Range(1, 5));
+		if(!AudioManager.instance) return;
+		
+		AudioManager.instance.Play("Hype" + Random.Range(1, 5));
+		AudioManager.instance.Play("Hype" + Random.Range(1, 5));
+		AudioManager.instance.Play("Hype" + Random.Range(1, 5));
 	}
 
 	public void EnterHypeArea()
 	{
 		//if(AudioManager.instance) AudioManager.instance.Play("Hype" + Random.Range(1, 5));
-		if(AudioManager.instance) AudioManager.instance.Play("Jump");
+		if (AudioManager.instance)
+		{
+			var random = Random.Range(1, 3);
+			AudioManager.instance.Play("Jump" + random);
+		}
 
 		GameEvents.InvokeUpdateHype(true);
 	}
@@ -67,7 +75,7 @@ public class SplineTriggerHelper : MonoBehaviour
 		TimeController.only.SlowDownTime();
 		GameEvents.InvokeUpdateHype(true);
 		RemoveInputControl();
-		if(AudioManager.instance) AudioManager.instance.Play("Jump");
+		if(AudioManager.instance) AudioManager.instance.Play("Jump" + Random.Range(1, 3));
 
 		DOVirtual.DelayedCall(0.75f, () =>
 		{
@@ -92,7 +100,7 @@ public class SplineTriggerHelper : MonoBehaviour
 		TimeController.only.SlowDownTime();
 		GameEvents.InvokeUpdateHype(true);
 		RemoveInputControl();
-		if(AudioManager.instance) AudioManager.instance.Play("Jump");
+		if(AudioManager.instance) AudioManager.instance.Play("Jump" + Random.Range(1, 3));
 
 		DOVirtual.DelayedCall(duration * 0.75f, () =>
 		{

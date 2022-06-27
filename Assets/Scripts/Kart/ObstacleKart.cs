@@ -12,9 +12,11 @@ namespace Kart
 		[SerializeField] private bool isMainKart;
 		
 		private MainKartController _my;
-		
 		private ObstacleKart _mainKart;
+
 		private readonly HashSet<Collider> _playerColliders = new HashSet<Collider>();
+		private Tween _waitToCheckIfOutOfCollision;
+		private static bool _outOfCollision;
 
 		private void OnEnable()
 		{
@@ -45,6 +47,9 @@ namespace Kart
 				_my.Follower.follow = true;
 				checker.Kill();
 			}).SetLoops(-1);
+
+			_waitToCheckIfOutOfCollision.SetRecyclable(true);
+			_waitToCheckIfOutOfCollision.SetAutoKill(false);
 		}
 		
 		private void InitMainKart()
@@ -53,6 +58,10 @@ namespace Kart
 
 			Wagon currentFront = null;
 			Wagon candidate = GetComponent<Wagon>();
+			
+			//other obstacles also use this script, but dont have wagons
+			if(!candidate) return;
+			
 			do
 			{
 				candidate = candidate.front;
@@ -97,6 +106,13 @@ namespace Kart
 			if (!other.CompareTag("Player") && !other.CompareTag("Kart")) return;
 			
 			_mainKart.MainKartCollisionExit(other);
+
+			if (_waitToCheckIfOutOfCollision.IsActive()) _waitToCheckIfOutOfCollision.Kill();
+			_waitToCheckIfOutOfCollision = DOVirtual.DelayedCall(4f, () =>
+			{
+				InvokeStartAllObstacleTrains();
+				_playerColliders.Clear();
+			});
 		}
 
 		private static void InvokeStopAllObstacleTrains() => StopAllObstacleTrains?.Invoke();
@@ -104,9 +120,6 @@ namespace Kart
 
 		private void OnStopAllObstacleTrains() => _my.TrackMovement.StopFollowingTrack();
 
-		private void OnStartAllObstacleTrains() 
-		{
-			_my.TrackMovement.StartFollowingTrack();
-		}
+		private void OnStartAllObstacleTrains() => _my.TrackMovement.StartFollowingTrack();
 	}
 }

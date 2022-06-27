@@ -39,7 +39,7 @@ public class BonusTile : MonoBehaviour
 			if(_addedKarts.AddedKartCount > 0) _addedKarts.PopKart();
 		}
 		
-		kartPassenger.transform.DORotateQuaternion(myPassengerChild.rotation * Quaternion.AngleAxis(180f, Vector3.up), 0.5f);
+		kartPassenger.transform.DORotateQuaternion(myPassengerChild.rotation, 0.5f);
 		
 		kartPassenger.transform.DOJump(myPassengerChild.position,
 			kartPassenger.transform.position.y - _lowestAllowedY,

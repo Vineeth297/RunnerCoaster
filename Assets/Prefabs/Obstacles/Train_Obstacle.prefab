@@ -1764,6 +1764,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 4ea445725fe03a64ea28e8d746956711, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f50443e20ea02e541968c4bd7dc380f6, type: 2}
     - target: {fileID: 919132149155446097, guid: 4ea445725fe03a64ea28e8d746956711, type: 3}
       propertyPath: m_Name
       value: Track2
@@ -1858,6 +1862,10 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 0.05484446
       objectReference: {fileID: 0}
+    - target: {fileID: -3887185075125053422, guid: 645b74cb4984dbd4292630a7c656d879, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a4eff9538152dab4f9308717eb4eab5a, type: 2}
     - target: {fileID: -3887185075125053422, guid: 645b74cb4984dbd4292630a7c656d879, type: 3}
       propertyPath: m_BlendShapeWeights.Array.size
       value: 1
@@ -1961,6 +1969,10 @@ PrefabInstance:
       value: 0.05484446
       objectReference: {fileID: 0}
     - target: {fileID: -3887185075125053422, guid: 645b74cb4984dbd4292630a7c656d879, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a4eff9538152dab4f9308717eb4eab5a, type: 2}
+    - target: {fileID: -3887185075125053422, guid: 645b74cb4984dbd4292630a7c656d879, type: 3}
       propertyPath: m_BlendShapeWeights.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2046,6 +2058,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 4ea445725fe03a64ea28e8d746956711, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f50443e20ea02e541968c4bd7dc380f6, type: 2}
     - target: {fileID: 919132149155446097, guid: 4ea445725fe03a64ea28e8d746956711, type: 3}
       propertyPath: m_Name
       value: Track1

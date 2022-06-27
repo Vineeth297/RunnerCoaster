@@ -86,11 +86,21 @@ MonoBehaviour:
     enableReverb: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: Jump
+  - name: Jump1
     clip: {fileID: 8300000, guid: 9ae793cdec8d6bf409dc9bce639a84c0, type: 3}
     volume: 1
     volumeVariance: 0
     pitch: 1.5
+    pitchVariance: 0.15
+    loop: 0
+    enableReverb: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Jump2
+    clip: {fileID: 8300000, guid: 747b04ff7afd996479c17948d484d352, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
     pitchVariance: 0.15
     loop: 0
     enableReverb: 0
