@@ -38,7 +38,8 @@ public class Obstacle : MonoBehaviour
 		{
 			if(!TryGiveHit()) return;
 			GameEvents.InvokeMainKartCrash(collisionPoint);
-			return;
+			
+			
 		}
 		
 		if (other.TryGetComponent(out AdditionalKartController addy))

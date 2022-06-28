@@ -69,6 +69,9 @@ public class MainCanvasController : MonoBehaviour
 		_emojiSequence.SetRecyclable(true);
 		_emojiSequence.SetAutoKill(false);
 		_emojiSequence.Pause();
+		
+		if(GAScript.Instance)
+			GAScript.Instance.LevelStart(PlayerPrefs.GetInt("levelNo", 0).ToString());
 	}
 
 	private void Update()
@@ -173,10 +176,16 @@ public class MainCanvasController : MonoBehaviour
 	private void OnGameLose()
 	{
 		DOVirtual.DelayedCall(1.5f, EnableLossObjects);
+		
+		if(GAScript.Instance)
+			GAScript.Instance.LevelFail(PlayerPrefs.GetInt("levelNo", 0).ToString());
 	}
 
 	private void OnGameWin()
 	{
 		DOVirtual.DelayedCall(1f, EnableVictoryObjects);
+		
+		if(GAScript.Instance)
+			GAScript.Instance.LevelCompleted(PlayerPrefs.GetInt("levelNo", 0).ToString());
 	}
 }
