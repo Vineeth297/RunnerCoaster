@@ -15,10 +15,10 @@ namespace Kart
 		private List<Passenger> _availablePassengers;
 		private MainKartController _my;
 
-		private static bool IsInKartCollisionCooldown; 
+		private static bool _isInKartCollisionCooldown;
 		private static int _audioIndex;
 
-		public int AddedKartCount => AddedKarts.Count; 
+		public int AddedKartCount => AddedKarts.Count;
 		public int PassengerCount => _availablePassengers.Count;
 
 		public GameObject PopPassenger
@@ -87,22 +87,27 @@ namespace Kart
 			kartToPop.Positioner.enabled = false;
 
 			kartToPop.explosionKart.gameObject.SetActive(true);
-			kartToPop.explosionKart.AddForce((direction * forceMultiplier + Vector3.up * upForce) + Vector3.left * sideForce , ForceMode.Impulse);
-			
+			kartToPop.explosionKart.AddForce((direction * forceMultiplier + Vector3.up * upForce) + Vector3.left * sideForce, ForceMode.Impulse);
+
 			AddedKarts.RemoveAt(AddedKarts.Count - 1);
-			if(AddedKartCount > 0) AddedKarts[^1].Wagon.back = null;
+			if (AddedKartCount > 0) AddedKarts[^1].Wagon.back = null;
 		}
 
 		public void MakePassengersJump(float duration)
 		{
 			var delay = 0f;
-			
+
 			for (var index = 0; index < _availablePassengers.Count; index++)
 			{
 				if (index % 2 == 0) delay += passengerJumpDelayStep;
-				
+
 				_availablePassengers[index].MakePassengerJump(duration, delay);
 			}
+		}
+
+		public void ExplodeMultipleKarts(int number, Vector3 collisionPoint)
+		{
+			for (var i = 0; i < number; i++) ExplodeRearKart(collisionPoint, true);
 		}
 
 		private void SpawnNewKart()
@@ -112,7 +117,7 @@ namespace Kart
 			//add new kart passengers
 			_availablePassengers.Add(newKart.passenger1);
 			_availablePassengers.Add(newKart.passenger2);
-			
+
 			newKart.transform.GetChild(0).gameObject.SetActive(true);
 			newKart.transform.GetChild(1).gameObject.SetActive(true);
 			newKart.transform.GetChild(2).gameObject.SetActive(true);
@@ -134,9 +139,8 @@ namespace Kart
 					newKart.Wagon.Setup(AddedKarts[^1].Wagon);
 					newKart.KartFollow.SetKartToFollow(AddedKarts[^1].Wagon.transform);
 				}
-				
-				AddedKarts.Add(newKart);
-				
+
+				AddNewKart(newKart);
 				checker.Kill();
 			}).SetLoops(-1);
 		}
@@ -145,7 +149,7 @@ namespace Kart
 		{
 			var kartToPop = AddedKarts[^1];
 
-			for (var i = 0; i < 4; i++) 
+			for (var i = 0; i < 4; i++)
 				kartToPop.transform.GetChild(i).gameObject.SetActive(false);
 
 			kartToPop.gameObject.name += " fallen";
@@ -166,17 +170,19 @@ namespace Kart
 			kartToPop.explosionKart.gameObject.SetActive(true);
 
 			var directionMultiplier = (Random.value > 0.5f ? 1f : -1f);
-			
-			kartToPop.explosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce * (explodeMultipleKarts ? 0.5f : 1f) + Vector3.left * sideForce * directionMultiplier, ForceMode.Impulse);
+
+			kartToPop.explosionKart.AddForce(
+				direction * forceMultiplier + Vector3.up * upForce * (explodeMultipleKarts ? 0.5f : 1f) +
+				Vector3.left * sideForce * directionMultiplier, ForceMode.Impulse);
 			kartToPop.explosionKart.AddTorque(perpendicular * forceMultiplier + Vector3.left * sideForce * directionMultiplier, ForceMode.Impulse);
 
-			AddedKarts.RemoveAt(AddedKarts.Count - 1);
-			if(AddedKartCount > 0) AddedKarts[^1].Wagon.back = null;
+			RemoveKartFromRear();
+			if (AddedKartCount > 0) AddedKarts[^1].Wagon.back = null;
 
 			_availablePassengers.RemoveAt(_availablePassengers.Count - 1);
 			_availablePassengers.RemoveAt(_availablePassengers.Count - 1);
 
-			if(AudioManager.instance)
+			if (AudioManager.instance)
 				AudioManager.instance.Play("Death" + ((++_audioIndex % 4) + 1));
 		}
 
@@ -198,7 +204,19 @@ namespace Kart
 			_my.ExplosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce + Vector3.left * upForce, ForceMode.Impulse);
 			_my.ExplosionKart.AddTorque(perpendicular * forceMultiplier + Vector3.left * upForce, ForceMode.Impulse);
 
-			if(AudioManager.instance) AudioManager.instance.Play("Death" + ((++_audioIndex % 4) + 1));
+			if (AudioManager.instance) AudioManager.instance.Play("Death" + ((++_audioIndex % 4) + 1));
+		}
+
+		private void AddNewKart(AdditionalKartController newKart)
+		{
+			AddedKarts.Add(newKart);
+			_my.KartCounter.UpdateText(AddedKarts.Count + 1);
+		}
+
+		private void RemoveKartFromRear()
+		{
+			AddedKarts.RemoveAt(AddedKarts.Count - 1);
+			_my.KartCounter.UpdateText(AddedKarts.Count + 1);
 		}
 
 		private void OnTriggerEnter(Collider other)
@@ -216,10 +234,10 @@ namespace Kart
 		private void OnObstacleCollision(Vector3 collisionPoint)
 		{
 			//Explode(collisionPoint);
-			if(IsInKartCollisionCooldown) return;
+			if(_isInKartCollisionCooldown) return;
 
-			IsInKartCollisionCooldown = true;
-			DOVirtual.DelayedCall(0.1f, () => IsInKartCollisionCooldown = false);
+			_isInKartCollisionCooldown = true;
+			DOVirtual.DelayedCall(0.1f, () => _isInKartCollisionCooldown = false);
 			CameraFxController.only.ScreenShake(5f);
 
 			if (AddedKarts.Count > 0)
@@ -232,11 +250,6 @@ namespace Kart
 
 			TimeController.only.SlowDownTime();
 			DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());
-		}
-
-		public void ExplodeMultipleKarts(int number, Vector3 collisionPoint)
-		{
-			for (var i = 0; i < number; i++) ExplodeRearKart(collisionPoint, true);
 		}
 	}
 }

@@ -77,8 +77,6 @@ namespace Kart
 			
 			Positioner.enabled = false;
 			Wagon.enabled = false;
-
-			print($"maink {GetMainKart()} noOfrearK {GetNumberOfRearKarts()}");
 			
 			GetMainKart().ExplodeMultipleKarts(GetNumberOfRearKarts(), collisionPoint);
 		}

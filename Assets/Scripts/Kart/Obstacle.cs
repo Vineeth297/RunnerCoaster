@@ -34,7 +34,7 @@ public class Obstacle : MonoBehaviour
 
 		var collisionPoint = other.ClosestPoint(transform.position);
 		
-		if(_isKart)
+		if(!_isKart)
 		{
 			if(!TryGiveHit()) return;
 			GameEvents.InvokeMainKartCrash(collisionPoint);

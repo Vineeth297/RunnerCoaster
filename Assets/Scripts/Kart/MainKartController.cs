@@ -14,6 +14,7 @@ namespace Kart
 		public PlayerAudio PlayerAudio { get; private set; }
 		public Rigidbody ExplosionKart { get; private set; }
 		public Collider BoxCollider { get; private set; }
+		public KartCounter KartCounter { get; private set; }
 
 		public Passenger passenger1, passenger2;
 
@@ -41,6 +42,7 @@ namespace Kart
 			ExplosionKart = transform.GetChild(1).GetComponent<Rigidbody>();
 			BoxCollider = GetComponent<Collider>();
 			PlayerAudio = GetComponent<PlayerAudio>();
+			KartCounter = GetComponent<KartCounter>();
 			isInitialised = true;
 		}
 
