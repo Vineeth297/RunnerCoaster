@@ -156,6 +156,7 @@ namespace Kart
 			kartToPop.tag = "Untagged";
 			kartToPop.KartFollow.SetKartToFollow(null);
 			kartToPop.explosionKart.gameObject.SetActive(true);
+			kartToPop.explosionKart.transform.parent = null;
 
 			var direction = collisionPoint - kartToPop.transform.position;
 			direction = direction.normalized;

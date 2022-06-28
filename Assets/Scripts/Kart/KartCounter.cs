@@ -21,6 +21,6 @@ public class KartCounter : MonoBehaviour
 
 	private void OnReachEndOfTrack()
 	{
-		transform.parent.gameObject.SetActive(false);
+		text.transform.parent.gameObject.SetActive(false);
 	}
 }
