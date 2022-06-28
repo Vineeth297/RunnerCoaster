@@ -40,5 +40,47 @@ namespace Kart
 			Wagon.enabled = false;
 			KartFollow.enabled = true;
 		}
+
+		public void RemoveKartsFromHere(Vector3 collisionPoint)
+		{
+			KartFollow.SetKartToFollow(null);
+
+			AddedKartsManager GetMainKart()
+			{
+				Wagon currentFront = null;
+				Wagon candidate = GetComponent<Wagon>();
+			
+				do
+				{
+					candidate = candidate.front;
+					if (candidate)
+						currentFront = candidate;
+				} while (candidate);
+
+				return currentFront != null ? currentFront.GetComponent<AddedKartsManager>() : null;
+			}
+
+			int GetNumberOfRearKarts()
+			{
+				var candidate = Wagon;
+
+				var count = 1;
+				do
+				{
+					candidate = candidate.back;
+					if (candidate)
+						count++;
+				} while (candidate);
+
+				return count;
+			}
+			
+			Positioner.enabled = false;
+			Wagon.enabled = false;
+
+			print($"maink {GetMainKart()} noOfrearK {GetNumberOfRearKarts()}");
+			
+			GetMainKart().ExplodeMultipleKarts(GetNumberOfRearKarts(), collisionPoint);
+		}
 	}
 }

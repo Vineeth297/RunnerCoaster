@@ -33,12 +33,12 @@ namespace Kart
 
 		private void OnEnable()
 		{
-			GameEvents.KartCrash += OnObstacleCollision;
+			GameEvents.MainKartCrash += OnObstacleCollision;
 		}
 
 		private void OnDisable()
 		{
-			GameEvents.KartCrash -= OnObstacleCollision;
+			GameEvents.MainKartCrash -= OnObstacleCollision;
 		}
 
 		private void Start()
@@ -141,7 +141,7 @@ namespace Kart
 			}).SetLoops(-1);
 		}
 
-		private void ExplodeRearKart(Vector3 collisionPoint)
+		private void ExplodeRearKart(Vector3 collisionPoint, bool explodeMultipleKarts = false)
 		{
 			var kartToPop = AddedKarts[^1];
 
@@ -149,6 +149,7 @@ namespace Kart
 				kartToPop.transform.GetChild(i).gameObject.SetActive(false);
 
 			kartToPop.gameObject.name += " fallen";
+			kartToPop.tag = "Untagged";
 			kartToPop.KartFollow.SetKartToFollow(null);
 			kartToPop.explosionKart.gameObject.SetActive(true);
 
@@ -163,8 +164,11 @@ namespace Kart
 			kartToPop.Positioner.enabled = false;
 
 			kartToPop.explosionKart.gameObject.SetActive(true);
-			kartToPop.explosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce + Vector3.left * sideForce, ForceMode.Impulse);
-			kartToPop.explosionKart.AddTorque(perpendicular * forceMultiplier + Vector3.left * sideForce, ForceMode.Impulse);
+
+			var directionMultiplier = (Random.value > 0.5f ? 1f : -1f);
+			
+			kartToPop.explosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce * (explodeMultipleKarts ? 0.5f : 1f) + Vector3.left * sideForce * directionMultiplier, ForceMode.Impulse);
+			kartToPop.explosionKart.AddTorque(perpendicular * forceMultiplier + Vector3.left * sideForce * directionMultiplier, ForceMode.Impulse);
 
 			AddedKarts.RemoveAt(AddedKarts.Count - 1);
 			if(AddedKartCount > 0) AddedKarts[^1].Wagon.back = null;
@@ -228,6 +232,11 @@ namespace Kart
 
 			TimeController.only.SlowDownTime();
 			DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());
+		}
+
+		public void ExplodeMultipleKarts(int number, Vector3 collisionPoint)
+		{
+			for (var i = 0; i < number; i++) ExplodeRearKart(collisionPoint, true);
 		}
 	}
 }

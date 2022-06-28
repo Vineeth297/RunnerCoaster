@@ -11,7 +11,7 @@ public static class GameEvents
 	public static event Action<int> StartParade;
 	public static event Action<int> AttackPlayer;
 
-	public static event Action<Vector3> KartCrash;
+	public static event Action<Vector3> MainKartCrash, KartCrash;
 	public static event Action PlayerDeath;
 	public static event Action ReachEndOfTrack;
 
@@ -22,6 +22,7 @@ public static class GameEvents
 
 	public static void InvokeTapToPlay() => TapToPlay?.Invoke();
 
+	public static void InvokeMainKartCrash(Vector3 collisionPoint) => MainKartCrash?.Invoke(collisionPoint);
 	public static void InvokeKartCrash(Vector3 collisionPoint) => KartCrash?.Invoke(collisionPoint);
 	public static void InvokePlayerDeath() => PlayerDeath?.Invoke();
 	public static void InvokeUpdateHype(bool status) => UpdateHype?.Invoke(status);

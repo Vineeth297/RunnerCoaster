@@ -24,7 +24,7 @@ public class Helicopter : MonoBehaviour
 		//Hulk Smash
 		HeliDeath(direction.normalized, forceForExplosion);
 		var collisionPoint = other.ClosestPoint(transform.position);
-		GameEvents.InvokeKartCrash(collisionPoint);
+		GameEvents.InvokeMainKartCrash(collisionPoint);
 	}
 
 	public void StopHelicopter()

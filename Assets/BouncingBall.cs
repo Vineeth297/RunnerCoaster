@@ -37,7 +37,7 @@ public class BouncingBall : MonoBehaviour
 		
 		//Hulk Smash
 		var collisionPoint = other.ClosestPoint(transform.position);
-		GameEvents.InvokeKartCrash(collisionPoint);
+		GameEvents.InvokeMainKartCrash(collisionPoint);
 
 		_rb.isKinematic = false;
 		_collider.isTrigger = false;

@@ -30,14 +30,14 @@ namespace Kart
 
 		private void OnEnable()
 		{
-			GameEvents.KartCrash += OnKartCrash;
+			GameEvents.MainKartCrash += OnMainKartCrash;
 			GameEvents.PlayerDeath += OnPlayerDeath;
 			GameEvents.ReachEndOfTrack += OnReachEndOfTrack;
 		}
 
 		private void OnDisable()
 		{
-			GameEvents.KartCrash -= OnKartCrash;
+			GameEvents.MainKartCrash -= OnMainKartCrash;
 			GameEvents.PlayerDeath -= OnPlayerDeath;
 			GameEvents.ReachEndOfTrack -= OnReachEndOfTrack;
 		}
@@ -101,7 +101,7 @@ namespace Kart
 
 		public void StopFollowingTrack() => _my.Follower.follow = false;
 
-		private void OnKartCrash(Vector3 point)
+		private void OnMainKartCrash(Vector3 point)
 		{
 			if(_kartSlowedDownDueToCrash) return;
 			_kartSlowedDownDueToCrash = true;

@@ -7,6 +7,6 @@ public class CarObstacle : MonoBehaviour
 		if (!other.CompareTag("Player")) return;
 		
 		var collisionPoint = other.ClosestPoint(transform.position);
-		GameEvents.InvokeKartCrash(collisionPoint);
+		GameEvents.InvokeMainKartCrash(collisionPoint);
 	}
 }

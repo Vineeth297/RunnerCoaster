@@ -24,6 +24,7 @@ public class MainCanvasController : MonoBehaviour
 	private void OnEnable()
 	{
 		GameEvents.KartCrash += OnObstacleCollision;
+		GameEvents.MainKartCrash += OnObstacleCollision;
 
 		GameEvents.PlayerDeath += OnGameLose;
 		GameEvents.GameWin += OnGameWin;
@@ -32,6 +33,7 @@ public class MainCanvasController : MonoBehaviour
 	private void OnDisable()
 	{
 		GameEvents.KartCrash -= OnObstacleCollision;
+		GameEvents.MainKartCrash -= OnObstacleCollision;
 		
 		GameEvents.PlayerDeath -= OnGameLose;
 		GameEvents.GameWin -= OnGameWin;
