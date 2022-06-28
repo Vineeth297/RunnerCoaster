@@ -167,8 +167,6 @@ namespace Kart
 			kartToPop.BoxCollider.enabled = false;
 			kartToPop.Positioner.enabled = false;
 
-			kartToPop.explosionKart.gameObject.SetActive(true);
-
 			var directionMultiplier = (Random.value > 0.5f ? 1f : -1f);
 
 			kartToPop.explosionKart.AddForce(

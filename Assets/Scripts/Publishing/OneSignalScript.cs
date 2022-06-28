@@ -7,7 +7,7 @@ public class OneSignalScript : MonoBehaviour
 {
     void Start()
     {
-        OneSignal.Default.Initialize("2ba6ba7d-88c7-4034-b7d0-fec62c0dc264");
+        OneSignal.Default.Initialize("31129411-8e01-4e7b-b389-59f2145d8870");
         OneSignal.Default.SetExternalUserId("123456789");
     }
 }

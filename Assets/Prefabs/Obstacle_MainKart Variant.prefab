@@ -10763,6 +10763,10 @@ PrefabInstance:
       propertyPath: sampleCollection.samples.Array.data[315].position.z
       value: 171.64336
       objectReference: {fileID: 0}
+    - target: {fileID: 3411014956605491822, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5630144964616494967, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9669741
@@ -11097,6 +11101,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6700444228412219829, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6950249308482039209, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7164124287806222356, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
