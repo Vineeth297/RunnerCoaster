@@ -135,6 +135,8 @@ public class SplineTriggerHelper : MonoBehaviour
 		
 		if(AudioManager.instance)
 			AudioManager.instance?.Play("ReachEndTrack");
+		
+		GameEvents.InvokePlayerOffFever();
 	}
 
 	public void EnterArea(int currentAreaCode) => GameEvents.InvokeStartParade(currentAreaCode);

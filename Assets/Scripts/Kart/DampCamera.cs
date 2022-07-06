@@ -25,7 +25,7 @@ namespace Kart
 		private Transform _transform;
 		private Quaternion _initLocalRotation;
 		private Vector3 _initLocalPosition, _initBonusCamLocalPosition;
-
+		
 		private void OnEnable()
 		{
 			GameEvents.EnterHelix += OnEnterHelix;
@@ -53,7 +53,7 @@ namespace Kart
 			if (only) Destroy(this);
 			else only = this;
 		}
-
+		
 		private void Start()
 		{
 			_transform = transform;

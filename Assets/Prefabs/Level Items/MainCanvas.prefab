@@ -1493,6 +1493,8 @@ MonoBehaviour:
   emoji: {fileID: 2389259238727852691}
   emojiRotation: 25
   nextLevelButton: {fileID: 6496901494586590805}
+  fever: {fileID: 0}
+  feverFillMultiplier: 10
 --- !u!1 &6496901495423564457
 GameObject:
   m_ObjectHideFlags: 0

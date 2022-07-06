@@ -20,6 +20,9 @@ public static class GameEvents
 
 	public static event Action GameWin;
 
+	public static event Action PlayerOnFever;
+	public static event Action PlayerOffFever;
+
 	public static void InvokeTapToPlay() => TapToPlay?.Invoke();
 
 	public static void InvokeMainKartCrash(Vector3 collisionPoint) => MainKartCrash?.Invoke(collisionPoint);
@@ -36,4 +39,7 @@ public static class GameEvents
 	public static void InvokeGameWin() => GameWin?.Invoke();
 	public static void InvokeStartParade(int currentAreaCode) => StartParade?.Invoke(currentAreaCode);
 	public static void InvokeAttackPlayer(int currentAreaCode) => AttackPlayer?.Invoke(currentAreaCode);
+	
+	public static void InvokePlayerOnFever() => PlayerOnFever?.Invoke();
+	public static void InvokePlayerOffFever() => PlayerOffFever?.Invoke();
 }

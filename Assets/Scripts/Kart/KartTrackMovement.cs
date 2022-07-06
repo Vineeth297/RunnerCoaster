@@ -80,7 +80,11 @@ namespace Kart
 			_my.Follower.followSpeed *= 1f - _brakeForce;
 		}
 
-		public void Brake() => _my.Follower.followSpeed -= Time.deltaTime * currentSpeed;
+		public void Brake()
+		{
+			_my.Follower.followSpeed -= Time.deltaTime * currentSpeed;
+			_my.fever.DecreaseFeverAmount();
+		}
 
 		public void CalculateBraking()
 		{
@@ -90,6 +94,7 @@ namespace Kart
 		}
 
 		public PlayerAudio GetAudio => _my.PlayerAudio;
+		public Fever GetFever => _my.fever;
 
 		public void StartFollowingTrack() => _my.Follower.follow = true;
 

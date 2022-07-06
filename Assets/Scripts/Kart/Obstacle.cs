@@ -1,5 +1,7 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using Kart;
+using ToonyColorsPro;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
@@ -11,7 +13,21 @@ public class Obstacle : MonoBehaviour
 	
 	private static bool _isInCooldown;
 	private static Tween _cooldown;
-	
+
+	private bool _isPlayerOnFever;
+
+	private void OnEnable()
+	{
+		GameEvents.PlayerOnFever += OnFever;
+		GameEvents.PlayerOffFever += OffFever;
+	}
+
+	private void OnDisable()
+	{
+		GameEvents.PlayerOnFever -= OnFever;
+		GameEvents.PlayerOffFever -= OffFever;
+	}
+
 	private void Start()
 	{
 		_isKart = TryGetComponent(out Wagon _);
@@ -30,18 +46,16 @@ public class Obstacle : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
+		if (_isPlayerOnFever) return;
+		
 		if (!other.CompareTag("Player") && !other.CompareTag("Kart")) return;
 
 		var collisionPoint = other.ClosestPoint(transform.position);
-		
 		if(!_isKart)
 		{
 			if(!TryGiveHit()) return;
 			GameEvents.InvokeMainKartCrash(collisionPoint);
-			
-			
 		}
-		
 		if (other.TryGetComponent(out AdditionalKartController addy))
 		{
 			if(!TryGiveHit()) return;
@@ -62,5 +76,15 @@ public class Obstacle : MonoBehaviour
 		_isInCooldown = true;
 		DOVirtual.DelayedCall(0.5f, () => _isInCooldown = false);
 		return true;
+	}
+
+	private void OnFever()
+	{
+		_isPlayerOnFever = true;
+	}
+
+	private void OffFever()
+	{
+		_isPlayerOnFever = false;
 	}
 }

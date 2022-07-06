@@ -21,6 +21,9 @@ namespace Kart
 		public int AddedKartCount => AddedKarts.Count;
 		public int PassengerCount => _availablePassengers.Count;
 
+		[SerializeField] private bool isObstacleMainKart;
+		[SerializeField] private GameObject additionalObstacleKartPrefab;
+		[SerializeField] private int totalObstacleAdditionalKarts = 5;
 		public GameObject PopPassenger
 		{
 			get
@@ -51,6 +54,13 @@ namespace Kart
 				//add main kart passengers
 				_my.passenger1, _my.passenger2
 			};
+
+			
+			if (isObstacleMainKart)
+			{
+				kartPrefab = additionalObstacleKartPrefab;
+				SpawnKarts(totalObstacleAdditionalKarts);
+			}
 		}
 
 		public void SpawnKarts(int kartsToSpawn)

@@ -164,6 +164,7 @@ public class MainCanvasController : MonoBehaviour
 
 	private void OnObstacleCollision(Vector3 obj)
 	{
+		print("moommomomomom");
 		red.enabled = true;
 		red.color = Color.clear;
 		
