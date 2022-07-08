@@ -1,5 +1,7 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace Kart
@@ -9,9 +11,26 @@ namespace Kart
 		[SerializeField] private Image fever;
 		[SerializeField] private float feverFillMultiplier;
 		[SerializeField] private float feverEmptyMultiplier;
+		[SerializeField] private GameObject feverOverlayPanel;
 
-		private bool _toConsumeFever;
+		[SerializeField] private GameObject feverText;
 		
+		private bool _toConsumeFever;
+
+
+		private void OnEnable()
+		{
+			GameEvents.PlayerOnFever += OnFeverOverlay;
+			GameEvents.PlayerOffFever += OffFeverOverlay;
+		}
+		
+		private void OnDisable()
+		{
+			GameEvents.PlayerOnFever -= OnFeverOverlay;
+			GameEvents.PlayerOffFever -= OffFeverOverlay;
+		}
+		
+
 		private void Start()
 		{
 			fever.fillAmount = 0f;
@@ -49,7 +68,7 @@ namespace Kart
 				DampCamera.only.StopMediatingTarget();
 				return;
 			}
-			CameraFxController.only.UpdateRumblerRotation(fever.fillAmount);
+			//CameraFxController.only.UpdateRumblerRotation(fever.fillAmount);
 			fever.fillAmount -= Time.deltaTime * feverFillMultiplier;
 		}
 
@@ -58,7 +77,7 @@ namespace Kart
 			if (fever.fillAmount >= 1f)
 			{
 				_toConsumeFever = true;
-				GameEvents.InvokePlayerOnFever();
+				GameEvents.InvokePlayerOnFever(); 
 				return;
 			}
 			if(!_toConsumeFever)
@@ -80,5 +99,18 @@ namespace Kart
 				}
 			}
 		}
+
+		private void OnFeverOverlay()
+		{
+			feverOverlayPanel.SetActive(true);
+			feverText.SetActive(true);
+		}
+
+		private void OffFeverOverlay()
+		{
+			feverOverlayPanel.SetActive(false);
+			feverText.SetActive(false);
+		}
 	}
+	
 }

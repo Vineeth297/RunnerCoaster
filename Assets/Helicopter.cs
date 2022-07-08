@@ -1,4 +1,6 @@
+using System;
 using DG.Tweening;
+using GameAnalyticsSDK.Setup;
 using UnityEngine;
 
 public class Helicopter : MonoBehaviour
@@ -9,6 +11,18 @@ public class Helicopter : MonoBehaviour
 	[SerializeField] private float forceForExplosion;
 	private AudioSource _audio;
 
+	private bool _isPlayerOnFever;
+	
+	private void OnEnable()
+	{
+		GameEvents.PlayerOnFever += OnFever;
+	}
+
+	private void OnDisable()
+	{
+		GameEvents.PlayerOnFever -= OnFever;
+	}
+	
 	private void Start()
 	{
 		_animator = GetComponent<Animator>();
@@ -24,6 +38,8 @@ public class Helicopter : MonoBehaviour
 		//Hulk Smash
 		HeliDeath(direction.normalized, forceForExplosion);
 		var collisionPoint = other.ClosestPoint(transform.position);
+
+		if (_isPlayerOnFever) return;
 		GameEvents.InvokeMainKartCrash(collisionPoint);
 	}
 
@@ -42,5 +58,10 @@ public class Helicopter : MonoBehaviour
 		_rb.AddTorque(Vector3.up * 180f, ForceMode.Acceleration);
 
 		DOTween.To(() => _audio.pitch, value => _audio.pitch = value, 0f, 1.5f);
+	}
+
+	private void OnFever()
+	{
+		_isPlayerOnFever = !_isPlayerOnFever;
 	}
 }

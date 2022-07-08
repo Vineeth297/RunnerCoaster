@@ -42,6 +42,8 @@ public static class MyHelpers
 		return (1f - t) * a + b * t;
 	}
 
+	public static double LerpClampedDouble(double a, double b, double t) => a + t * (b - a);
+
 	public static float InverseLerpUnclamped(float a, float b, float v)
 	{
 		return (v - a) / (b - a);
