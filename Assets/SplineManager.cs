@@ -75,7 +75,8 @@ public class SplineManager : MonoBehaviour
 
 	private void ReArrangeTriggers()
 	{
-		var triggerPos = individualTriggerGroups[0].triggers[0].position;
+		/*
+		 var triggerPos = individualTriggerGroups[0].triggers[0].position;
 		print("Trigger Pos - " + triggerPos);
 		var point1 = splines[0].GetPointPercent(_babySplineEdges[0]);
 		var point2 = splines[0].GetPointPercent(_babySplineEdges[1]);
@@ -84,7 +85,22 @@ public class SplineManager : MonoBehaviour
 		var newTriggerPos = MyHelpers.LerpClampedDouble(point1, point2, triggerPos);
 		splines[0].triggerGroups[0].triggers[0].position = newTriggerPos;
 		print("new Trigger Pos - " + newTriggerPos);
+		*/
+		
+		for (var i = 0; i < splines.Count; i++)
+		{
+//			var triggerPos = individualTriggerGroups[i];
+			var currentTriggerGroupsLength = individualTriggerGroups[i].triggers.Length;
+						
+			for (var j = 0; j < currentTriggerGroupsLength; j++)
+			{
+				var triggerPos = individualTriggerGroups[i].triggers[j].position;
+				var point1 = splines[i].GetPointPercent(_babySplineEdges[i]);
+				var point2 = splines[i].GetPointPercent(_babySplineEdges[i + 1]);
 
-	
+				var newTriggerPos = MyHelpers.LerpClampedDouble(point1, point2, triggerPos);
+				splines[0].triggerGroups[0].triggers[j].position = newTriggerPos;
+			}
+		}
 	}
 }

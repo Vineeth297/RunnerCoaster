@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: FEVER !
+  m_text: FEVER!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f0281f184ccb7c4994e00cd455acc73, type: 2}
   m_sharedMaterial: {fileID: -2323337353529357174, guid: 8f0281f184ccb7c4994e00cd455acc73, type: 2}

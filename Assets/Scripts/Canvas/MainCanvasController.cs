@@ -1,6 +1,4 @@
 using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,16 +8,22 @@ using UnityEngine.UI;
 public class MainCanvasController : MonoBehaviour
 {
 	[SerializeField] private GameObject holdToAim, victory, defeat, nextLevel, retry, constantRetryButton, skipLevel;
-	[SerializeField] private TextMeshProUGUI levelText;
+	[SerializeField] private TextMeshProUGUI levelText,moneyText;
 	[SerializeField] private Image red, emoji;
 	[SerializeField] private float emojiRotation;
-
+	
+	[SerializeField] private GameObject moneyImage;
+	private Vector3 _moneyImageInitialScale;
+	private Tweener _moneyTween;
+	
 	[SerializeField] private Button nextLevelButton;
 
 	private Color _originalRedColor, _lighterRedColor;
 	private bool _hasTapped, _hasLost;
 	private Sequence _emojiSequence;
 	private Tweener _redOverlayTween;
+
+	private int _moneyCount;
 
 	private void OnEnable()
 	{
@@ -72,6 +76,9 @@ public class MainCanvasController : MonoBehaviour
 		
 		if(GAScript.Instance)
 			GAScript.Instance.LevelStart(PlayerPrefs.GetInt("levelNo", 0).ToString());
+
+		_moneyCount = 0;
+		_moneyImageInitialScale = moneyImage.transform.lossyScale;
 	}
 
 	private void Update()
@@ -188,5 +195,20 @@ public class MainCanvasController : MonoBehaviour
 		
 		if(GAScript.Instance)
 			GAScript.Instance.LevelCompleted(PlayerPrefs.GetInt("levelNo", 0).ToString());
+	}
+
+	public void IncreaseMoneyCount()
+	{
+		_moneyCount += 1;
+		moneyText.text = _moneyCount.ToString();
+	}
+
+	public void ScaleMoneyImage()
+	{
+		if (_moneyTween.IsActive())
+		{
+			_moneyTween.Kill();
+		}
+		_moneyTween = moneyImage.transform.DOScale(_moneyImageInitialScale * 1.15f, 0.1f).SetLoops(2,LoopType.Yoyo);
 	}
 }

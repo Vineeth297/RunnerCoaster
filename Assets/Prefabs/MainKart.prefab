@@ -275,10 +275,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fever: {fileID: 8619177013079450335}
-  feverFillMultiplier: 0.1
-  feverEmptyMultiplier: 0.25
+  feverFillMultiplier: 0.05
+  feverEmptyMultiplier: 0.1
   feverOverlayPanel: {fileID: 4821662496113049554}
-  feverText: {fileID: 0}
+  feverText: {fileID: 5431549873692502067}
 --- !u!1 &2685788258877783164
 GameObject:
   m_ObjectHideFlags: 0
@@ -3276,7 +3276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554e6b79d50b3344fa4cc67469b77666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fever: {fileID: 0}
+  fever: {fileID: 6197430553744570692}
   passenger1: {fileID: 1306529882366420451}
   passenger2: {fileID: 4571655729456925116}
   isInitialised: 0
@@ -4143,6 +4143,7 @@ MonoBehaviour:
   bonusCameraPos: {fileID: 5649958707522921265}
   postBonusCamera: {fileID: 3833225671568016261}
   targetMediator: {fileID: 7935872029698375953}
+  moneyDestination: {fileID: 0}
 --- !u!1 &7936708378448459765
 GameObject:
   m_ObjectHideFlags: 0
@@ -5116,6 +5117,11 @@ PrefabInstance:
 --- !u!1 &4821662496113049554 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 624854125446577444, guid: e92a056a0e3732f499e127b67c39048b, type: 3}
+  m_PrefabInstance: {fileID: 5350859073850573558}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5431549873692502067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 81817062808775365, guid: e92a056a0e3732f499e127b67c39048b, type: 3}
   m_PrefabInstance: {fileID: 5350859073850573558}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &7210825619310325384 stripped

@@ -22,6 +22,7 @@ namespace Kart
 
 		public bool isInitialised;
 		[SerializeField] private ParticleSystem leftSparks, rightSparks;
+		
 
 		private void OnEnable()
 		{
