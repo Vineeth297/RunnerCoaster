@@ -12,6 +12,6 @@ public class WarningText : MonoBehaviour
 	private void Start()
 	{
 		text.DOColor(finalColor, loopDuration).SetLoops(-1, LoopType.Yoyo);
-		//text.transform.DOScale(Vector3.one * 0.75f, loopDuration).SetLoops(-1, LoopType.Yoyo);
+		text.transform.DOScale(1.5f, loopDuration).SetLoops(-1, LoopType.Yoyo);
 	}
 }

@@ -25,11 +25,7 @@ namespace Kart
 		private Transform _transform;
 		private Quaternion _initLocalRotation;
 		private Vector3 _initLocalPosition, _initBonusCamLocalPosition;
-		
-		[SerializeField] private Transform moneyDestination;
 
-		public Transform MoneyDestination => moneyDestination;
-		
 		private void OnEnable()
 		{
 			GameEvents.EnterHelix += OnEnterHelix;

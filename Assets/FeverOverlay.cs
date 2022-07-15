@@ -13,5 +13,6 @@ public class FeverOverlay : MonoBehaviour
 	private void Start()
 	{
 		overlayImage.DOColor(finalColor, loopDuration).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Flash);
+		overlayImage.transform.DOScale(1.5f, loopDuration).SetLoops(-1,LoopType.Yoyo);
 	}
 }

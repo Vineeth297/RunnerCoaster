@@ -56,16 +56,16 @@ public class Obstacle : MonoBehaviour
 			if(!TryGiveHit()) return;
 			GameEvents.InvokeMainKartCrash(collisionPoint);
 		}
-		if (other.TryGetComponent(out AdditionalKartController addy))
-		{
-			if(!TryGiveHit()) return;
-			addy.RemoveKartsFromHere(collisionPoint);
-			GameEvents.InvokeKartCrash(collisionPoint);
-		}
 		else if (other.TryGetComponent(out MainKartController _))
 		{
 			if(!TryGiveHit()) return;
 			GameEvents.InvokeMainKartCrash(collisionPoint);
+		}
+		else if (other.TryGetComponent(out AdditionalKartController addy))
+		{
+			if(!TryGiveHit()) return;
+			addy.RemoveKartsFromHere(collisionPoint);
+			GameEvents.InvokeKartCrash(collisionPoint);
 		}
 	}
 

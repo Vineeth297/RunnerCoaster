@@ -8,22 +8,19 @@ using UnityEngine.UI;
 public class MainCanvasController : MonoBehaviour
 {
 	[SerializeField] private GameObject holdToAim, victory, defeat, nextLevel, retry, constantRetryButton, skipLevel;
-	[SerializeField] private TextMeshProUGUI levelText,moneyText;
+	[SerializeField] private TextMeshProUGUI levelText;
 	[SerializeField] private Image red, emoji;
 	[SerializeField] private float emojiRotation;
-	
-	[SerializeField] private GameObject moneyImage;
-	private Vector3 _moneyImageInitialScale;
-	private Tweener _moneyTween;
-	
+
 	[SerializeField] private Button nextLevelButton;
 
+	[SerializeField] private GameObject warningPanel;
+	
 	private Color _originalRedColor, _lighterRedColor;
 	private bool _hasTapped, _hasLost;
 	private Sequence _emojiSequence;
 	private Tweener _redOverlayTween;
 
-	private int _moneyCount;
 
 	private void OnEnable()
 	{
@@ -32,6 +29,9 @@ public class MainCanvasController : MonoBehaviour
 
 		GameEvents.PlayerDeath += OnGameLose;
 		GameEvents.GameWin += OnGameWin;
+
+		GameEvents.ObstacleWarningOn += CanEnableWarningPanel;
+		GameEvents.ObstacleWarningOff += DontEnableWarningPanel;
 	}
 
 	private void OnDisable()
@@ -41,6 +41,9 @@ public class MainCanvasController : MonoBehaviour
 		
 		GameEvents.PlayerDeath -= OnGameLose;
 		GameEvents.GameWin -= OnGameWin;
+		
+		GameEvents.ObstacleWarningOn -= CanEnableWarningPanel;
+		GameEvents.ObstacleWarningOff -= DontEnableWarningPanel;
 	}
 
 	private void Awake() => DOTween.KillAll();
@@ -76,9 +79,6 @@ public class MainCanvasController : MonoBehaviour
 		
 		if(GAScript.Instance)
 			GAScript.Instance.LevelStart(PlayerPrefs.GetInt("levelNo", 0).ToString());
-
-		_moneyCount = 0;
-		_moneyImageInitialScale = moneyImage.transform.lossyScale;
 	}
 
 	private void Update()
@@ -171,7 +171,6 @@ public class MainCanvasController : MonoBehaviour
 
 	private void OnObstacleCollision(Vector3 obj)
 	{
-		print("moommomomomom");
 		red.enabled = true;
 		red.color = Color.clear;
 		
@@ -180,6 +179,20 @@ public class MainCanvasController : MonoBehaviour
 		
 		_emojiSequence.Restart();
 	}
+
+	private void DontEnableWarningPanel()
+	{
+		DeActivateWarningPanel();
+	}
+
+	private void CanEnableWarningPanel()
+	{
+		ActivateWarningPanel();
+	}
+
+	private void DeActivateWarningPanel() => warningPanel.SetActive(false);
+
+	private void ActivateWarningPanel() => warningPanel.SetActive(true);
 
 	private void OnGameLose()
 	{
@@ -195,20 +208,5 @@ public class MainCanvasController : MonoBehaviour
 		
 		if(GAScript.Instance)
 			GAScript.Instance.LevelCompleted(PlayerPrefs.GetInt("levelNo", 0).ToString());
-	}
-
-	public void IncreaseMoneyCount()
-	{
-		_moneyCount += 1;
-		moneyText.text = _moneyCount.ToString();
-	}
-
-	public void ScaleMoneyImage()
-	{
-		if (_moneyTween.IsActive())
-		{
-			_moneyTween.Kill();
-		}
-		_moneyTween = moneyImage.transform.DOScale(_moneyImageInitialScale * 1.15f, 0.1f).SetLoops(2,LoopType.Yoyo);
 	}
 }

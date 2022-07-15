@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Dreamteck;
 using Dreamteck.Splines.Primitives;
 using Kart;
 using Unity.Mathematics;
@@ -7,16 +8,16 @@ using UnityEngine;
 
 public class Collectible_Money : MonoBehaviour
 {
-	private static MainCanvasController _main;
+	private static MoneyCanvas _moneyCanvas;
 	private static MainKartController _mainKart;
 
 	[SerializeField] private float travelDuration = 0.5f;
 
 	private void Start()
 	{
-		if (!_main)
+		if (!_moneyCanvas)
 		{
-			_main = GameObject.FindWithTag("MainCanvas").GetComponent<MainCanvasController>();
+			_moneyCanvas = GameObject.FindWithTag("MoneyCanvas").GetComponent<MoneyCanvas>();
 		}
 
 		if (!_mainKart)
@@ -34,16 +35,17 @@ public class Collectible_Money : MonoBehaviour
 	{
 		if (!other.CompareTag("Player")) return;
 		
-		_main.IncreaseMoneyCount();
-		transform.parent = DampCamera.only.transform;
-		transform.DOScale(transform.lossyScale * 0.75f, travelDuration);//.SetEase(Ease.OutElastic);
-		transform.DOLocalMove(DampCamera.only.MoneyDestination.localPosition, travelDuration).
+		_moneyCanvas.IncreaseMoneyCount();
+		transform.parent = _moneyCanvas.GetMoneyDestination();
+		transform.DOScale(Vector3.zero, travelDuration).SetEase(Ease.InCirc);
+
+		transform.DOLocalMove(Vector3.zero, travelDuration).
 			OnComplete(()=>
 			{
-				_main.ScaleMoneyImage();
+				_moneyCanvas.ScaleMoneyImage();
 				gameObject.SetActive(false);
 			});
-		
+		AudioManager.instance.Play("MoneyCollection" );
 	//	gameObject.SetActive(false);
 	}
 }

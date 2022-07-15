@@ -21,12 +21,14 @@ namespace Kart
 		private void OnEnable()
 		{
 			GameEvents.PlayerOnFever += OnFeverOverlay;
+			GameEvents.PlayerOnFever += PlayFeverHype;
 			GameEvents.PlayerOffFever += OffFeverOverlay;
 		}
 		
 		private void OnDisable()
 		{
 			GameEvents.PlayerOnFever -= OnFeverOverlay;
+			GameEvents.PlayerOnFever -= PlayFeverHype;
 			GameEvents.PlayerOffFever -= OffFeverOverlay;
 		}
 		
@@ -90,6 +92,7 @@ namespace Kart
 			
 			if (other.CompareTag("ObstacleTrain") || other.CompareTag("ObstacleKart"))
 			{
+				print("pop");
 				//Explode Obstacle karts
 				var wag = other.TryGetComponent(out AdditionalKartController additionalKart);
 				if (wag)
@@ -111,6 +114,13 @@ namespace Kart
 			feverOverlayPanel.SetActive(false);
 			feverText.SetActive(false);
 		}
+		
+		private void PlayFeverHype()
+		{
+			AudioManager.instance.Play("Jump1" );
+		}
 	}
+	
+	
 	
 }

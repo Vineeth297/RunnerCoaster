@@ -28,7 +28,7 @@ public class Exhaust : MonoBehaviour
 	private void ExhaustOn()
 	{
 		exhaustParticleSystem.SetActive(true);
-		exhaustParticleSystem.transform.DOScale(_initScale * scaleMultiplier, 0.5f).SetLoops(2, LoopType.Yoyo);
+	//	exhaustParticleSystem.transform.DOScale(_initScale * scaleMultiplier, 0.5f).SetLoops(2, LoopType.Yoyo);
 	}
 
 	private void ExhaustOff() => exhaustParticleSystem.SetActive(false);
