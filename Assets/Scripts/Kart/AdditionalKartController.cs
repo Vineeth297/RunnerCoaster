@@ -5,6 +5,7 @@ namespace Kart
 {
 	public class AdditionalKartController : MonoBehaviour
 	{
+		public Kart visualKart;
 		public Rigidbody explosionKart;
 		public SplinePositioner Positioner { get; private set; }
 		public Wagon Wagon { get; private set; }

@@ -20,8 +20,7 @@ public class MainCanvasController : MonoBehaviour
 	private bool _hasTapped, _hasLost;
 	private Sequence _emojiSequence;
 	private Tweener _redOverlayTween;
-
-
+	
 	private void OnEnable()
 	{
 		GameEvents.KartCrash += OnObstacleCollision;

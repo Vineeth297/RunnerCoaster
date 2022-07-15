@@ -21,9 +21,10 @@ namespace Kart
 		public int AddedKartCount => AddedKarts.Count;
 		public int PassengerCount => _availablePassengers.Count;
 
-		[SerializeField] private bool isObstacleMainKart;
+		public bool isObstacleMainKart;
 		[SerializeField] private GameObject additionalObstacleKartPrefab;
 		[SerializeField] private int totalObstacleAdditionalKarts = 5;
+		
 		public GameObject PopPassenger
 		{
 			get
@@ -70,9 +71,9 @@ namespace Kart
 			{
 				SpawnNewKart();
 
-				if (AudioManager.instance)
-					AudioManager.instance.Play("AddKart", -1f, pitch);
-
+				if (isObstacleMainKart || !AudioManager.instance) return;
+				
+				AudioManager.instance.Play("AddKart", -1f, pitch);
 				pitch += 0.1f;
 			}).SetLoops(kartsToSpawn);
 		}
@@ -97,7 +98,7 @@ namespace Kart
 			kartToPop.Positioner.enabled = false;
 
 			kartToPop.explosionKart.gameObject.SetActive(true);
-			kartToPop.explosionKart.AddForce((direction * forceMultiplier + Vector3.up * upForce) + Vector3.left * sideForce, ForceMode.Impulse);
+			kartToPop.explosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce + Vector3.left * sideForce, ForceMode.Impulse);
 
 			AddedKarts.RemoveAt(AddedKarts.Count - 1);
 			if (AddedKartCount > 0) AddedKarts[^1].Wagon.back = null;
@@ -127,8 +128,9 @@ namespace Kart
 			//add new kart passengers
 			_availablePassengers.Add(newKart.passenger1);
 			_availablePassengers.Add(newKart.passenger2);
-
+			
 			newKart.transform.GetChild(0).gameObject.SetActive(true);
+			if(!isObstacleMainKart) DOVirtual.DelayedCall(0.1f, newKart.visualKart.ScaleUp);
 			newKart.transform.GetChild(1).gameObject.SetActive(true);
 			newKart.transform.GetChild(2).gameObject.SetActive(true);
 
@@ -242,7 +244,7 @@ namespace Kart
 
 		private void OnObstacleCollision(Vector3 collisionPoint)
 		{
-			//Explode(collisionPoint);
+			if(isObstacleMainKart) return;
 			if(_isInKartCollisionCooldown) return;
 
 			_isInKartCollisionCooldown = true;

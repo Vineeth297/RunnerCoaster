@@ -1,4 +1,6 @@
 using DG.Tweening;
+using Dreamteck.Splines;
+using StateMachine;
 using UnityEngine;
 
 namespace Kart
@@ -7,7 +9,8 @@ namespace Kart
 	public class KartTrackMovement : MonoBehaviour
 	{
 		private MainKartController _my;
-
+		private SplineFollower _follower;
+		
 		[SerializeField] private float currentSpeed = 10f;
 		[SerializeField] private AnimationCurve speedGain, speedLoss;
 
@@ -44,6 +47,7 @@ namespace Kart
 
 		private void Start()
 		{
+			_follower = GetComponent<SplineFollower>();
 			_my = GetComponent<MainKartController>();
 			_currentLimits = plainSpeedLimits;
 		}
@@ -76,13 +80,13 @@ namespace Kart
 
 		public void Accelerate()
 		{
-			_my.Follower.followSpeed = currentSpeed;
-			_my.Follower.followSpeed *= 1f - _brakeForce;
+			_follower.followSpeed = currentSpeed;
+			_follower.followSpeed *= 1f - _brakeForce;
 		}
 
 		public void Brake()
 		{
-			_my.Follower.followSpeed -= Time.deltaTime * currentSpeed;
+			_follower.followSpeed -= Time.deltaTime * currentSpeed;
 			_my.fever.DecreaseFeverAmount();
 		}
 
@@ -96,7 +100,8 @@ namespace Kart
 		public PlayerAudio GetAudio => _my.PlayerAudio;
 		public Fever GetFever => _my.fever;
 
-		public void StartFollowingTrack() => _my.Follower.follow = true;
+		public void StartFollowingTrack() => _follower.follow = true;
+		public void StopFollowingTrack() => _follower.follow = false;
 
 		public void PauseFollow() => _my.PlayerAudio.StopMoving();
 
@@ -104,16 +109,33 @@ namespace Kart
 
 		public void SetNormalSpeedValues() => _currentLimits = plainSpeedLimits;
 
-		public void StopFollowingTrack() => _my.Follower.follow = false;
+		private void KnockBack()
+		{
+			_follower.applyDirectionRotation = false;
+			_follower.direction = Spline.Direction.Backward;
+			InputHandler.AssignNewState(InputState.Disabled);
+
+			DOVirtual.DelayedCall(0.35f, RestoreMovingForward);
+		}
+
+		private void RestoreMovingForward()
+		{
+			_follower.applyDirectionRotation = true;
+			_follower.direction = Spline.Direction.Forward;
+			InputHandler.AssignNewState(InputState.IdleOnTracks);
+		}
 
 		private void OnMainKartCrash(Vector3 point)
 		{
+			if(_my.AddedKartsManager.isObstacleMainKart) return;
+			
 			if(_kartSlowedDownDueToCrash) return;
 			_kartSlowedDownDueToCrash = true;
 			
 			var speed = currentSpeed;
 			currentSpeed = 0f;
-			
+
+			KnockBack();
 			DOTween.To(GetCurrentSpeed, SetCurrentSpeed, speed - (speed - _currentLimits.min) / 2, 0.25f)
 				.OnComplete(() => DOTween.To(GetCurrentSpeed, SetCurrentSpeed, speed, 0.25f).SetDelay(2f)
 					.OnComplete(() => _kartSlowedDownDueToCrash = false));

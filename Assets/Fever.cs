@@ -1,7 +1,4 @@
-using System;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace Kart
@@ -16,8 +13,7 @@ namespace Kart
 		[SerializeField] private GameObject feverText;
 		
 		private bool _toConsumeFever;
-
-
+		
 		private void OnEnable()
 		{
 			GameEvents.PlayerOnFever += OnFeverOverlay;
@@ -33,9 +29,15 @@ namespace Kart
 		}
 		
 
-		private void Start()
+		private void Start() => fever.fillAmount = 0f;
+
+		private void Update()
 		{
-			fever.fillAmount = 0f;
+			if(Input.GetKey(KeyCode.X))
+			{
+				IncreaseFeverAmount();
+				IncreaseFeverAmount();
+			}
 		}
 
 		public void HandleFeverAmount()
@@ -89,18 +91,12 @@ namespace Kart
 		private void OnTriggerEnter(Collider other)
 		{
 			if (!_toConsumeFever) return;
+
+			if (!other.CompareTag("ObstacleTrain") && !other.CompareTag("ObstacleKart")) return;
 			
-			if (other.CompareTag("ObstacleTrain") || other.CompareTag("ObstacleKart"))
-			{
-				print("pop");
-				//Explode Obstacle karts
-				var wag = other.TryGetComponent(out AdditionalKartController additionalKart);
-				if (wag)
-				{
-					//GameEvents.InvokeMainKartCrash(other.ClosestPoint(other.transform.position));
-					additionalKart.RemoveKartsFromHere(other.transform.position);
-				}
-			}
+			//Explode Obstacle karts
+			if (other.TryGetComponent(out AdditionalKartController additionalKart))
+				additionalKart.RemoveKartsFromHere(other.transform.position);
 		}
 
 		private void OnFeverOverlay()
@@ -115,10 +111,7 @@ namespace Kart
 			feverText.SetActive(false);
 		}
 		
-		private void PlayFeverHype()
-		{
-			AudioManager.instance.Play("Jump1" );
-		}
+		private void PlayFeverHype() => AudioManager.instance.Play("Jump1" );
 	}
 	
 	

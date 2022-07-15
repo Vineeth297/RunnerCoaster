@@ -39,16 +39,19 @@ public class Obstacle : MonoBehaviour
 		{
 			if (!_my.isInitialised) return;
 
-			_my.Follower.follow = true;
+			_my.TrackMovement.StartFollowingTrack();
 			checker.Kill();
 		}).SetLoops(-1);
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (_isPlayerOnFever) return;
-		
 		if (!other.CompareTag("Player") && !other.CompareTag("Kart")) return;
+		
+		if (_isPlayerOnFever)
+		{
+			return;
+		}
 
 		var collisionPoint = other.ClosestPoint(transform.position);
 		if(!_isKart)
