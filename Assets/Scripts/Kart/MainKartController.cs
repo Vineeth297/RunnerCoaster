@@ -16,10 +16,13 @@ namespace Kart
 		public Collider BoxCollider { get; private set; }
 		public KartCounter KartCounter { get; private set; }
 
+		public Fever fever;
+
 		public Passenger passenger1, passenger2;
 
 		public bool isInitialised;
 		[SerializeField] private ParticleSystem leftSparks, rightSparks;
+		
 
 		private void OnEnable()
 		{
@@ -43,6 +46,7 @@ namespace Kart
 			BoxCollider = GetComponent<Collider>();
 			PlayerAudio = GetComponent<PlayerAudio>();
 			KartCounter = GetComponent<KartCounter>();
+			
 			isInitialised = true;
 		}
 

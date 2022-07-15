@@ -53,7 +53,7 @@ namespace Kart
 			if (only) Destroy(this);
 			else only = this;
 		}
-
+		
 		private void Start()
 		{
 			_transform = transform;

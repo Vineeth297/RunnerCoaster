@@ -11,6 +11,8 @@ TagManager:
   - BonusTile
   - Kart
   - ObstacleKart
+  - MainCanvas
+  - MoneyCanvas
   layers:
   - Default
   - TransparentFX

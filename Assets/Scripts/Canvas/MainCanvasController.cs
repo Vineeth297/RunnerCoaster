@@ -1,6 +1,4 @@
 using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,10 +14,13 @@ public class MainCanvasController : MonoBehaviour
 
 	[SerializeField] private Button nextLevelButton;
 
+	[SerializeField] private GameObject warningPanel;
+	
 	private Color _originalRedColor, _lighterRedColor;
 	private bool _hasTapped, _hasLost;
 	private Sequence _emojiSequence;
 	private Tweener _redOverlayTween;
+
 
 	private void OnEnable()
 	{
@@ -28,6 +29,9 @@ public class MainCanvasController : MonoBehaviour
 
 		GameEvents.PlayerDeath += OnGameLose;
 		GameEvents.GameWin += OnGameWin;
+
+		GameEvents.ObstacleWarningOn += CanEnableWarningPanel;
+		GameEvents.ObstacleWarningOff += DontEnableWarningPanel;
 	}
 
 	private void OnDisable()
@@ -37,6 +41,9 @@ public class MainCanvasController : MonoBehaviour
 		
 		GameEvents.PlayerDeath -= OnGameLose;
 		GameEvents.GameWin -= OnGameWin;
+		
+		GameEvents.ObstacleWarningOn -= CanEnableWarningPanel;
+		GameEvents.ObstacleWarningOff -= DontEnableWarningPanel;
 	}
 
 	private void Awake() => DOTween.KillAll();
@@ -172,6 +179,20 @@ public class MainCanvasController : MonoBehaviour
 		
 		_emojiSequence.Restart();
 	}
+
+	private void DontEnableWarningPanel()
+	{
+		DeActivateWarningPanel();
+	}
+
+	private void CanEnableWarningPanel()
+	{
+		ActivateWarningPanel();
+	}
+
+	private void DeActivateWarningPanel() => warningPanel.SetActive(false);
+
+	private void ActivateWarningPanel() => warningPanel.SetActive(true);
 
 	private void OnGameLose()
 	{

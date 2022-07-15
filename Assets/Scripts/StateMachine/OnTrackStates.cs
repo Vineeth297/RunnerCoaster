@@ -26,6 +26,7 @@ namespace StateMachine
 			
 			Player.Brake();
 			Player.GetAudio.UpdatePitch();
+			Player.GetFever.DecreaseFeverAmount();
 
 			CalculateBrakingForces();
 		}
@@ -48,6 +49,7 @@ namespace StateMachine
 			
 			Player.Accelerate();
 			Player.GetAudio.UpdatePitch();
+			Player.GetFever.HandleFeverAmount();
 
 			CalculateBrakingForces();
 		}

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1619559623838044455, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2685788260203797354, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: back
       value: 
@@ -11099,6 +11103,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.010316781
       objectReference: {fileID: 0}
+    - target: {fileID: 6197430553744570692, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6700444228412219829, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -11463,10 +11471,23 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.2372359
       objectReference: {fileID: 0}
+    - target: {fileID: 8026307909709023078, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8853539463141786886, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019201349443847374, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2685788260203797357, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
     - {fileID: 8528844487255894257, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
     - {fileID: 9029539004900498350, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+    - {fileID: 9019201349443847374, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
 --- !u!1 &3878051980341325084 stripped
 GameObject:
@@ -11502,3 +11523,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMainKart: 1
+--- !u!114 &4092235626657129331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3878051980341325084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c9ee6f943d0df2418083af19c578744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kartPrefab: {fileID: 3746853534499139346, guid: 0e3c86d24dea9ac48982c3e07a9720f1, type: 3}
+  forceMultiplier: 20
+  upForce: 30
+  sideForce: 0
+  passengerJumpDelayStep: 0.1
+  isObstacleMainKart: 1
+  additionalObstacleKartPrefab: {fileID: 1167247991105237684, guid: bbd3ec1e8bd9ec143b005cee23109419, type: 3}
+  totalObstacleAdditionalKarts: 15
