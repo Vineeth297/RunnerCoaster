@@ -7,25 +7,15 @@ public class Collectible_Money : MonoBehaviour
 {
 	[SerializeField] private float travelDuration = 0.5f;
 	
-	private static List<Transform> _units = new List<Transform>();
+	private static readonly List<Transform> Units = new List<Transform>();
 	private static MoneyCanvas _moneyCanvas;
 	private static MainKartController _mainKart;
 	
 	private static bool _isFirstSelected;
 	private bool _isFirst;
-	
-	private void Start()
+
+	private void OnEnable()
 	{
-		if (!_moneyCanvas)
-		{
-			_moneyCanvas = GameObject.FindWithTag("MoneyCanvas").GetComponent<MoneyCanvas>();
-		}
-
-		if (!_mainKart)
-		{
-			_mainKart = GameObject.FindWithTag("Player").GetComponent<MainKartController>();
-		}
-
 		if (!_isFirstSelected)
 		{
 			_isFirst = _isFirstSelected = true;
@@ -35,12 +25,28 @@ public class Collectible_Money : MonoBehaviour
 				.OnUpdate(() => UpdateRotations(transform));
 		}
 		else
-			_units.Add(transform);
+			Units.Add(transform);
 	}
 
-	private void UpdateRotations(Transform rotation)
+	private void OnDisable() => Units.Remove(transform);
+
+	private void OnDestroy()
 	{
-		foreach (var unit in _units) unit.rotation = rotation.rotation;
+		if(!_isFirst) return;
+
+		_isFirst = _isFirstSelected = false;
+		Units.Clear();
+	}
+
+	private void Start()
+	{
+		if (!_moneyCanvas) _moneyCanvas = GameObject.FindWithTag("MoneyCanvas").GetComponent<MoneyCanvas>();
+		if (!_mainKart) _mainKart = GameObject.FindWithTag("Player").GetComponent<MainKartController>();
+	}
+
+	private static void UpdateRotations(Transform rotation)
+	{
+		foreach (var unit in Units) unit.rotation = rotation.rotation;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -59,6 +65,5 @@ public class Collectible_Money : MonoBehaviour
 					gameObject.SetActive(false);
 			});
 		AudioManager.instance.Play("MoneyCollection" );
-	//	gameObject.SetActive(false);
 	}
 }

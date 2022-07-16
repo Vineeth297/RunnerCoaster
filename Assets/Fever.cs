@@ -11,7 +11,8 @@ namespace Kart
 		[SerializeField] private GameObject feverOverlayPanel;
 
 		[SerializeField] private GameObject feverText;
-		
+
+		private float _feverShopMultiplier = 1f;
 		private bool _toConsumeFever;
 		
 		private void OnEnable()
@@ -27,18 +28,8 @@ namespace Kart
 			GameEvents.PlayerOnFever -= PlayFeverHype;
 			GameEvents.PlayerOffFever -= OffFeverOverlay;
 		}
-		
 
 		private void Start() => fever.fillAmount = 0f;
-
-		private void Update()
-		{
-			if(Input.GetKey(KeyCode.X))
-			{
-				IncreaseFeverAmount();
-				IncreaseFeverAmount();
-			}
-		}
 
 		public void HandleFeverAmount()
 		{
@@ -63,6 +54,8 @@ namespace Kart
 			fever.fillAmount -= Time.deltaTime * feverEmptyMultiplier;
 		}
 
+		public void UpdateFeverShopMultiplier(float multiplier) => _feverShopMultiplier = 1 + 0.1f * multiplier;
+
 		private void ConsumeFever()
 		{
 			if (fever.fillAmount <= 0f)
@@ -85,7 +78,7 @@ namespace Kart
 				return;
 			}
 			if(!_toConsumeFever)
-				fever.fillAmount += Time.deltaTime * feverFillMultiplier;
+				fever.fillAmount += Time.deltaTime * feverFillMultiplier * _feverShopMultiplier;
 		}
 
 		private void OnTriggerEnter(Collider other)

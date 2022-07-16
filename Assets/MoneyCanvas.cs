@@ -1,23 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 public class MoneyCanvas : MonoBehaviour
 {
-	[SerializeField] private TextMeshProUGUI moneyText;
+	[SerializeField] public TextMeshProUGUI moneyText;
 	[SerializeField] private GameObject moneyImage;
 	[SerializeField] private Transform moneyDestination;
-	
+
 	private Tweener _moneyTween;
-	private int _moneyCount;
+	private int _moneyCount, _moneyMultiplier;
+
+	private void Start()
+	{
+		_moneyCount = ShopStateController.CurrentState.GetState().CoinCount;
+		moneyText.text = _moneyCount.ToString();
+	}
 
 	public void IncreaseMoneyCount()
 	{
-		_moneyCount += 1;
+		_moneyCount += 1 * _moneyMultiplier;
+		ShopStateController.CurrentState.GetState().CoinCount = _moneyCount;
+
 		moneyText.text = _moneyCount.ToString();
 	}
+
+	public void UpdateMultiplier(int multiplier) => _moneyMultiplier = 1 * multiplier;
 
 	public void ScaleMoneyImage()
 	{
@@ -28,5 +36,4 @@ public class MoneyCanvas : MonoBehaviour
 	}
 
 	public Transform GetMoneyDestination() => moneyDestination;
-
 }

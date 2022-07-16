@@ -179,15 +179,9 @@ public class MainCanvasController : MonoBehaviour
 		_emojiSequence.Restart();
 	}
 
-	private void DontEnableWarningPanel()
-	{
-		DeActivateWarningPanel();
-	}
+	private void DontEnableWarningPanel() => DeActivateWarningPanel();
 
-	private void CanEnableWarningPanel()
-	{
-		ActivateWarningPanel();
-	}
+	private void CanEnableWarningPanel() => ActivateWarningPanel();
 
 	private void DeActivateWarningPanel() => warningPanel.SetActive(false);
 
