@@ -20,8 +20,7 @@ public class MainCanvasController : MonoBehaviour
 	private bool _hasTapped, _hasLost;
 	private Sequence _emojiSequence;
 	private Tweener _redOverlayTween;
-
-
+	
 	private void OnEnable()
 	{
 		GameEvents.KartCrash += OnObstacleCollision;
@@ -180,15 +179,9 @@ public class MainCanvasController : MonoBehaviour
 		_emojiSequence.Restart();
 	}
 
-	private void DontEnableWarningPanel()
-	{
-		DeActivateWarningPanel();
-	}
+	private void DontEnableWarningPanel() => DeActivateWarningPanel();
 
-	private void CanEnableWarningPanel()
-	{
-		ActivateWarningPanel();
-	}
+	private void CanEnableWarningPanel() => ActivateWarningPanel();
 
 	private void DeActivateWarningPanel() => warningPanel.SetActive(false);
 

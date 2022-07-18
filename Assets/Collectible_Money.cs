@@ -1,34 +1,52 @@
-using System;
+using System.Collections.Generic;
 using DG.Tweening;
-using Dreamteck;
-using Dreamteck.Splines.Primitives;
 using Kart;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Collectible_Money : MonoBehaviour
 {
+	[SerializeField] private float travelDuration = 0.5f;
+	
+	private static readonly List<Transform> Units = new List<Transform>();
 	private static MoneyCanvas _moneyCanvas;
 	private static MainKartController _mainKart;
+	
+	private static bool _isFirstSelected;
+	private bool _isFirst;
 
-	[SerializeField] private float travelDuration = 0.5f;
+	private void OnEnable()
+	{
+		if (!_isFirstSelected)
+		{
+			_isFirst = _isFirstSelected = true;
+			transform.DORotate(Vector3.one * 45f, 1f, RotateMode.FastBeyond360)
+				.SetLoops(-1, LoopType.Incremental)
+				.SetEase(Ease.Linear)
+				.OnUpdate(() => UpdateRotations(transform));
+		}
+		else
+			Units.Add(transform);
+	}
+
+	private void OnDisable() => Units.Remove(transform);
+
+	private void OnDestroy()
+	{
+		if(!_isFirst) return;
+
+		_isFirst = _isFirstSelected = false;
+		Units.Clear();
+	}
 
 	private void Start()
 	{
-		if (!_moneyCanvas)
-		{
-			_moneyCanvas = GameObject.FindWithTag("MoneyCanvas").GetComponent<MoneyCanvas>();
-		}
+		if (!_moneyCanvas) _moneyCanvas = GameObject.FindWithTag("MoneyCanvas").GetComponent<MoneyCanvas>();
+		if (!_mainKart) _mainKart = GameObject.FindWithTag("Player").GetComponent<MainKartController>();
+	}
 
-		if (!_mainKart)
-		{
-			_mainKart = GameObject.FindWithTag("Player").GetComponent<MainKartController>();
-		}
-
-		//transform.rotation = Quaternion.AngleAxis(45, Vector3.forward);
-		transform.DORotate(Vector3.one * 45f, 1f, RotateMode.FastBeyond360)
-			.SetLoops(-1, LoopType.Incremental)
-			.SetEase(Ease.Linear);
+	private static void UpdateRotations(Transform rotation)
+	{
+		foreach (var unit in Units) unit.rotation = rotation.rotation;
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -43,9 +61,9 @@ public class Collectible_Money : MonoBehaviour
 			OnComplete(()=>
 			{
 				_moneyCanvas.ScaleMoneyImage();
-				gameObject.SetActive(false);
+				if(!_isFirst)
+					gameObject.SetActive(false);
 			});
 		AudioManager.instance.Play("MoneyCollection" );
-	//	gameObject.SetActive(false);
 	}
 }

@@ -2500,6 +2500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969a3077184792046aa7ee21cc504f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visualKart: {fileID: 1568965858041130725}
   explosionKart: {fileID: 473465841547120138}
   passenger1: {fileID: 3011608438897166873}
   passenger2: {fileID: 3011608438502687686}
