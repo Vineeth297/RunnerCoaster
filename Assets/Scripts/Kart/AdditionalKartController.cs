@@ -1,5 +1,4 @@
 using Dreamteck.Splines;
-using UnityEditor.U2D.Sprites;
 using UnityEngine;
 
 namespace Kart
@@ -40,8 +39,6 @@ namespace Kart
 			Passenger1 = characterPairsParent.GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin)
 				.GetChild(0)
 				.GetComponent<Passenger>();
-			
-			print($"{(int) UpgradeShopCanvas.only.MyCharacterSkin} {Passenger1}");
 
 			Passenger2 = characterPairsParent.GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin)
 				.GetChild(1)

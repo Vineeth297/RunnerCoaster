@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Kart
 {
@@ -60,11 +59,9 @@ namespace Kart
 		
 		public void PlayExplosionParticle(Vector3 collisionPoint)
 		{
-			// if (!isMainKart) return;
 			var expParticle = Instantiate(explosionParticle);
 			expParticle.transform.position = collisionPoint;
 			expParticle.Play();
-			print("Played");
 		}
 		
 		private void OnReachEndOfTrack()

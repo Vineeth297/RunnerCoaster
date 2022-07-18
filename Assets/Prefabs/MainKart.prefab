@@ -4498,6 +4498,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1467202424057119362, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3150525519096656876, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
       propertyPath: angleOfForce
       value: 0
@@ -4516,6 +4520,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6580798550214803974, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
       propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7327529237675234803, guid: 60f0607f142937a44a1478b25f6e7ed3, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

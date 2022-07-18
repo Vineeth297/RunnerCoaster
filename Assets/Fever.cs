@@ -106,7 +106,4 @@ namespace Kart
 		
 		private void PlayFeverHype() => AudioManager.instance.Play("Jump1" );
 	}
-	
-	
-	
 }

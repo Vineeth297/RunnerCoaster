@@ -1,7 +1,5 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Kart;
-using ToonyColorsPro;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
@@ -48,13 +46,8 @@ public class Obstacle : MonoBehaviour
 	{
 		if (!other.CompareTag("Player") && !other.CompareTag("Kart")) return;
 		
-		if (_isPlayerOnFever)
-		{
-			return;
-		}
+		if (_isPlayerOnFever) return;
 
-		//print("Hit " + other.gameObject);
-		
 		var collisionPoint = other.ClosestPoint(transform.position);
 		if(!_isKart)
 		{
@@ -86,13 +79,7 @@ public class Obstacle : MonoBehaviour
 		return true;
 	}
 
-	private void OnFever()
-	{
-		_isPlayerOnFever = true;
-	}
+	private void OnFever() => _isPlayerOnFever = true;
 
-	private void OffFever()
-	{
-		_isPlayerOnFever = false;
-	}
+	private void OffFever() => _isPlayerOnFever = false;
 }

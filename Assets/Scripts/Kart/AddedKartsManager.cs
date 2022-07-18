@@ -139,7 +139,6 @@ namespace Kart
 				//add new kart passengers
 				_availablePassengers.Add(newKart.Passenger1);
 				_availablePassengers.Add(newKart.Passenger2);
-				print(newKart.Passenger1 + $"Pass1 {_availablePassengers[^1]} {_availablePassengers[^2]}");
 
 				if (AddedKarts.Count == 0)
 				{
