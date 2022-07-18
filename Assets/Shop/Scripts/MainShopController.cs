@@ -27,14 +27,14 @@ public class MainShopController : MonoBehaviour//, IWantsAds
 	private Animator _anim;
 	private bool _canClick = true;
 
-#region Animator Hashes
+	#region Animator Hashes
 
 	private static readonly int Close = Animator.StringToHash("Close");
-		private static readonly int Open = Animator.StringToHash("Open");
+	private static readonly int Open = Animator.StringToHash("Open");
 	private static readonly int ShowShopButton = Animator.StringToHash("showShopButton");
 	private static readonly int HideShopButton = Animator.StringToHash("hideShopButton");
 
-#endregion
+	#endregion
 		
 	#region Helpers and Getters
 	public TextMeshProUGUI GetCoinText() => _moneyCanvas.moneyText;

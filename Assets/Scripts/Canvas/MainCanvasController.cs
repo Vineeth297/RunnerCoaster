@@ -149,6 +149,7 @@ public class MainCanvasController : MonoBehaviour
 
 	public void NextLevel()
 	{
+		UpgradeShopCanvas.only.SaveCollectedMoney();
 		if (PlayerPrefs.GetInt("levelNo", 1) < SceneManager.sceneCountInBuildSettings - 1)
 		{
 			var x = PlayerPrefs.GetInt("levelNo", 1) + 1;

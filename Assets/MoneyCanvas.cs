@@ -7,7 +7,7 @@ public class MoneyCanvas : MonoBehaviour
 	[SerializeField] public TextMeshProUGUI moneyText;
 	[SerializeField] private GameObject moneyImage;
 	[SerializeField] private Transform moneyDestination;
-
+	
 	private Tweener _moneyTween;
 	private int _moneyCount, _moneyMultiplier;
 
@@ -21,9 +21,9 @@ public class MoneyCanvas : MonoBehaviour
 	public void IncreaseMoneyCount()
 	{
 		_moneyCount += 1 * _moneyMultiplier;
-		ShopStateController.CurrentState.GetState().CoinCount = _moneyCount;
 
 		moneyText.text = _moneyCount.ToString();
+		UpgradeShopCanvas.only.AddCollectedMoney(1 * _moneyMultiplier);
 	}
 
 	public void UpdateMultiplier(int multiplier) => _moneyMultiplier = 1 * multiplier;
