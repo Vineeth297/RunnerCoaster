@@ -15,6 +15,7 @@ namespace Kart
 		private bool _isHypedUp;
 
 		private static readonly int Hype = Animator.StringToHash("Hype");
+		private static readonly int Dance = Animator.StringToHash("Win");
 		private Tween _delayedCall;
 
 		private void OnEnable()
@@ -53,6 +54,11 @@ namespace Kart
 			
 			_delayedCall = DOVirtual.DelayedCall(delay, () => Jump(duration));
 			_delayedCall.SetRecyclable(true);
+		}
+
+		public void StartDancing()
+		{
+			_anim.SetTrigger(Dance);
 		}
 
 		private void Jump(float duration)

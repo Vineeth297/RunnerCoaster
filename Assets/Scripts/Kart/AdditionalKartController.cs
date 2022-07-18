@@ -40,8 +40,6 @@ namespace Kart
 			Passenger1 = characterPairsParent.GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin)
 				.GetChild(0)
 				.GetComponent<Passenger>();
-			
-			print($"{(int) UpgradeShopCanvas.only.MyCharacterSkin} {Passenger1}");
 
 			Passenger2 = characterPairsParent.GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin)
 				.GetChild(1)

@@ -26,13 +26,13 @@ namespace Kart
 		[SerializeField] private int totalObstacleAdditionalKarts = 5;
 		
 
-		public GameObject PopPassenger
+		public Passenger PopPassenger
 		{
 			get
 			{
 				var x = _availablePassengers[^1];
 				_availablePassengers.RemoveAt(_availablePassengers.Count - 1);
-				return x.gameObject;
+				return x;
 			}
 		}
 
@@ -82,12 +82,7 @@ namespace Kart
 		{
 			var kartToPop = AddedKarts[^1];
 
-			print("kachra, bug");
-			kartToPop.transform.GetChild(0).gameObject.SetActive(false);
-			kartToPop.transform.GetChild(3).gameObject.SetActive(false);
-			kartToPop.kartCollider.transform.GetChild(1).gameObject.SetActive(false);
-			kartToPop.kartCollider.transform.GetChild(2).gameObject.SetActive(false);
-
+			kartToPop.baseCollider.SetActive(false);
 			kartToPop.gameObject.name += " fallen";
 			kartToPop.KartFollow.SetKartToFollow(null);
 			kartToPop.kartCollider.gameObject.SetActive(true);
@@ -99,6 +94,7 @@ namespace Kart
 			kartToPop.Positioner.enabled = false;
 
 			kartToPop.kartCollider.gameObject.SetActive(true);
+			kartToPop.kartCollider.attachedRigidbody.isKinematic = false;
 			kartToPop.kartCollider.attachedRigidbody.AddForce(direction * forceMultiplier + Vector3.up * upForce +
 															  Vector3.left * sideForce, ForceMode.Impulse);
 
@@ -109,13 +105,11 @@ namespace Kart
 		public void MakePassengersJump(float duration)
 		{
 			var delay = 0f;
-			print(_availablePassengers.Count);
 
 			for (var index = 0; index < _availablePassengers.Count; index++)
 			{
 				if (index % 2 == 0) delay += passengerJumpDelayStep;
-
-				Debug.Log(_availablePassengers.Count + ", " + index + ", " + _availablePassengers[index], _availablePassengers[index]);
+				
 				_availablePassengers[index].MakePassengerJump(duration, delay);
 			}
 		}
@@ -139,7 +133,6 @@ namespace Kart
 				//add new kart passengers
 				_availablePassengers.Add(newKart.Passenger1);
 				_availablePassengers.Add(newKart.Passenger2);
-				print(newKart.Passenger1 + $"Pass1 {_availablePassengers[^1]} {_availablePassengers[^2]}");
 
 				if (AddedKarts.Count == 0)
 				{

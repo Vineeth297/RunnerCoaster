@@ -38,7 +38,8 @@ public class BonusTile : MonoBehaviour
 			
 			if(_addedKarts.AddedKartCount > 0) _addedKarts.PopKart();
 		}
-		
+
+		kartPassenger.transform.parent = null;
 		kartPassenger.transform.DORotateQuaternion(myPassengerChild.rotation, 0.5f);
 		
 		kartPassenger.transform.DOJump(myPassengerChild.position,
@@ -46,8 +47,7 @@ public class BonusTile : MonoBehaviour
 			1,
 			1.25f).OnComplete(() =>
 		{
-			myPassengerChild.gameObject.SetActive(true);
-			kartPassenger.gameObject.SetActive(false);
+			kartPassenger.StartDancing();
 		});
 	}
 

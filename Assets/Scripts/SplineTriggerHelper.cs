@@ -69,7 +69,6 @@ public class SplineTriggerHelper : MonoBehaviour
 
 	public void PassengerJump()
 	{
-		print("called");
 		_player.AddedKartsManager.MakePassengersJump(1);
 		CameraFxController.only.DoCustomFov(75);
 		_player.PlayerAudio.SlowMoPitch();
