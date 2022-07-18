@@ -4,10 +4,21 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+public enum KartSkin
+{
+	Standard,
+	TrainWagon
+}
+
+public enum CharacterSkin { Stickman }
+
 public class UpgradeShopCanvas : MonoBehaviour
 {
 	public static UpgradeShopCanvas only;
 
+	public KartSkin MyKartSkin;
+	public CharacterSkin MyCharacterSkin;
+	
 	[SerializeField] private Sprite normalBtn;
 	[SerializeField] private int[] feverLevelCosts, moneyLevelCosts;
 	[SerializeField] private Button feverButton, moneyButton;

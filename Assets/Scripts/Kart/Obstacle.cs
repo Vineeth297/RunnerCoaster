@@ -7,7 +7,7 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
 	[SerializeField] private bool isMainKart;
-
+	
 	private MainKartController _my;
 	private bool _isKart;
 	
@@ -53,22 +53,27 @@ public class Obstacle : MonoBehaviour
 			return;
 		}
 
+		//print("Hit " + other.gameObject);
+		
 		var collisionPoint = other.ClosestPoint(transform.position);
 		if(!_isKart)
 		{
 			if(!TryGiveHit()) return;
 			GameEvents.InvokeMainKartCrash(collisionPoint);
+			CameraFxController.only.ObstacleCollisionFov();
 		}
 		else if (other.TryGetComponent(out MainKartController _))
 		{
 			if(!TryGiveHit()) return;
 			GameEvents.InvokeMainKartCrash(collisionPoint);
+			CameraFxController.only.ObstacleCollisionFov();
 		}
 		else if (other.TryGetComponent(out AdditionalKartController addy))
 		{
 			if(!TryGiveHit()) return;
 			addy.RemoveKartsFromHere(collisionPoint);
 			GameEvents.InvokeKartCrash(collisionPoint);
+			CameraFxController.only.ObstacleCollisionFov();
 		}
 	}
 

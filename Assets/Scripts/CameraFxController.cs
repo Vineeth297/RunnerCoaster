@@ -24,6 +24,8 @@ public class CameraFxController : MonoBehaviour
 
 	private DampCamera _dampCamera;
 
+	private bool _inCollisionCoolDown;
+	
 	private void Awake()
 	{
 		if (!only) only = this;
@@ -73,6 +75,12 @@ public class CameraFxController : MonoBehaviour
 		_fovTween = _cam.DOFieldOfView(fov, 0.5f);
 	}
 
+	public void DoCollisionFov(float fov)
+	{
+		if (_fovTween.IsActive()) _fovTween.Kill();
+		_fovTween = _cam.DOFieldOfView(fov, 0.1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutElastic);
+	}
+	
 	private void DoFeverFov(float fov)
 	{
 		if (_fovTween.IsActive()) _fovTween.Kill();
@@ -110,8 +118,19 @@ public class CameraFxController : MonoBehaviour
 	}
 
 	public void EndCameraRumble() => _cameraRumbleTween.Kill(true);
-
+	
 	public void SetSpeedLinesStatus(bool status) => speedParticleSystem.SetActive(status);
+
+	public void ObstacleCollisionFov()
+	{
+		if (_inCollisionCoolDown) return;
+		
+		_inCollisionCoolDown = true;
+		DoCollisionFov(56);
+		DOVirtual.DelayedCall(2f, ResetCollisionCooldown);
+	}
+
+	private void ResetCollisionCooldown() => _inCollisionCoolDown = false;
 
 	private void OnPlayerDeath() => SetSpeedLinesStatus(false);
 

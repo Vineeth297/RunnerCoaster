@@ -1,18 +1,24 @@
 using Dreamteck.Splines;
+using UnityEditor.U2D.Sprites;
 using UnityEngine;
 
 namespace Kart
 {
 	public class AdditionalKartController : MonoBehaviour
 	{
-		public Kart visualKart;
-		public Rigidbody explosionKart;
+		private MainKartController _my;
+
+		public ScaleUp scaleUp;
+		public Collider kartCollider;
 		public SplinePositioner Positioner { get; private set; }
 		public Wagon Wagon { get; private set; }
 		public KartFollow KartFollow { get; private set; }
 		public Collider BoxCollider { get; private set; }
+		public Passenger Passenger1{ get; private set; }
+		public Passenger Passenger2{ get; private set; }
 
-		public Passenger passenger1, passenger2;
+		public GameObject baseCollider;
+		public Transform kartParent, characterPairsParent;
 
 		public bool isInitialised;
 
@@ -30,9 +36,21 @@ namespace Kart
 		{
 			Wagon = GetComponent<Wagon>();
 			KartFollow = GetComponent<KartFollow>();
+
+			Passenger1 = characterPairsParent.GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin)
+				.GetChild(0)
+				.GetComponent<Passenger>();
+			
+			print($"{(int) UpgradeShopCanvas.only.MyCharacterSkin} {Passenger1}");
+
+			Passenger2 = characterPairsParent.GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin)
+				.GetChild(1)
+				.GetComponent<Passenger>();
 			isInitialised = true;
+			
 			Positioner = GetComponent<SplinePositioner>();
 			BoxCollider = GetComponent<Collider>();
+			_my = GetComponent<MainKartController>();
 		}
 
 		private void OnReachEndOfTrack()
@@ -80,6 +98,8 @@ namespace Kart
 			Wagon.enabled = false;
 			
 			GetMainKart().ExplodeMultipleKarts(GetNumberOfRearKarts(), collisionPoint);
+			if (!_my) return;
+			_my.PlayExplosionParticle(collisionPoint);
 		}
 	}
 }

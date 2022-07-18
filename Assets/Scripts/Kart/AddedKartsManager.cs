@@ -25,6 +25,7 @@ namespace Kart
 		[SerializeField] private GameObject additionalObstacleKartPrefab;
 		[SerializeField] private int totalObstacleAdditionalKarts = 5;
 		
+
 		public GameObject PopPassenger
 		{
 			get
@@ -53,10 +54,9 @@ namespace Kart
 			_availablePassengers = new List<Passenger>
 			{
 				//add main kart passengers
-				_my.passenger1, _my.passenger2
+				_my.Passenger1, _my.Passenger2
 			};
 
-			
 			if (isObstacleMainKart)
 			{
 				kartPrefab = additionalObstacleKartPrefab;
@@ -82,14 +82,15 @@ namespace Kart
 		{
 			var kartToPop = AddedKarts[^1];
 
+			print("kachra, bug");
 			kartToPop.transform.GetChild(0).gameObject.SetActive(false);
 			kartToPop.transform.GetChild(3).gameObject.SetActive(false);
-			kartToPop.explosionKart.transform.GetChild(1).gameObject.SetActive(false);
-			kartToPop.explosionKart.transform.GetChild(2).gameObject.SetActive(false);
+			kartToPop.kartCollider.transform.GetChild(1).gameObject.SetActive(false);
+			kartToPop.kartCollider.transform.GetChild(2).gameObject.SetActive(false);
 
 			kartToPop.gameObject.name += " fallen";
 			kartToPop.KartFollow.SetKartToFollow(null);
-			kartToPop.explosionKart.gameObject.SetActive(true);
+			kartToPop.kartCollider.gameObject.SetActive(true);
 
 			var direction = -kartToPop.transform.forward + Vector3.up;
 			direction = direction.normalized;
@@ -97,8 +98,9 @@ namespace Kart
 			kartToPop.BoxCollider.enabled = false;
 			kartToPop.Positioner.enabled = false;
 
-			kartToPop.explosionKart.gameObject.SetActive(true);
-			kartToPop.explosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce + Vector3.left * sideForce, ForceMode.Impulse);
+			kartToPop.kartCollider.gameObject.SetActive(true);
+			kartToPop.kartCollider.attachedRigidbody.AddForce(direction * forceMultiplier + Vector3.up * upForce +
+															  Vector3.left * sideForce, ForceMode.Impulse);
 
 			AddedKarts.RemoveAt(AddedKarts.Count - 1);
 			if (AddedKartCount > 0) AddedKarts[^1].Wagon.back = null;
@@ -107,37 +109,37 @@ namespace Kart
 		public void MakePassengersJump(float duration)
 		{
 			var delay = 0f;
+			print(_availablePassengers.Count);
 
 			for (var index = 0; index < _availablePassengers.Count; index++)
 			{
 				if (index % 2 == 0) delay += passengerJumpDelayStep;
 
+				Debug.Log(_availablePassengers.Count + ", " + index + ", " + _availablePassengers[index], _availablePassengers[index]);
 				_availablePassengers[index].MakePassengerJump(duration, delay);
 			}
 		}
 
 		public void ExplodeMultipleKarts(int number, Vector3 collisionPoint)
 		{
-			for (var i = 0; i < number; i++) ExplodeRearKart(collisionPoint, true);
+			for (var i = 0; i < number; i++) ExplodeRearKart(collisionPoint);
 		}
 
 		private void SpawnNewKart()
 		{
 			var newKart = Instantiate(kartPrefab, transform.parent).GetComponent<AdditionalKartController>();
-
-			//add new kart passengers
-			_availablePassengers.Add(newKart.passenger1);
-			_availablePassengers.Add(newKart.passenger2);
 			
-			newKart.transform.GetChild(0).gameObject.SetActive(true);
-			if(!isObstacleMainKart) DOVirtual.DelayedCall(0.1f, newKart.visualKart.ScaleUp);
-			newKart.transform.GetChild(1).gameObject.SetActive(true);
-			newKart.transform.GetChild(2).gameObject.SetActive(true);
+			if(!isObstacleMainKart) DOVirtual.DelayedCall(0.1f, newKart.scaleUp.ScaleMeUp);
 
 			Tween checker = null;
 			checker = DOVirtual.DelayedCall(0.05f, () =>
 			{
 				if (!newKart.isInitialised) return;
+
+				//add new kart passengers
+				_availablePassengers.Add(newKart.Passenger1);
+				_availablePassengers.Add(newKart.Passenger2);
+				print(newKart.Passenger1 + $"Pass1 {_availablePassengers[^1]} {_availablePassengers[^2]}");
 
 				if (AddedKarts.Count == 0)
 				{
@@ -161,14 +163,11 @@ namespace Kart
 		{
 			var kartToPop = AddedKarts[^1];
 
-			for (var i = 0; i < 4; i++)
-				kartToPop.transform.GetChild(i).gameObject.SetActive(false);
-
 			kartToPop.gameObject.name += " fallen";
 			kartToPop.tag = "Untagged";
+			kartToPop.baseCollider.SetActive(false);
 			kartToPop.KartFollow.SetKartToFollow(null);
-			kartToPop.explosionKart.gameObject.SetActive(true);
-			kartToPop.explosionKart.transform.parent = null;
+			kartToPop.kartCollider.transform.parent = null;
 
 			var direction = collisionPoint - kartToPop.transform.position;
 			direction = direction.normalized;
@@ -182,10 +181,14 @@ namespace Kart
 
 			var directionMultiplier = (Random.value > 0.5f ? 1f : -1f);
 
-			kartToPop.explosionKart.AddForce(
-				direction * forceMultiplier + Vector3.up * upForce * (explodeMultipleKarts ? 0.5f : 1f) +
+			kartToPop.kartCollider.isTrigger = false;
+			
+			var attachedRigidbody = kartToPop.kartCollider.attachedRigidbody;
+			attachedRigidbody.isKinematic = false;
+			attachedRigidbody.AddForce(
+				direction * forceMultiplier + Vector3.up * upForce  * (explodeMultipleKarts ? 0.5f : 1f) +
 				Vector3.left * sideForce * directionMultiplier, ForceMode.Impulse);
-			kartToPop.explosionKart.AddTorque(perpendicular * forceMultiplier + Vector3.left * sideForce * directionMultiplier, ForceMode.Impulse);
+			attachedRigidbody.AddTorque(perpendicular * forceMultiplier + Vector3.left * sideForce * directionMultiplier, ForceMode.Impulse);
 
 			RemoveKartFromRear();
 			if (AddedKartCount > 0) AddedKarts[^1].Wagon.back = null;
@@ -199,9 +202,6 @@ namespace Kart
 
 		private void ExplodeMainKart(Vector3 collisionPoint)
 		{
-			//default main cart disable
-			transform.GetChild(0).gameObject.SetActive(false);
-
 			var direction = collisionPoint - transform.position;
 			direction = direction.normalized;
 
@@ -210,10 +210,12 @@ namespace Kart
 			perpendicular.z = direction.x;
 
 			_my.BoxCollider.enabled = false;
+			_my.kartCollider.isTrigger = false;
 
-			_my.ExplosionKart.gameObject.SetActive(true);
-			_my.ExplosionKart.AddForce(direction * forceMultiplier + Vector3.up * upForce + Vector3.left * upForce, ForceMode.Impulse);
-			_my.ExplosionKart.AddTorque(perpendicular * forceMultiplier + Vector3.left * upForce, ForceMode.Impulse);
+			var attachedRigidbody = _my.kartCollider.attachedRigidbody;
+			attachedRigidbody.isKinematic = false;
+			attachedRigidbody.AddForce(direction * forceMultiplier + Vector3.up * upForce + Vector3.left * upForce, ForceMode.Impulse);
+			attachedRigidbody.AddTorque(perpendicular * forceMultiplier + Vector3.left * upForce, ForceMode.Impulse);
 
 			if (AudioManager.instance) AudioManager.instance.Play("Death" + ((++_audioIndex % 4) + 1));
 		}
@@ -235,8 +237,8 @@ namespace Kart
 			if (!other.CompareTag("PickUpPlatform")) return;
 			
 			var pickUpPlatform = other.GetComponent<PickupPlatform>();
-			var kartPassenger1 = transform.GetChild(0).transform.GetChild(5);
-			var kartPassenger2 = transform.GetChild(0).transform.GetChild(6);
+			var kartPassenger1 = _my.characterPairsParent.transform.GetChild(0).GetChild(0).transform;
+			var kartPassenger2 = _my.characterPairsParent.transform.GetChild(0).GetChild(1).transform;
 			pickUpPlatform.JumpOnToTheKart(kartPassenger1,kartPassenger2);
 			
 			other.enabled = false; 
@@ -250,7 +252,7 @@ namespace Kart
 			_isInKartCollisionCooldown = true;
 			DOVirtual.DelayedCall(0.1f, () => _isInKartCollisionCooldown = false);
 			CameraFxController.only.ScreenShake(5f);
-
+			
 			if (AddedKarts.Count > 0)
 				ExplodeRearKart(collisionPoint);
 			else
@@ -259,6 +261,7 @@ namespace Kart
 				GameEvents.InvokePlayerDeath();
 			}
 
+			_my.PlayExplosionParticle(collisionPoint);
 			TimeController.only.SlowDownTime();
 			DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());
 		}
