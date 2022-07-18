@@ -24,7 +24,7 @@ public class UpgradeShopCanvas : MonoBehaviour
 	private Fever _fever;
 	private MoneyCanvas _money;
 	private Animation _anim;
-	private int _currentFeverLevel, _currentMoneyLevel;
+	private int _currentFeverLevel, _currentMoneyLevel, _collectedMoney;
 
 	private static int GetSidebarWagon() => ShopStateController.CurrentState.GetState().SidebarWagon;
 
@@ -35,6 +35,10 @@ public class UpgradeShopCanvas : MonoBehaviour
 		ShopStateController.ShopStateSerializer.SaveCurrentState();
 		MainShopController.Main.ReadCurrentShopState();
 	}
+
+	public void AddCollectedMoney(int change) => _collectedMoney += change;
+
+	public void SaveCollectedMoney() => AlterCoinCount(_collectedMoney);
 
 	private static int GetCoinCount() => ShopStateController.CurrentState.GetState().CoinCount;
 
@@ -80,41 +84,7 @@ public class UpgradeShopCanvas : MonoBehaviour
 		AlterCoinCount(500);
 		UpdateButtons();
 	}
-
-	private static void FindNewSideBarWagon(int currentWeapon)
-	{
-		var changed = false;
-		
-		//find a weapon from current index to last
-		for (var i = currentWeapon + 1; i < MainShopController.GetWagonSkinCount(); i++)
-		{
-			if (ShopStateController.CurrentState.GetState().wagonStates[(WagonType) i] != ShopItemState.Locked)
-				continue;
-
-			ShopStateController.CurrentState.SetNewSideBarWagon(i);
-			changed = true;
-			break;
-		}
-
-		//if all weapons after me are unlocked, try to find new before me
-		if (!changed)
-		{
-			for (var i = 1; i < currentWeapon; i++)
-			{
-				if (ShopStateController.CurrentState.GetState().wagonStates[(WagonType) i] != ShopItemState.Locked)
-					continue;
-
-				ShopStateController.CurrentState.SetNewSideBarWagon(i);
-				changed = true;
-				break;
-			}
-		}
-
-		//if still didn't find anything make sure "MAX" is written
-		if (!changed)
-			ShopStateController.CurrentState.AllWagonsHaveBeenUnlocked();
-	}
-
+	
 	public void UpdateButtons()
 	{
 		//update speed and power texts and icons
@@ -173,26 +143,62 @@ public class UpgradeShopCanvas : MonoBehaviour
 		moneyHand.SetActive(moneyButton.interactable);
 	}
 
+	private static void FindNewSideBarWagon(int currentWeapon)
+	{
+		var changed = false;
+		
+		//find a weapon from current index to last
+		for (var i = currentWeapon + 1; i < MainShopController.GetWagonSkinCount(); i++)
+		{
+			if (ShopStateController.CurrentState.GetState().wagonStates[(WagonType) i] != ShopItemState.Locked)
+				continue;
+
+			ShopStateController.CurrentState.SetNewSideBarWagon(i);
+			changed = true;
+			break;
+		}
+
+		//if all weapons after me are unlocked, try to find new before me
+		if (!changed)
+		{
+			for (var i = 1; i < currentWeapon; i++)
+			{
+				if (ShopStateController.CurrentState.GetState().wagonStates[(WagonType) i] != ShopItemState.Locked)
+					continue;
+
+				ShopStateController.CurrentState.SetNewSideBarWagon(i);
+				changed = true;
+				break;
+			}
+		}
+
+		//if still didn't find anything make sure "MAX" is written
+		if (!changed)
+			ShopStateController.CurrentState.AllWagonsHaveBeenUnlocked();
+	}
+
 	public void ClickOnBuyFever()
 	{
 		if(!_allowedToPressButton) return;
 		
 		BuyFever();
-		
+		if(AudioManager.instance) AudioManager.instance.Play("BuyUpgrade");
+
 		_allowedToPressButton = feverButton.interactable = false;
 		DOVirtual.DelayedCall(CooldownTimerDuration, () => _allowedToPressButton = feverButton.interactable =
 			feverLevelCosts.Length - 1 != _currentFeverLevel && GetCoinCount() >= feverLevelCosts[_currentFeverLevel + 1]);
 	}
-	
+
 	public void ClickOnBuyMoney()
 	{
 		if(!_allowedToPressButton) return;
 		
 		BuyMoney();
+		if(AudioManager.instance) AudioManager.instance.Play("BuyUpgrade");
 		
 		_allowedToPressButton = moneyButton.interactable = false;
 		DOVirtual.DelayedCall(CooldownTimerDuration, () => _allowedToPressButton = moneyButton.interactable = 
-			moneyLevelCosts.Length - 1 != _currentMoneyLevel && GetCoinCount() >= feverLevelCosts[_currentFeverLevel + 1]);
+			moneyLevelCosts.Length - 1 != _currentMoneyLevel && GetCoinCount() >= moneyLevelCosts[_currentMoneyLevel + 1]);
 	}
 
 	private void BuyFever()

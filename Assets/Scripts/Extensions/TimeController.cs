@@ -14,6 +14,7 @@ public class TimeController : MonoBehaviour
 	private Tween _timeDeltaTween, _fixedTimeDeltaTween;
 	
 	private static float _defaultTimeScale = -1f;
+	private bool _spedUpTime;
 
 	private void OnDisable()
 	{
@@ -38,11 +39,21 @@ public class TimeController : MonoBehaviour
 
 	private void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.T)) print("timeScale = " + Time.timeScale);
+		if (Input.GetKeyDown(KeyCode.LeftShift))
+		{
+			_spedUpTime = true;
+			Time.timeScale = 2f;
+		}
+		else if(Input.GetKeyUp(KeyCode.LeftShift))
+		{
+			_spedUpTime = false;
+			Time.timeScale = _defaultTimeScale;
+		}
 	}
 
 	public void SlowDownTime(float multiplier = 1f)
 	{
+		if(_spedUpTime) return;
 		if(_isTimeSlowedDown) return;
 		
 		_isTimeSlowedDown = true;
@@ -55,6 +66,7 @@ public class TimeController : MonoBehaviour
 
 	public void RevertTime(bool lastEnemy = false)
 	{
+		if(_spedUpTime) return;
 		if (!_isTimeSlowedDown) return;
 
 		_isTimeSlowedDown = false;

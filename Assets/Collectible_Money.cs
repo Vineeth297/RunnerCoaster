@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Kart;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Collectible_Money : MonoBehaviour
 {
@@ -13,22 +14,6 @@ public class Collectible_Money : MonoBehaviour
 	
 	private static bool _isFirstSelected;
 	private bool _isFirst;
-
-	private void OnEnable()
-	{
-		if (!_isFirstSelected)
-		{
-			_isFirst = _isFirstSelected = true;
-			transform.DORotate(Vector3.one * 45f, 1f, RotateMode.FastBeyond360)
-				.SetLoops(-1, LoopType.Incremental)
-				.SetEase(Ease.Linear)
-				.OnUpdate(() => UpdateRotations(transform));
-		}
-		else
-			Units.Add(transform);
-	}
-
-	private void OnDisable() => Units.Remove(transform);
 
 	private void OnDestroy()
 	{
@@ -42,6 +27,17 @@ public class Collectible_Money : MonoBehaviour
 	{
 		if (!_moneyCanvas) _moneyCanvas = GameObject.FindWithTag("MoneyCanvas").GetComponent<MoneyCanvas>();
 		if (!_mainKart) _mainKart = GameObject.FindWithTag("Player").GetComponent<MainKartController>();
+		
+		if (!_isFirstSelected)
+		{
+			_isFirst = _isFirstSelected = true;
+			transform.DORotate(Vector3.one * 45f, 1f, RotateMode.FastBeyond360)
+				.SetLoops(-1, LoopType.Incremental)
+				.SetEase(Ease.Linear)
+				.OnUpdate(() => UpdateRotations(transform));
+		}
+		else
+			Units.Add(transform);
 	}
 
 	private static void UpdateRotations(Transform rotation)
@@ -58,12 +54,12 @@ public class Collectible_Money : MonoBehaviour
 		transform.DOScale(Vector3.zero, travelDuration).SetEase(Ease.InCirc);
 
 		transform.DOLocalMove(Vector3.zero, travelDuration).
-			OnComplete(()=>
+			OnComplete(() =>
 			{
 				_moneyCanvas.ScaleMoneyImage();
 				if(!_isFirst)
 					gameObject.SetActive(false);
 			});
-		AudioManager.instance.Play("MoneyCollection" );
+		AudioManager.instance.Play("MoneyCollection");
 	}
 }
