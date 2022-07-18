@@ -69,12 +69,14 @@ public class SplineTriggerHelper : MonoBehaviour
 
 	public void PassengerJump()
 	{
+		print("called");
 		_player.AddedKartsManager.MakePassengersJump(1);
 		CameraFxController.only.DoCustomFov(75);
 		_player.PlayerAudio.SlowMoPitch();
 		TimeController.only.SlowDownTime();
 		GameEvents.InvokeUpdateHype(true);
 		RemoveInputControl();
+		
 		if(AudioManager.instance) AudioManager.instance.Play("Jump" + Random.Range(1, 3));
 
 		DOVirtual.DelayedCall(0.75f, () =>

@@ -11471,6 +11471,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.2372359
       objectReference: {fileID: 0}
+    - target: {fileID: 8003798788902779248, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: kartCollider
+      value: 
+      objectReference: {fileID: 5616970582104876942}
     - target: {fileID: 8026307909709023078, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -11543,3 +11547,8 @@ MonoBehaviour:
   isObstacleMainKart: 1
   additionalObstacleKartPrefab: {fileID: 1167247991105237684, guid: bbd3ec1e8bd9ec143b005cee23109419, type: 3}
   totalObstacleAdditionalKarts: 15
+--- !u!65 &5616970582104876942 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 6730402559188275708, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+  m_PrefabInstance: {fileID: 1194665064379070066}
+  m_PrefabAsset: {fileID: 0}

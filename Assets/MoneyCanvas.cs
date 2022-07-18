@@ -15,6 +15,7 @@ public class MoneyCanvas : MonoBehaviour
 	{
 		_moneyCount = ShopStateController.CurrentState.GetState().CoinCount;
 		moneyText.text = _moneyCount.ToString();
+		GetComponent<Canvas>().worldCamera = Camera.main;
 	}
 
 	public void IncreaseMoneyCount()

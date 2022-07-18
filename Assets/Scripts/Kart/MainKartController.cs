@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Kart
 {
@@ -10,17 +11,20 @@ namespace Kart
 		public KartFlyMovement FlyMovement { get; private set; }
 		public AddedKartsManager AddedKartsManager { get; private set; }
 		public PlayerAudio PlayerAudio { get; private set; }
-		public Rigidbody ExplosionKart { get; private set; }
 		public Collider BoxCollider { get; private set; }
 		public KartCounter KartCounter { get; private set; }
 
+		public Passenger Passenger1{ get; private set; }
+		public Passenger Passenger2{ get; private set; }
+		
+		public GameObject kartParent, characterPairsParent;
+
+		public Collider kartCollider;
 		public Fever fever;
 
-		public Passenger passenger1, passenger2;
 
 		public bool isInitialised;
-		[SerializeField] private ParticleSystem leftSparks, rightSparks;
-		
+		[SerializeField] private ParticleSystem explosionParticle;
 
 		private void OnEnable()
 		{
@@ -39,26 +43,28 @@ namespace Kart
 			TrainEngine = GetComponent<TrainEngine>();
 			FlyMovement = GetComponent<KartFlyMovement>();
 			AddedKartsManager = GetComponent<AddedKartsManager>();
-			ExplosionKart = transform.GetChild(1).GetComponent<Rigidbody>();
 			BoxCollider = GetComponent<Collider>();
 			PlayerAudio = GetComponent<PlayerAudio>();
 			KartCounter = GetComponent<KartCounter>();
 			
+			Passenger1 = characterPairsParent.transform.GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin)
+				.GetChild(0)
+				.GetComponent<Passenger>();
+			
+			Passenger2 = characterPairsParent.transform.GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin)
+				.GetChild(1)
+				.GetComponent<Passenger>();
+			
 			isInitialised = true;
 		}
-
-		public void SetSparksStatus(bool status)
+		
+		public void PlayExplosionParticle(Vector3 collisionPoint)
 		{
-			if (status)
-			{
-				leftSparks.Play();
-				rightSparks.Play();
-			}
-			else
-			{
-				leftSparks.Stop();
-				rightSparks.Stop();
-			}
+			// if (!isMainKart) return;
+			var expParticle = Instantiate(explosionParticle);
+			expParticle.transform.position = collisionPoint;
+			expParticle.Play();
+			print("Played");
 		}
 		
 		private void OnReachEndOfTrack()

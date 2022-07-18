@@ -7,7 +7,7 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
 	[SerializeField] private bool isMainKart;
-
+	
 	private MainKartController _my;
 	private bool _isKart;
 	

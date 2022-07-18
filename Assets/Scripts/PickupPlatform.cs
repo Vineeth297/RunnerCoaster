@@ -1,44 +1,52 @@
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
 public class PickupPlatform : MonoBehaviour
 {
-	[SerializeField] private List<Transform> passengers;
+	[SerializeField] private Transform PassengerPairs;
 	[SerializeField] private float jumpHeight;
+	public Transform PassengerL { get; private set; }
+	public Transform PassengerR { get; private set; }
+
+	private void Start()
+	{
+		PassengerR = PassengerPairs.GetChild(0).GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin);
+		PassengerL = PassengerPairs.GetChild(1).GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin);
+	}
 
 	public void JumpOnToTheKart(Transform kartPassenger1,Transform kartPassenger2)
 	{
 		var temp = 0f;
-		
+
 		DOTween.To(() => temp, value => temp = value, 1f, 0.5f)
 			.SetEase(Ease.InOutCubic)
 			.OnUpdate(() =>
 			{
-				passengers[0].transform.position = Vector3.Lerp(passengers[0].position, kartPassenger1.position, temp);
-				passengers[1].transform.position = Vector3.Lerp(passengers[1].position, kartPassenger2.position, temp);
+				PassengerL.transform.position = Vector3.Lerp(PassengerL.position, kartPassenger1.position, temp);
+				PassengerR.transform.position = Vector3.Lerp(PassengerR.position, kartPassenger2.position, temp);
 			});
 
-		passengers[0].DOMoveY(passengers[0].position.y + jumpHeight, 0.25f)
+		PassengerL.DOMoveY(PassengerL.position.y + jumpHeight, 0.2f)
 			.SetEase(Ease.OutExpo)
 			.OnComplete(() => 
-				passengers[0].DOMoveY(kartPassenger1.position.y, 0.25f)
+				PassengerL.DOMoveY(kartPassenger1.position.y, 0.2f)
 					.SetEase(Ease.InExpo)
 					.OnComplete(() =>
 					{
+						//change animator state to cheering, dont disable and enable
 						kartPassenger1.gameObject.SetActive(true);
-						passengers[0].gameObject.SetActive(false);
+						PassengerL.gameObject.SetActive(false);
 					}));
 		
-		passengers[1].DOMoveY(passengers[0].position.y + jumpHeight, 0.25f)
+		PassengerR.DOMoveY(PassengerL.position.y + jumpHeight, 0.2f)
 			.SetEase(Ease.OutExpo)
 			.OnComplete(() => 
-				passengers[0].DOMoveY(kartPassenger2.position.y, 0.25f)
+				PassengerL.DOMoveY(kartPassenger2.position.y, 0.2f)
 					.SetEase(Ease.InExpo)
 					.OnComplete(() =>
 					{
 						kartPassenger2.gameObject.SetActive(true);
-						passengers[1].gameObject.SetActive(false);
+						PassengerR.gameObject.SetActive(false);
 					}));
 	}
 }
