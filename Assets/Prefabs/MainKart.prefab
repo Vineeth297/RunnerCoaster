@@ -3075,7 +3075,7 @@ MonoBehaviour:
   sideForce: 0
   passengerJumpDelayStep: 0.1
   isObstacleMainKart: 0
-  additionalObstacleKartPrefab: {fileID: 0}
+  additionalObstacleKartPrefab: {fileID: 1167247991105237684, guid: bbd3ec1e8bd9ec143b005cee23109419, type: 3}
   totalObstacleAdditionalKarts: 5
 --- !u!54 &5647499974886853244
 Rigidbody:
@@ -4143,7 +4143,6 @@ MonoBehaviour:
   bonusCameraPos: {fileID: 5649958707522921265}
   postBonusCamera: {fileID: 3833225671568016261}
   targetMediator: {fileID: 7935872029698375953}
-  moneyDestination: {fileID: 0}
 --- !u!1 &7936708378448459765
 GameObject:
   m_ObjectHideFlags: 0
