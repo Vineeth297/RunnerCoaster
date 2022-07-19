@@ -1945,8 +1945,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 8115425274110949572}
   sprite: {fileID: 5124112482063795864}
-  increaseColor: {r: 0.2509804, g: 0.87058824, b: 0.43529412, a: 0}
-  decreaseColor: {r: 0.99607843, g: 0.38431373, b: 0.15686275, a: 0}
+  increaseColor: {r: 0.2509804, g: 0.87058824, b: 0.43529412, a: 1}
+  decreaseColor: {r: 0.99607843, g: 0.38431373, b: 0.15686275, a: 1}
   colorToTime: 0.25
   colorHoldTime: 0.5
   colorReturnTime: 0.75
