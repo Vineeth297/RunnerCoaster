@@ -975,6 +975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Helicopter_14_USA
       objectReference: {fileID: 0}
+    - target: {fileID: 1372736226766573, guid: c5e2bd59235649047a50fa9a4dcccc05, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 4558353706962187, guid: c5e2bd59235649047a50fa9a4dcccc05, type: 3}
       propertyPath: m_RootOrder
       value: 0

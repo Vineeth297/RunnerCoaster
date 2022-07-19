@@ -53,21 +53,19 @@ public class Obstacle : MonoBehaviour
 		{
 			if(!TryGiveHit()) return;
 			GameEvents.InvokeMainKartCrash(collisionPoint);
-			CameraFxController.only.ObstacleCollisionFov();
 		}
 		else if (other.TryGetComponent(out MainKartController _))
 		{
 			if(!TryGiveHit()) return;
 			GameEvents.InvokeMainKartCrash(collisionPoint);
-			CameraFxController.only.ObstacleCollisionFov();
 		}
 		else if (other.TryGetComponent(out AdditionalKartController addy))
 		{
 			if(!TryGiveHit()) return;
 			addy.RemoveKartsFromHere(collisionPoint);
 			GameEvents.InvokeKartCrash(collisionPoint);
-			CameraFxController.only.ObstacleCollisionFov();
 		}
+		CameraFxController.only.ObstacleCollisionFov();
 	}
 
 	private static bool TryGiveHit()

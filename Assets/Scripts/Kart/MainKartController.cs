@@ -21,7 +21,6 @@ namespace Kart
 		public Collider kartCollider;
 		public Fever fever;
 
-
 		public bool isInitialised;
 		[SerializeField] private ParticleSystem explosionParticle;
 

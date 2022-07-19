@@ -6,13 +6,15 @@ TagManager:
   tags:
   - Station
   - PickUpPlatform
-  - ObstacleTrain
   - BonusRamp
   - BonusTile
   - Kart
-  - ObstacleKart
   - MainCanvas
   - MoneyCanvas
+  - FeverTrigger
+  - Obstacle
+  - ObstacleKart
+  - ObstacleTrain
   layers:
   - Default
   - TransparentFX

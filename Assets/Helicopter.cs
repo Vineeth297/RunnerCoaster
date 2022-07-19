@@ -30,7 +30,7 @@ public class Helicopter : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!other.CompareTag("Player")) return;
+		if (!other.CompareTag("Player") && !other.CompareTag("FeverTrigger")) return;
 		
 		var direction = transform.position - other.transform.position;
 		//Hulk Smash
