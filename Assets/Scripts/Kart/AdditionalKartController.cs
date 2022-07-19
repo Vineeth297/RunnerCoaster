@@ -44,6 +44,9 @@ namespace Kart
 				.GetChild(1)
 				.GetComponent<Passenger>();
 			
+			Passenger1.gameObject.SetActive(true);
+			Passenger2.gameObject.SetActive(true);
+			
 			kartParent.transform.GetChild((int) UpgradeShopCanvas.only.MyKartSkin).gameObject.SetActive(true);
 
 			isInitialised = true;

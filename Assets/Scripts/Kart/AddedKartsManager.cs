@@ -247,9 +247,9 @@ namespace Kart
 			if (!other.CompareTag("PickUpPlatform")) return;
 			
 			var pickUpPlatform = other.GetComponent<PickupPlatform>();
-			var kartPassenger1 = _my.characterPairsParent.transform.GetChild(0).GetChild(0).transform;
-			var kartPassenger2 = _my.characterPairsParent.transform.GetChild(0).GetChild(1).transform;
-			pickUpPlatform.JumpOnToTheKart(kartPassenger1,kartPassenger2);
+			var kartPassenger1 = _my.Passenger1;
+			var kartPassenger2 = _my.Passenger2;
+			pickUpPlatform.JumpOnToTheKart(kartPassenger1.transform, kartPassenger2.transform);
 			
 			other.enabled = false; 
 		}

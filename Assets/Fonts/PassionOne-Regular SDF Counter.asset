@@ -66,7 +66,7 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0
+    - _OutlineWidth: 0.342
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.9
@@ -98,7 +98,7 @@ Material:
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
-    - _OutlineColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
@@ -116,9 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: PassionOne-Regular SDF Counter
   m_EditorClassIdentifier: 
-  hashCode: -945157605
+  hashCode: -603659729
   material: {fileID: -2323337353529357174}
-  materialHashCode: 1840545499
+  materialHashCode: -1506872913
   m_Version: 1.1.0
   m_SourceFontFileGUID: de792548d84c6184e8d28d2d6e9575fa
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: de792548d84c6184e8d28d2d6e9575fa, type: 3}
@@ -200,6 +200,20 @@ MonoBehaviour:
       m_Y: 10
       m_Width: 52
       m_Height: 59
+    m_Scale: 1
+    m_AtlasIndex: 0
+  - m_Index: 16
+    m_Metrics:
+      m_Width: 27.640625
+      m_Height: 12.0625
+      m_HorizontalBearingX: 4.3125
+      m_HorizontalBearingY: 29.4375
+      m_HorizontalAdvance: 36.265625
+    m_GlyphRect:
+      m_X: 10
+      m_Y: 40
+      m_Width: 28
+      m_Height: 13
     m_Scale: 1
     m_AtlasIndex: 0
   - m_Index: 19
@@ -451,6 +465,20 @@ MonoBehaviour:
       m_X: 71
       m_Y: 85
       m_Width: 31
+      m_Height: 56
+    m_Scale: 1
+    m_AtlasIndex: 0
+  - m_Index: 48
+    m_Metrics:
+      m_Width: 54.625
+      m_Height: 55.890625
+      m_HorizontalBearingX: 3.421875
+      m_HorizontalBearingY: 55.890625
+      m_HorizontalAdvance: 61.46875
+    m_GlyphRect:
+      m_X: 128
+      m_Y: 378
+      m_Width: 56
       m_Height: 56
     m_Scale: 1
     m_AtlasIndex: 0
@@ -916,34 +944,6 @@ MonoBehaviour:
       m_Height: 15
     m_Scale: 1
     m_AtlasIndex: 0
-  - m_Index: 48
-    m_Metrics:
-      m_Width: 54.625
-      m_Height: 55.890625
-      m_HorizontalBearingX: 3.421875
-      m_HorizontalBearingY: 55.890625
-      m_HorizontalAdvance: 61.46875
-    m_GlyphRect:
-      m_X: 128
-      m_Y: 378
-      m_Width: 56
-      m_Height: 56
-    m_Scale: 1
-    m_AtlasIndex: 0
-  - m_Index: 16
-    m_Metrics:
-      m_Width: 27.640625
-      m_Height: 12.0625
-      m_HorizontalBearingX: 4.3125
-      m_HorizontalBearingY: 29.4375
-      m_HorizontalAdvance: 36.265625
-    m_GlyphRect:
-      m_X: 10
-      m_Y: 40
-      m_Width: 28
-      m_Height: 13
-    m_Scale: 1
-    m_AtlasIndex: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 32
@@ -960,6 +960,10 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 38
     m_GlyphIndex: 9
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 45
+    m_GlyphIndex: 16
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 48
@@ -1032,6 +1036,10 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 76
     m_GlyphIndex: 47
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 77
+    m_GlyphIndex: 48
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 78
@@ -1164,14 +1172,6 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 8230
     m_GlyphIndex: 245
-    m_Scale: 1
-  - m_ElementType: 1
-    m_Unicode: 77
-    m_GlyphIndex: 48
-    m_Scale: 1
-  - m_ElementType: 1
-    m_Unicode: 45
-    m_GlyphIndex: 16
     m_Scale: 1
   m_AtlasTextures:
   - {fileID: 7485345167324841064}

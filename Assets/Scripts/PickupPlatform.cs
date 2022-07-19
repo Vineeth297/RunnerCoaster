@@ -12,6 +12,8 @@ public class PickupPlatform : MonoBehaviour
 	{
 		PassengerR = PassengerPairs.GetChild(0).GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin);
 		PassengerL = PassengerPairs.GetChild(1).GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin);
+		PassengerR.gameObject.SetActive(true);
+		PassengerL.gameObject.SetActive(true);
 	}
 
 	public void JumpOnToTheKart(Transform kartPassenger1,Transform kartPassenger2)
