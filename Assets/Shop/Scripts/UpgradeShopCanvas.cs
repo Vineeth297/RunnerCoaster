@@ -7,11 +7,18 @@ using UnityEngine.UI;
 public enum KartSkin
 {
 	TrainWagon,
-	bathTub,
-	Toilet
+	BathTub,
+	Toilet,
+	WaterTube,
+	DustBin,
+	Duck
 }
 
-public enum CharacterSkin { Stickman }
+public enum CharacterSkin
+{
+	StickmanRed,
+	StickmanBlue
+}
 
 public class UpgradeShopCanvas : MonoBehaviour
 {

@@ -12,7 +12,7 @@ namespace Kart
 
 		private List<AdditionalKartController> AddedKarts { get; set; }
 
-		private List<Passenger> _availablePassengers;
+		[SerializeField] private List<Passenger> _availablePassengers;
 		private MainKartController _my;
 
 		private static bool _isInKartCollisionCooldown;
@@ -51,11 +51,24 @@ namespace Kart
 			_my = GetComponent<MainKartController>();
 
 			AddedKarts = new List<AdditionalKartController>();
-			_availablePassengers = new List<Passenger>
+			void InitList()
 			{
-				//add main kart passengers
-				_my.Passenger1, _my.Passenger2
-			};
+				_availablePassengers = new List<Passenger>
+				{
+					//add main kart passengers
+					_my.Passenger1, _my.Passenger2
+				};
+			}
+			
+			Tween checker = null;
+			checker = DOVirtual.DelayedCall(0.05f, () =>
+			{
+				if (!_my.isInitialised) return;
+
+				//init kart passengers
+				InitList();
+				checker.Kill();
+			}).SetLoops(-1);
 
 			if (isObstacleMainKart)
 			{
@@ -87,7 +100,7 @@ namespace Kart
 			kartToPop.KartFollow.SetKartToFollow(null);
 			kartToPop.kartCollider.gameObject.SetActive(true);
 
-			var direction = -kartToPop.transform.forward + Vector3.up;
+			var direction = kartToPop.transform.forward;
 			direction = direction.normalized;
 
 			kartToPop.BoxCollider.enabled = false;
@@ -112,6 +125,7 @@ namespace Kart
 				
 				_availablePassengers[index].MakePassengerJump(duration, delay);
 			}
+			GameEvents.InvokeJumpInBathTub();
 		}
 
 		public void ExplodeMultipleKarts(int number, Vector3 collisionPoint)
