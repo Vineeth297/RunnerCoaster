@@ -21,7 +21,7 @@ public class ShopStateSerializer
 		for(var i = 1; i < MainShopController.GetCharacterSkinCount(); i++) 
 			blankArms.Add((CharacterType) i, ShopItemState.Locked);
 
-		return new ShopState(blankWeapon, blankArms, 0, 1, 1, 1, 1);
+		return new ShopState(blankWeapon, blankArms, 200, 1, 1, 1, 1);
 	}
 
 	public void SaveCurrentState()
