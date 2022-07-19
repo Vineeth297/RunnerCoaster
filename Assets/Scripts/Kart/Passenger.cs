@@ -56,10 +56,7 @@ namespace Kart
 			_delayedCall.SetRecyclable(true);
 		}
 
-		public void StartDancing()
-		{
-			_anim.SetTrigger(Dance);
-		}
+		public void StartDancing() => _anim.SetTrigger(Dance);
 
 		private void Jump(float duration)
 		{

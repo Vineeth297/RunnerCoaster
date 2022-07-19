@@ -44,6 +44,9 @@ namespace Kart
 			Passenger2 = characterPairsParent.GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin)
 				.GetChild(1)
 				.GetComponent<Passenger>();
+			
+			kartParent.transform.GetChild((int) UpgradeShopCanvas.only.MyKartSkin).gameObject.SetActive(true);
+
 			isInitialised = true;
 			
 			Positioner = GetComponent<SplinePositioner>();

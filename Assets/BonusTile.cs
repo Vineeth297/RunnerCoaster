@@ -6,6 +6,11 @@ public class BonusTile : MonoBehaviour
 {
 	[SerializeField] private Transform leftFlag, rightFlag;
 	[HideInInspector] public MeshRenderer meshRenderer;
+
+	private static GameObject _moneyCanvas;
+	
+	[SerializeField] private GameObject moneyPrefab;
+	
 	private bool _hasEntered, _hasExited;
 
 	private static AddedKartsManager _addedKarts;
@@ -20,9 +25,11 @@ public class BonusTile : MonoBehaviour
 		
 		if(_lowestAllowedY < -999f)
 			_lowestAllowedY = GameObject.FindGameObjectWithTag("BonusRamp").GetComponent<BonusRamp>().LowestPointY - 1.8f;
+		
+		_moneyCanvas = GameObject.FindGameObjectWithTag("MoneyCanvas");
 	}
 
-	private static void EjectPassenger(Transform myPassengerChild)
+	private void EjectPassenger(Transform myPassengerChild)
 	{
 		if (_addedKarts.PassengerCount <= 0)
 		{
@@ -49,6 +56,19 @@ public class BonusTile : MonoBehaviour
 		{
 			kartPassenger.StartDancing();
 		});
+
+		var money = Instantiate(moneyPrefab);
+		money.transform.position = kartPassenger.transform.position;
+		var moneyCanvas = _moneyCanvas.GetComponent<MoneyCanvas>();
+		money.transform.parent = moneyCanvas.GetMoneyDestination();
+		money.transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InCirc);
+
+		money.transform.DOLocalMove(Vector3.zero, 0.25f).
+			OnComplete(() =>
+			{
+				moneyCanvas.ScaleMoneyImage();
+				money.gameObject.SetActive(false);
+			});
 	}
 
 	private void OnTriggerEnter(Collider other)

@@ -54,6 +54,8 @@ namespace Kart
 			Passenger2 = characterPairsParent.transform.GetChild((int) UpgradeShopCanvas.only.MyCharacterSkin)
 				.GetChild(1)
 				.GetComponent<Passenger>();
+
+			kartParent.transform.GetChild((int) UpgradeShopCanvas.only.MyKartSkin).gameObject.SetActive(true);
 			
 			isInitialised = true;
 		}
@@ -64,7 +66,6 @@ namespace Kart
 			var expParticle = Instantiate(explosionParticle);
 			expParticle.transform.position = collisionPoint;
 			expParticle.Play();
-			print("Played");
 		}
 		
 		private void OnReachEndOfTrack()

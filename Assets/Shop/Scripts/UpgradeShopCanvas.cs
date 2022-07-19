@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public enum KartSkin
 {
-	Standard,
-	TrainWagon
+	TrainWagon,
+	bathTub,
+	Toilet
 }
 
 public enum CharacterSkin { Stickman }
