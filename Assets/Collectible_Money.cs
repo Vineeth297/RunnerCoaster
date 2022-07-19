@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Kart;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Collectible_Money : MonoBehaviour
 {

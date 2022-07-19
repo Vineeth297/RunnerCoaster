@@ -17,9 +17,7 @@ public class GAScript : MonoBehaviour
 			DestroyImmediate(gameObject);
 
 		GameAnalytics.Initialize();
-
-       
-    }
+	}
 
     private void Start()
     {

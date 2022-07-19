@@ -210,6 +210,7 @@ public class UpgradeShopCanvas : MonoBehaviour
 
 	public void ClickOnBuyMoney()
 	{
+		print(_allowedToPressButton);
 		if(!_allowedToPressButton) return;
 		
 		BuyMoney();

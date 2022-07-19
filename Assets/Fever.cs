@@ -73,7 +73,7 @@ namespace Kart
 				return;
 			}
 			//CameraFxController.only.UpdateRumblerRotation(fever.fillAmount);
-			fever.fillAmount -= Time.deltaTime * feverFillMultiplier;
+			fever.fillAmount -= Time.deltaTime * feverFillMultiplier * 1.4f;
 		}
 
 		private void IncreaseFeverAmount()

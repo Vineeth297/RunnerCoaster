@@ -199,7 +199,7 @@ public class MainCanvasController : MonoBehaviour
 	private void OnGameWin()
 	{
 		DOVirtual.DelayedCall(1f, EnableVictoryObjects);
-		
+		print("win");
 		if(GAScript.Instance)
 			GAScript.Instance.LevelCompleted(PlayerPrefs.GetInt("levelNo", 0).ToString());
 	}

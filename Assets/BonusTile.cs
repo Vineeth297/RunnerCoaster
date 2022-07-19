@@ -7,7 +7,7 @@ public class BonusTile : MonoBehaviour
 	[SerializeField] private Transform leftFlag, rightFlag;
 	[HideInInspector] public MeshRenderer meshRenderer;
 
-	private static GameObject _moneyCanvas;
+	private static MoneyCanvas _moneyCanvas;
 	
 	[SerializeField] private GameObject moneyPrefab;
 	
@@ -15,6 +15,7 @@ public class BonusTile : MonoBehaviour
 
 	private static AddedKartsManager _addedKarts;
 	private static float _lowestAllowedY = -9999f;
+	private bool _hasNoPassengers;
 
 	private void Start()
 	{
@@ -26,14 +27,17 @@ public class BonusTile : MonoBehaviour
 		if(_lowestAllowedY < -999f)
 			_lowestAllowedY = GameObject.FindGameObjectWithTag("BonusRamp").GetComponent<BonusRamp>().LowestPointY - 1.8f;
 		
-		_moneyCanvas = GameObject.FindGameObjectWithTag("MoneyCanvas");
+		_moneyCanvas = GameObject.FindGameObjectWithTag("MoneyCanvas").GetComponent<MoneyCanvas>();
 	}
 
 	private void EjectPassenger(Transform myPassengerChild)
 	{
+		if(_hasNoPassengers) return;
+		
 		if (_addedKarts.PassengerCount <= 0)
 		{
 			GameEvents.InvokeRunOutOfPassengers();
+			_hasNoPassengers = true;
 			return;
 		}
 		
@@ -59,14 +63,14 @@ public class BonusTile : MonoBehaviour
 
 		var money = Instantiate(moneyPrefab);
 		money.transform.position = kartPassenger.transform.position;
-		var moneyCanvas = _moneyCanvas.GetComponent<MoneyCanvas>();
-		money.transform.parent = moneyCanvas.GetMoneyDestination();
+		money.transform.parent = _moneyCanvas.GetMoneyDestination();
 		money.transform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InCirc);
 
 		money.transform.DOLocalMove(Vector3.zero, 0.25f).
 			OnComplete(() =>
 			{
-				moneyCanvas.ScaleMoneyImage();
+				_moneyCanvas.ScaleMoneyImage();
+				_moneyCanvas.IncreaseMoneyCount();
 				money.gameObject.SetActive(false);
 			});
 	}
