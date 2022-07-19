@@ -117,7 +117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685788260203797359, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: _result.up.z
-      value: 0.00000002430752
+      value: 0.000000024307518
       objectReference: {fileID: 0}
     - target: {fileID: 2685788260203797359, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: _sampleCount
@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685788260203797359, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: _finalResult.up.z
-      value: 0.00000002430752
+      value: 0.000000024307518
       objectReference: {fileID: 0}
     - target: {fileID: 2685788260203797359, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: _result.forward.x
@@ -10767,6 +10767,10 @@ PrefabInstance:
       propertyPath: sampleCollection.samples.Array.data[315].position.z
       value: 171.64336
       objectReference: {fileID: 0}
+    - target: {fileID: 3261796245108645097, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3411014956605491822, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -11544,6 +11548,7 @@ MonoBehaviour:
   upForce: 30
   sideForce: 0
   passengerJumpDelayStep: 0.1
+  _availablePassengers: []
   isObstacleMainKart: 1
   additionalObstacleKartPrefab: {fileID: 1167247991105237684, guid: bbd3ec1e8bd9ec143b005cee23109419, type: 3}
   totalObstacleAdditionalKarts: 15

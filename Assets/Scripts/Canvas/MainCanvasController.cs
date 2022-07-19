@@ -20,7 +20,8 @@ public class MainCanvasController : MonoBehaviour
 	private bool _hasTapped, _hasLost;
 	private Sequence _emojiSequence;
 	private Tweener _redOverlayTween;
-	
+	private bool _hasWon;
+
 	private void OnEnable()
 	{
 		GameEvents.KartCrash += OnObstacleCollision;
@@ -198,8 +199,11 @@ public class MainCanvasController : MonoBehaviour
 
 	private void OnGameWin()
 	{
+		if (_hasWon) return;
+		
+		_hasWon = true;
 		DOVirtual.DelayedCall(1f, EnableVictoryObjects);
-		print("win");
+
 		if(GAScript.Instance)
 			GAScript.Instance.LevelCompleted(PlayerPrefs.GetInt("levelNo", 0).ToString());
 	}

@@ -14,9 +14,8 @@ public class MoneyCanvas : MonoBehaviour
 
 	private void Start()
 	{
-		_moneyCount = ShopStateController.CurrentState.GetState().CoinCount;
-		moneyText.text = _moneyCount.ToString();
 		GetComponent<Canvas>().worldCamera = Camera.main;
+		UpdateMoneyCount();
 	}
 
 	public void IncreaseMoneyCount()
@@ -27,7 +26,7 @@ public class MoneyCanvas : MonoBehaviour
 		UpgradeShopCanvas.only.AddCollectedMoney(currencyValue * _moneyMultiplier);
 	}
 
-	public void UpdateMultiplier(int multiplier) => _moneyMultiplier = 1 * multiplier;
+	public void UpdateMultiplier(int multiplier) => _moneyMultiplier = multiplier;
 
 	public void ScaleMoneyImage()
 	{
@@ -37,5 +36,11 @@ public class MoneyCanvas : MonoBehaviour
 			.SetLoops(2,LoopType.Yoyo);
 	}
 
+	public void UpdateMoneyCount()
+	{
+		_moneyCount = ShopStateController.CurrentState.GetState().CoinCount;
+		moneyText.text = _moneyCount.ToString();
+	}
+	
 	public Transform GetMoneyDestination() => moneyDestination;
 }

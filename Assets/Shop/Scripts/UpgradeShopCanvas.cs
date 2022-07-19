@@ -53,6 +53,7 @@ public class UpgradeShopCanvas : MonoBehaviour
 		
 		ShopStateController.ShopStateSerializer.SaveCurrentState();
 		MainShopController.Main.ReadCurrentShopState();
+		only._money.UpdateMoneyCount();
 	}
 
 	public void AddCollectedMoney(int change) => _collectedMoney += change;
@@ -204,21 +205,29 @@ public class UpgradeShopCanvas : MonoBehaviour
 		if(AudioManager.instance) AudioManager.instance.Play("BuyUpgrade");
 
 		_allowedToPressButton = feverButton.interactable = false;
-		DOVirtual.DelayedCall(CooldownTimerDuration, () => _allowedToPressButton = feverButton.interactable =
-			feverLevelCosts.Length - 1 != _currentFeverLevel && GetCoinCount() >= feverLevelCosts[_currentFeverLevel + 1]);
+		DOVirtual.DelayedCall(CooldownTimerDuration, () =>
+		{
+			_allowedToPressButton = feverButton.interactable =
+				feverLevelCosts.Length - 1 != _currentFeverLevel;
+			
+			UpdateButtons();
+		});
 	}
 
 	public void ClickOnBuyMoney()
 	{
-		print(_allowedToPressButton);
 		if(!_allowedToPressButton) return;
 		
 		BuyMoney();
 		if(AudioManager.instance) AudioManager.instance.Play("BuyUpgrade");
 		
 		_allowedToPressButton = moneyButton.interactable = false;
-		DOVirtual.DelayedCall(CooldownTimerDuration, () => _allowedToPressButton = moneyButton.interactable = 
-			moneyLevelCosts.Length - 1 != _currentMoneyLevel && GetCoinCount() >= moneyLevelCosts[_currentMoneyLevel + 1]);
+		DOVirtual.DelayedCall(CooldownTimerDuration, () =>
+		{
+			_allowedToPressButton = moneyButton.interactable =
+				moneyLevelCosts.Length - 1 != _currentMoneyLevel;
+			UpdateButtons();
+		});
 	}
 
 	private void BuyFever()

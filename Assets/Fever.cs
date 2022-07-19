@@ -61,7 +61,10 @@ namespace Kart
 			fever.fillAmount -= Time.deltaTime * feverEmptyMultiplier;
 		}
 
-		public void UpdateFeverShopMultiplier(float multiplier) => _feverShopMultiplier = 1 + 0.1f * multiplier;
+		public void UpdateFeverShopMultiplier(float multiplier)
+		{
+			_feverShopMultiplier = 1 + 0.1f * Mathf.Clamp(multiplier, 0f, 1f);
+		}
 
 		private void ConsumeFever()
 		{

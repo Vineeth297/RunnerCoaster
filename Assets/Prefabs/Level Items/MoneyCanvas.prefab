@@ -464,7 +464,7 @@ MonoBehaviour:
   moneyText: {fileID: 7347365003996810928}
   moneyImage: {fileID: 7347365004059558164}
   moneyDestination: {fileID: 7347365005747534517}
-  currencyValue: 10
+  currencyValue: 1
 --- !u!1 &7347365005747534506
 GameObject:
   m_ObjectHideFlags: 0
