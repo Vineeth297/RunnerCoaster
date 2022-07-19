@@ -315,6 +315,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BouncingBall
       objectReference: {fileID: 0}
+    - target: {fileID: 6327946512348460916, guid: fb5dcebe035d2b341876836e38453dfa, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 7298134214948966871, guid: fb5dcebe035d2b341876836e38453dfa, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

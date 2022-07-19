@@ -11383,4 +11383,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMainKart: 0
-  explosionParticle: {fileID: 19851920, guid: 8d10f8b48acb63e4989ba5fc3a95100e, type: 3}

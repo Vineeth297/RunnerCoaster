@@ -104,13 +104,6 @@ namespace Kart
 			target.DOLocalMove(_initLocalPosition, cameraTransitionDuration);
 			target.DOLocalRotateQuaternion(_initLocalRotation, cameraTransitionDuration);
 		}
-
-		private void RightCurveCameraPosition()
-		{
-			target.DOLocalMove(target.localPosition + Vector3.right * -5.5f,cameraTransitionDuration);
-			target.DOLocalRotate( new Vector3(-15f,30f,0f) , cameraTransitionDuration); 
-		}
-
 		private void OnEnterHelix(bool isLeftHelix)
 		{
 			target.DOLocalMove(isLeftHelix ? leftHelixCam.localPosition : rightHelixCam.localPosition, cameraTransitionDuration);
@@ -144,8 +137,6 @@ namespace Kart
 		}
 
 		public void StopMediatingTarget() => _isMediatingTarget = false;
-
-		public Transform GetTarget => target;
 
 		public void ReleaseControlOfTarget(float overTime)
 		{

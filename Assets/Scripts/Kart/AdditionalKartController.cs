@@ -1,5 +1,4 @@
 using Dreamteck.Splines;
-using UnityEditor.U2D.Sprites;
 using UnityEngine;
 
 namespace Kart

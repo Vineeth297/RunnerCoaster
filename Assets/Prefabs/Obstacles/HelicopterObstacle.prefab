@@ -975,6 +975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Helicopter_14_USA
       objectReference: {fileID: 0}
+    - target: {fileID: 1372736226766573, guid: c5e2bd59235649047a50fa9a4dcccc05, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 4558353706962187, guid: c5e2bd59235649047a50fa9a4dcccc05, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1172,4 +1176,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be45c350f9826c428acaaf628f674b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceForExplosion: 1
+  forceForExplosion: 5
+  explosionUpForce: 20

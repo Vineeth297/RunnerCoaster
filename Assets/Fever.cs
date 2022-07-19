@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,8 @@ namespace Kart
 
 		private float _feverShopMultiplier = 1f;
 		private bool _toConsumeFever;
+
+		private MainKartController _my;
 		
 		private void OnEnable()
 		{
@@ -29,7 +32,11 @@ namespace Kart
 			GameEvents.PlayerOffFever -= OffFeverOverlay;
 		}
 
-		private void Start() => fever.fillAmount = 0f;
+		private void Start()
+		{
+			_my = GetComponentInParent<MainKartController>();
+			fever.fillAmount = 0f;
+		}
 
 		public void HandleFeverAmount()
 		{
@@ -85,11 +92,17 @@ namespace Kart
 		{
 			if (!_toConsumeFever) return;
 
-			if (!other.CompareTag("ObstacleTrain") && !other.CompareTag("ObstacleKart")) return;
+			if (!other.CompareTag("Obstacle") && !other.CompareTag("ObstacleKart")) return;
 			
 			//Explode Obstacle karts
 			if (other.TryGetComponent(out AdditionalKartController additionalKart))
 				additionalKart.RemoveKartsFromHere(other.transform.position);
+			
+			_my.PlayExplosionParticle(other.ClosestPoint(transform.position));
+			
+			CameraFxController.only.ScreenShake(5f);
+			TimeController.only.SlowDownTime();
+			DOVirtual.DelayedCall(0.5f, () => TimeController.only.RevertTime());
 		}
 
 		private void OnFeverOverlay()
@@ -106,7 +119,4 @@ namespace Kart
 		
 		private void PlayFeverHype() => AudioManager.instance.Play("Jump1" );
 	}
-	
-	
-	
 }

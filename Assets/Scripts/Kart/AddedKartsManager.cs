@@ -131,6 +131,8 @@ namespace Kart
 		public void ExplodeMultipleKarts(int number, Vector3 collisionPoint)
 		{
 			for (var i = 0; i < number; i++) ExplodeRearKart(collisionPoint);
+			
+			CameraFxController.only.ScreenShake(5f);
 		}
 
 		private void SpawnNewKart()
@@ -175,7 +177,7 @@ namespace Kart
 			kartToPop.baseCollider.SetActive(false);
 			kartToPop.KartFollow.SetKartToFollow(null);
 			kartToPop.kartCollider.transform.parent = null;
-
+			
 			var direction = collisionPoint - kartToPop.transform.position;
 			direction = direction.normalized;
 
@@ -187,14 +189,15 @@ namespace Kart
 			kartToPop.Positioner.enabled = false;
 
 			var directionMultiplier = (Random.value > 0.5f ? 1f : -1f);
-
-			kartToPop.kartCollider.isTrigger = false;
 			
 			var attachedRigidbody = kartToPop.kartCollider.attachedRigidbody;
 			attachedRigidbody.isKinematic = false;
 			attachedRigidbody.AddForce(
 				direction * forceMultiplier + Vector3.up * upForce  * (explodeMultipleKarts ? 0.5f : 1f) +
 				Vector3.left * sideForce * directionMultiplier, ForceMode.Impulse);
+
+			kartToPop.transform.DOScale(kartToPop.transform.lossyScale * 1.5f, 0.15f);
+			
 			attachedRigidbody.AddTorque(perpendicular * forceMultiplier + Vector3.left * sideForce * directionMultiplier, ForceMode.Impulse);
 
 			RemoveKartFromRear();
@@ -230,13 +233,13 @@ namespace Kart
 		private void AddNewKart(AdditionalKartController newKart)
 		{
 			AddedKarts.Add(newKart);
-			_my.KartCounter.UpdateText(AddedKarts.Count + 1);
+			_my.KartCounter.UpdateText(AddedKarts.Count + 1, true);
 		}
 
 		private void RemoveKartFromRear()
 		{
 			AddedKarts.RemoveAt(AddedKarts.Count - 1);
-			_my.KartCounter.UpdateText(AddedKarts.Count + 1);
+			_my.KartCounter.UpdateText(AddedKarts.Count + 1, false);
 		}
 
 		private void OnTriggerEnter(Collider other)
@@ -258,8 +261,7 @@ namespace Kart
 
 			_isInKartCollisionCooldown = true;
 			DOVirtual.DelayedCall(0.1f, () => _isInKartCollisionCooldown = false);
-			CameraFxController.only.ScreenShake(5f);
-			
+
 			if (AddedKarts.Count > 0)
 				ExplodeRearKart(collisionPoint);
 			else
@@ -268,6 +270,7 @@ namespace Kart
 				GameEvents.InvokePlayerDeath();
 			}
 
+			CameraFxController.only.ScreenShake(5f);
 			_my.PlayExplosionParticle(collisionPoint);
 			TimeController.only.SlowDownTime();
 			DOVirtual.DelayedCall(0.75f, () => TimeController.only.RevertTime());

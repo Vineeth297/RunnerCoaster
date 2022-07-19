@@ -30,12 +30,13 @@ public class Helicopter : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!other.CompareTag("Player")) return;
-
-		var direction = other.transform.position - transform.position;
+		if (!other.CompareTag("Player") && !other.CompareTag("FeverTrigger")) return;
+		
+		var direction = transform.position - other.transform.position;
 		//Hulk Smash
 		HeliDeath(direction.normalized, forceForExplosion);
 		var collisionPoint = other.ClosestPoint(transform.position);
+		if(AudioManager.instance) AudioManager.instance.Play("HeliCrash");
 
 		if (_isPlayerOnFever) return;
 		GameEvents.InvokeMainKartCrash(collisionPoint);

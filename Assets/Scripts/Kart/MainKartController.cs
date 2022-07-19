@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Kart
 {
@@ -21,7 +20,6 @@ namespace Kart
 
 		public Collider kartCollider;
 		public Fever fever;
-
 
 		public bool isInitialised;
 		[SerializeField] private ParticleSystem explosionParticle;
@@ -62,7 +60,6 @@ namespace Kart
 		
 		public void PlayExplosionParticle(Vector3 collisionPoint)
 		{
-			// if (!isMainKart) return;
 			var expParticle = Instantiate(explosionParticle);
 			expParticle.transform.position = collisionPoint;
 			expParticle.Play();

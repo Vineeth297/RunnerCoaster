@@ -246,3 +246,13 @@ MonoBehaviour:
     enableReverb: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: HeliCrash
+    clip: {fileID: 8300000, guid: 7a364ee7caa877142a2785e0ec5310b7, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    enableReverb: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
