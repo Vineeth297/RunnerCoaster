@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Dreamteck;
@@ -15,6 +16,8 @@ public class SplineManager : MonoBehaviour
 	public List<TriggerGroup> individualTriggerGroups = new List<TriggerGroup>();
 	private readonly List<int> _babySplineEdges = new List<int>();
 
+	private bool _foundEmptySpline;
+	
 	public void Awake() => GameObject.FindGameObjectWithTag("Player").GetComponent<SplineFollower>().spline = combinedSpline;
 
 	[ContextMenu("Join Splines")]
@@ -46,40 +49,46 @@ public class SplineManager : MonoBehaviour
 		//initialise empty array with spline1.length + splineN.len-1 ... n
 		
 		splines[0].GetPoints().CopyTo(_splinePoints,0);
-		// var copyToIndex = splines[0].pointCount - 1;
 		var copyToIndex = splines[0].pointCount;
 		print("Copy To Index = " + copyToIndex);
 
 		if (splines[0].triggerGroups.Length != 0)
 		{
 			individualTriggerGroups.Add(splines[0].triggerGroups[0]);
-			_babySplineEdges.Add(0);
-			_babySplineEdges.Add(copyToIndex);
+			// _babySplineEdges.Add(0);
+			// _babySplineEdges.Add(copyToIndex);
 		}
+		_babySplineEdges.Add(0);
+		_babySplineEdges.Add(copyToIndex - 1);
 
 		for (var i = 1; i < splines.Count; i++)
 		{
 			var tempArray = new SplinePoint[splines[i].pointCount - 1];
 
-			for (var j = 0; j < tempArray.Length; j++) tempArray[j] = splines[i].GetPoint(j + 1);
-
-			tempArray.CopyTo(_splinePoints, copyToIndex);
-			
-			//_babySplineEdges.Add(copyToIndex);
+			Array.Copy(splines[i].GetPoints(), 1,
+				_splinePoints, copyToIndex,
+				splines[i].pointCount - 1);
 
 			if (splines[i].triggerGroups.Length != 0)
 			{
 				individualTriggerGroups.Add(splines[i].triggerGroups[0]);
-				if(!_babySplineEdges.Contains(copyToIndex)) _babySplineEdges.Add(copyToIndex);
-				//_babySplineEdges.Add(copyToIndex);
-				copyToIndex += tempArray.Length;
-				_babySplineEdges.Add(copyToIndex);
+				//print("babySplineEdge 0 = " + copyToIndex);
+				// if(!_babySplineEdges.Contains(copyToIndex - 1)) _babySplineEdges.Add(copyToIndex - 1);
+				//print("babySplineEdge 1 = " + (copyToIndex - 1));
+				// copyToIndex += tempArray.Length;
+				// _babySplineEdges.Add(copyToIndex - 1);
+				//print("babySplineEdge 2 = " + (copyToIndex - 1));
 			}
-			else
-			{
-				copyToIndex += tempArray.Length;
-			}
-
+			// else
+			// {
+			// 	copyToIndex += tempArray.Length;
+			// }
+			//print("babySplineEdge 0 = " + copyToIndex);
+			if(!_babySplineEdges.Contains(copyToIndex - 1)) _babySplineEdges.Add(copyToIndex - 1);
+			//print("babySplineEdge 1 = " + (copyToIndex - 1));
+			copyToIndex += tempArray.Length;
+			_babySplineEdges.Add(copyToIndex - 1);
+			//print("babySplineEdge 2 = " + (copyToIndex - 1));
 		}
 		
 		combinedSpline.SetPoints(_splinePoints);
@@ -93,43 +102,57 @@ public class SplineManager : MonoBehaviour
 	}
 	private void ReArrangeTriggers()
 	{
-		var x = 0;
-		var totalSplinesWithTriggers = 0;
+		// keeps a record of whether every spline has triggers or no
+		var splineTriggerRecord = new bool[splines.Count];
+		var addedTriggerIndex = 0;
 		
 		// var totalTriggers = splines.Sum(spline => spline.triggerGroups[0].triggers.Length);
 		var totalTriggers = 0;
 
-		foreach (var spline in splines)
+		for (var i = 0; i < splines.Count; i++)
 		{
-			if (spline.triggerGroups.Length != 0)
-			{
-				totalTriggers += spline.triggerGroups[0].triggers.Length;
-				totalSplinesWithTriggers++;
-			}
-		}
-		
-		print("Total Splines With Triggers = " + totalSplinesWithTriggers);
-		var array = new SplineTrigger[totalTriggers];
-		for (var splineIndex = 0; splineIndex < totalSplinesWithTriggers; splineIndex++)
-		{
-			var startPoint = combinedSpline.GetPointPercent(_babySplineEdges[splineIndex] - 1);
-			var endPoint = combinedSpline.GetPointPercent(_babySplineEdges[splineIndex + 1] - 1);
+			var spline = splines[i];
+			print("Spline["+i+"] " + "TriggerGroupLength = " + spline.triggerGroups.Length);
+			if (spline.triggerGroups.Length == 0) continue;
 			
-			var triggersCount = individualTriggerGroups[splineIndex].triggers.Length;
+			totalTriggers += spline.triggerGroups[0].triggers.Length;
+			splineTriggerRecord[i] = true;
+		}
+
+		var x = 0;
+		var array = new SplineTrigger[totalTriggers];
+		for (var splineIndex = 0; splineIndex < splines.Count; splineIndex++)
+		{
+			if (!splineTriggerRecord[splineIndex])
+			{
+				print("Spline["+splineIndex+"] has no triggers");
+				continue;
+			}
+			print("Spline["+splineIndex+"] has triggers");
+			print("Spline Index = " + splineIndex);
+			print("_babySplineEdges[splineIndex - 1] = " + _babySplineEdges[splineIndex]);
+			print("_babySplineEdges[splineIndex] = " + _babySplineEdges[splineIndex + 1]);
+			var startPoint = combinedSpline.GetPointPercent(_babySplineEdges[splineIndex]);
+			var endPoint = combinedSpline.GetPointPercent(_babySplineEdges[splineIndex + 1]);
+			
+			var triggersCount = individualTriggerGroups[x].triggers.Length;
 			//print("Trigger Count = " + triggersCount);
 			
 			for (var triggerIndex = 0; triggerIndex < triggersCount; triggerIndex++)
 			{
-				var currentTrigger = individualTriggerGroups[splineIndex].triggers[triggerIndex];
+				var currentTrigger = individualTriggerGroups[x].triggers[triggerIndex];
 				var currentTriggerPosition = currentTrigger.position;
 				var currentTriggerOnCrossEvent = currentTrigger.onCross;
 				
-				array[x++] = new SplineTrigger(SplineTrigger.Type.Double)
+				array[addedTriggerIndex++] = new SplineTrigger(SplineTrigger.Type.Double)
 				{
 					position = MyHelpers.LerpClampedDouble(startPoint, endPoint, currentTriggerPosition),
 					onCross = currentTriggerOnCrossEvent
 				};
 			}
+
+			print(x);
+			x++;
 		}
 
 		combinedSpline.triggerGroups = new TriggerGroup[1]
