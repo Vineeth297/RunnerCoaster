@@ -7,6 +7,7 @@ public class SplineTriggerHelper : MonoBehaviour
 {
 	private MainKartController _player;
 
+	
 	private void Start()
 	{
 		_player = GameObject.FindWithTag("Player").GetComponent<MainKartController>();
@@ -164,5 +165,21 @@ public class SplineTriggerHelper : MonoBehaviour
 		CameraFxController.only.SetSpeedLinesStatus(true);
 		EnterHypeArea();
 		CameraFxController.only.DoWideFov();
+	}
+
+	public void StopRailSound()
+	{
+		_player.PlayerAudio.StopRailSound();
+	}
+
+	public void ShowLandingImpact()
+	{
+		CameraFxController.only.ScreenShake(3);
+		CameraFxController.only.DoNormalFov();
+	}
+
+	public void ShowFallingPullOutFov()
+	{
+		CameraFxController.only.DoCustomFov(80);
 	}
 }

@@ -7,6 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 167562201174348981, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 437676657808349978, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1523146597297553700, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1619559623838044455, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -117,7 +129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685788260203797359, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: _result.up.z
-      value: 0.00000002430752
+      value: 0.000000024307518
       objectReference: {fileID: 0}
     - target: {fileID: 2685788260203797359, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: _sampleCount
@@ -137,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685788260203797359, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: _finalResult.up.z
-      value: 0.00000002430752
+      value: 0.000000024307518
       objectReference: {fileID: 0}
     - target: {fileID: 2685788260203797359, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: _result.forward.x
@@ -10771,6 +10783,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4149668111897518146, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4482677069192994049, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957408197829783771, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5630144964616494967, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9669741
@@ -11479,6 +11503,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8465776536090138420, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8694946310334118255, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8853539463141786886, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -11486,6 +11518,10 @@ PrefabInstance:
     - target: {fileID: 9019201349443847374, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154016749701399596, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2685788260203797357, guid: a9d0458f684b754499ba3b1574a0354a, type: 3}
@@ -11544,6 +11580,7 @@ MonoBehaviour:
   upForce: 30
   sideForce: 0
   passengerJumpDelayStep: 0.1
+  _availablePassengers: []
   isObstacleMainKart: 1
   additionalObstacleKartPrefab: {fileID: 1167247991105237684, guid: bbd3ec1e8bd9ec143b005cee23109419, type: 3}
   totalObstacleAdditionalKarts: 15

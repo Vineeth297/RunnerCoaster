@@ -17,8 +17,10 @@ public enum KartSkin
 public enum CharacterSkin
 {
 	StickmanRed,
-	StickmanBlue
+	StickmanBlue,
+	ChibiGirl1
 }
+
 
 public class UpgradeShopCanvas : MonoBehaviour
 {

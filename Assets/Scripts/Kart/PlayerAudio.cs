@@ -96,5 +96,11 @@ namespace Kart
 			rails.Play();
 			_isPlaying = true;
 		}
+		
+		public void StopRailSound()
+		{
+			if (_volumeMotionTween.IsActive()) _volumeMotionTween.Kill();
+			_volumeMotionTween = DOTween.To(GetVolume, SetVolume, 0f, 0.1f);
+		}
 	}
 }

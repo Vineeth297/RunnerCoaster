@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1862863563275807969
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.39000008
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.2899998
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -7.1054265e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.000088579014
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 6.938893e-18
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_Name
+      value: Stickman_Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 4110106319309179307, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d446242c15e9b5c4b9afe6887809bf01, type: 2}
+    - target: {fileID: 5866666021909216657, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e77201ac2333c9a489150e88ce1e3f34, type: 2}
+    - target: {fileID: 5866666021909216657, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform
+        'mixamorig:RightFoot'\n\tTransform 'mixamorig:Head'\n\tTransform 'mixamorig:LeftUpLeg'\n\tTransform
+        'mixamorig:LeftArm'\n\tTransform 'mixamorig:Hips'\n\tand more ...\n\tFrom
+        animation clip 'Flying'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+--- !u!1 &1520898753104417200 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e189b983e06dfa64cb6835ba42bf8ebc, type: 3}
+  m_PrefabInstance: {fileID: 1862863563275807969}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3370105579768733685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520898753104417200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 316f6fbb05ccce64ea12e4d018f20e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 7.5
+  upTime: 0.25
+  holdTime: 0.5
+  downTime: 0.25
