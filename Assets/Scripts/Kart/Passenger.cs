@@ -17,6 +17,7 @@ namespace Kart
 		private static readonly int Hype = Animator.StringToHash("Hype");
 		private static readonly int Dance = Animator.StringToHash("Win");
 		private Tween _delayedCall;
+		private static readonly int ShouldMirror = Animator.StringToHash("shouldMirror");
 
 		private void OnEnable()
 		{
@@ -31,6 +32,8 @@ namespace Kart
 		private void Start()
 		{
 			_anim = GetComponent<Animator>();
+
+			_anim.SetBool(ShouldMirror, Random.value > 0.5f);
 			
 			_transform = transform;
 			_initLocalY = _transform.localPosition.y;

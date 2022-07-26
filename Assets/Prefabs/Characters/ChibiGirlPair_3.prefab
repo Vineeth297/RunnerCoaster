@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3420310728794051715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3420310728794051714}
+  m_Layer: 0
+  m_Name: ChibiGirlPair_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3420310728794051714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3420310728794051715}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.53, z: 2.053}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2953757728030723879}
+  - {fileID: 5682446130826243073}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3420310726942338832
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3420310728794051714}
+    m_Modifications:
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701340590740052395, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_Name
+      value: ChibiGirl_3_R
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+--- !u!4 &5682446130826243073 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+  m_PrefabInstance: {fileID: 3420310726942338832}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5284591374367050806
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3420310728794051714}
+    m_Modifications:
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701340590740052395, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+      propertyPath: m_Name
+      value: ChibiGirl_3_L
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+--- !u!4 &2953757728030723879 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7037851721064497937, guid: 3159bf77c918ead40a819e52ac341d55, type: 3}
+  m_PrefabInstance: {fileID: 5284591374367050806}
+  m_PrefabAsset: {fileID: 0}

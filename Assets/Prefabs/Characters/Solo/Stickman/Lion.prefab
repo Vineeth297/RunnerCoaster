@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &740244162705742090
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.161
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.89
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.229
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_Name
+      value: Lion
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2307867987611129189, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fd2661e4da91fef4ba5e10d9706dd26d, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+--- !u!1 &469651947472610395 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b2d89de1e70434249af8e0f51f23f33d, type: 3}
+  m_PrefabInstance: {fileID: 740244162705742090}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4291206524349879488
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469651947472610395}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: dcda888d20995454da41ce782886bfe4, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4ef868285de73364c927e0f906857583, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+    'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform
+    'mixamorig:RightFoot'\n\tTransform 'mixamorig:Head'\n\tTransform 'mixamorig:LeftUpLeg'\n\tTransform
+    'mixamorig:LeftArm'\n\tTransform 'mixamorig:Hips'\n\tand more ...\n\tFrom animation
+    clip 'Flying'"
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4059735108686275611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469651947472610395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 316f6fbb05ccce64ea12e4d018f20e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 7.5
+  upTime: 0.25
+  holdTime: 0.5
+  downTime: 0.25

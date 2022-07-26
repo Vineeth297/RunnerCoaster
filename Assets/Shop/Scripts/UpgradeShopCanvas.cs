@@ -18,7 +18,16 @@ public enum CharacterSkin
 {
 	StickmanRed,
 	StickmanBlue,
-	ChibiGirl1
+	ChibiGirl1,
+	ChibiGirl2,
+	ChibiGirl3,
+	ChibiGirl4,
+	ChibiGirl5,
+	Lion,
+	Monkey,
+	Rabbit,
+	Mouse,
+	Zebra
 }
 
 
