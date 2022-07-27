@@ -256,3 +256,13 @@ MonoBehaviour:
     enableReverb: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: BirdsFlap
+    clip: {fileID: 8300000, guid: 6854444e1fb81bd49ac28d955398ce98, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    enableReverb: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
