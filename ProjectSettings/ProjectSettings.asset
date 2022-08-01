@@ -247,8 +247,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{dedicated}: Downloads/MeemeeGames.keystore'
-  AndroidKeyaliasName: meemeegames
+  AndroidKeystoreName: '{dedicated}: seepeegames.keystore'
+  AndroidKeyaliasName: seepeegames
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
